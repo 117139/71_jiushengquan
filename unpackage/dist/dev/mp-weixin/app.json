@@ -1,0 +1,53 @@
+{
+  "pages": [
+    "pages/map/map",
+    "pages/index/index",
+    "pages/my/my"
+  ],
+  "subPackages": [
+    {
+      "root": "pagesA",
+      "pages": [
+        "my_set/my_set",
+        "lxwm/lxwm",
+        "team_list/team_list",
+        "team_join/team_join",
+        "my_cankao/my_cankao",
+        "my_cankao_details/my_cankao_details"
+      ]
+    }
+  ],
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "救生圈",
+    "navigationBarBackgroundColor": "#fff",
+    "backgroundColor": "#fff"
+  },
+  "tabBar": {
+    "color": "#797979",
+    "selectedColor": "#3C77F1",
+    "backgroundColor": "#ffffff",
+    "list": [
+      {
+        "pagePath": "pages/map/map",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/my/my",
+        "text": "我的"
+      }
+    ]
+  },
+  "preloadRule": {
+    "pages/index/index": {
+      "network": "all",
+      "packages": [
+        "pagesA"
+      ]
+    }
+  },
+  "usingComponents": {
+    "cu-custom": "/colorui/components/cu-custom",
+    "bao-jing": "/components/baojing/baojing"
+  }
+}

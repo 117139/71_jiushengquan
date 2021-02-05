@@ -1,0 +1,407 @@
+<template>
+	<view class="minh100">
+		<map class="index_map" name="map" :show-compass="false"
+			 :enable-rotate="false" :latitude="latitude" :longitude="longitude" :markers="markersArr" @markertap="markertap"
+			 :controls="mapControls" @regionchange='mapChange'></map>	
+		<view class="bj_box">
+			<image @tap="baojing_fuc" class="bj_box_img" src="../../static/images/baojing1.png" mode="aspectFit"></image>
+			<view v-if="baojing" @tap="baojing_del" class="bj_main">
+				
+				<view class="bj_cnum">
+					<view class="bj_cnum_1">
+						<view class="bj_cnum_num">{{bj_time}}</view>
+					</view>
+				</view>
+				<view class="bj_tip">10秒钟内触摸屏幕取消</view>
+			</view>
+		</view>
+		<view class="map_btn_list">
+			<view class="map_btn_li" @tap="shuaxin">
+				<image :src="getimg('/static/images/index_btn1.png')" mode="aspectFit"></image>
+				<text>刷新</text>
+			</view>
+			<view class="map_btn_li">
+				<image :src="getimg('/static/images/index_btn2.png')" mode="aspectFit"></image>
+				<text>标记</text>
+			</view>
+			<view class="map_btn_li">
+				<image :src="getimg('/static/images/index_btn3.png')" mode="aspectFit"></image>
+				<text>天气</text>
+			</view>
+			<view class="map_btn_li">
+				<image :src="getimg('/static/images/index_btn4.png')" mode="aspectFit"></image>
+				<text>筛选</text>
+			</view>
+		</view>
+		<!-- 标记 -->
+		<view></view>
+	</view>
+</template>
+
+<script>
+	
+	import Vue from 'vue'
+	import service from '../../service.js';
+	import {
+		mapState,
+		mapMutations
+	} from 'vuex'
+	var that, mapContext, mapEndloading;
+	var djs_fuc
+	export default {
+		data() {
+			return {
+				latitude: 41.638883,
+				longitude: 123.499625,
+				mapWidth: 0, //地图区域宽度
+				mapHeight: 0, //地图区域高度
+				centerTop: 0, //中心图片坐标
+				centerLeft: 0, //中心图片坐标
+				translateY: 165,
+				markersArr: [{
+                latitude: 39.909,
+                longitude: 116.39742,
+                iconPath: '/static/images/huozai.png'
+            }, {
+                latitude: 139.90,
+                longitude: 116.39,
+                iconPath: '/static/images/chehuo.png'
+            }], //覆盖物
+				mapControls:[],
+				mapControls1: [{
+					id: "1",
+					position: {
+						left: uni.getSystemInfoSync().windowWidth / 2 - 15,
+						top: (uni.getSystemInfoSync().windowHeight - 45 - uni.getSystemInfoSync().statusBarHeight) / 2 - 49,
+						width: 30,
+						height: 49
+					},
+					iconPath: "/static/images/zuobiao.png",
+					clickable: false
+				}], //地图中的控件
+				bj_time:10,
+				baojing:false
+			}
+		},
+		computed: {
+			...mapState(['hasLogin', 'forcedLogin', 'userName', 'loginDatas']),
+		},
+		onLoad() {
+			/*const innerAudioContext = uni.createInnerAudioContext();
+			innerAudioContext.autoplay = true;
+			innerAudioContext.src = 'https://vkceyugu.cdn.bspapp.com/VKCEYUGU-hello-uniapp/2cc220e0-c27a-11ea-9dfb-6da8e309e0d8.mp3';
+			innerAudioContext.onPlay(() => {
+			  console.log('开始播放');
+			});
+			innerAudioContext.onError((res) => {
+			  console.log(res.errMsg);
+			  console.log(res.errCode);
+			});*/
+		},
+		methods: {
+			baojing_fuc(){
+				var that=this
+				this.baojing=true
+				that.bj_time=10
+				djs_fuc=setInterval(function () {
+				  if(that.bj_time==0){
+						// uni.showToast({
+						// 	icon:'none',
+						// 	title:'警报操作'
+						// })
+						console.log(0)
+						clearInterval(djs_fuc)
+						that.bj_time='!'
+					}else{
+						that.bj_time--
+					}
+				  // console.log(that.djs())
+				}, 1000);
+			},
+			baojing_del(){
+				var that=this
+				clearInterval(djs_fuc)
+				this.bj_time=10
+				this.baojing=false
+			},
+			shuaxin(){
+				uni.showToast({
+					icon:'none',
+					title:'正在刷新'
+				})
+			},
+			//地图点击事件
+			markertap(e) {
+				var _id = e.detail.markerId,
+					_index;
+				var _list = that.markersArr;
+				for (var i = 0; i < _list.length; i++) {
+					if (_list[i].id == _id) {
+						_index = i;
+						that.current = i;
+						that.openAnimation();
+						break;
+					}
+				};
+			},
+			//移动地图结束
+			mapChange(e) {
+				if (mapEndloading) {
+					return;
+				}
+				mapEndloading = true;
+				setTimeout(() => { //防抖
+					mapEndloading = false;
+				}, 500);
+				if (e.detail.type == 'end' || e.type == 'end') {
+					//中心区域左边
+					mapContext.getCenterLocation({
+						success(res) {
+							that.mapEnd(res);
+						},
+						fail(err) {
+							console.log(err)
+						}
+					});
+				}
+				return;
+				if (uni.getSystemInfoSync().platform == 'ios') {
+					if (e.detail.type == 'end') {
+						//中心区域左边
+						mapContext.getCenterLocation({
+							success(res) {
+								that.mapEnd(res);
+							},
+							fail(err) {
+								console.log(err)
+							}
+						});
+					}
+				} else {
+					//地图移动结束
+					console.log(e)
+					if (e.type == 'end') {
+						//中心区域左边
+						mapContext.getCenterLocation({
+							success(res) {
+			
+								that.mapEnd(res);
+							},
+							fail(err) {
+								console.log(err)
+							}
+						});
+						//缩放视野展示所有经纬度
+						// mapContext.getCenterLocation({
+						// 	success(res) {
+						// 		console.log(res);
+						// 	},
+						// 	fail(err) {
+						// 		console.log(err)
+						// 	}
+						// })
+						//获取当前地图的视野范围
+						mapContext.getRegion({
+							success(res) {
+								// console.log(res);
+							},
+							fail(err) {
+								console.log(err)
+							}
+						})
+						//获取当前地图的缩放级别
+						mapContext.getScale({
+							success(res) {
+								// console.log(res);
+							},
+							fail(err) {
+								console.log(err)
+							}
+						})
+					}
+				}
+			
+			
+			},
+			
+			//地图移动
+			mapEnd(res) {
+				console.log('加载数据')
+				if (res) {
+					that.longitude = res.longitude;
+					that.latitude = res.latitude;
+				}
+			
+				//原数据
+				that.list = [];
+				that.pageIndex = 1;
+				that.chaceList = [];
+				// 覆盖物数据
+				that.markersArr = [];
+				that.originalList = [];
+				that.getList();
+			
+			},
+			getLocation(type) {
+				uni.getLocation({
+					type: 'wgs84',
+					success: function(res) {
+						that.longitude = res.longitude;
+						that.latitude = res.latitude;
+						that.pageIndex = 1;
+						// if (type != 'back') {
+			
+						that.setAddress(res);
+						setTimeout(() => {
+							that.getList();
+						}, 1000)
+						// }
+			
+					},
+					fail(err) {
+						if (uni.getSystemInfoSync().platform == 'ios') {
+							if (!permision.judgeIosPermission('location')) {
+								uni.showModal({
+									title: '提示',
+									content: '需要打开定位权限',
+									success: function(res) {
+										if (res.confirm) {
+											that.isToSetting = true;
+											permision.gotoAppPermissionSetting();
+										}
+									}
+								});
+							}
+						} else {
+							that.requestAndroidPermission('android.permission.ACCESS_FINE_LOCATION');
+						}
+			
+					}
+				});
+			},
+			async requestAndroidPermission(permisionID) {
+				var result = await permision.requestAndroidPermission(permisionID)
+				var strStatus
+				if (result == 1) {
+					strStatus = "已获得授权"
+				} else if (result == 0) {
+					strStatus = "未获得授权"
+				} else {
+					strStatus = "被永久拒绝权限"
+				}
+				uni.showModal({
+					title: '提示',
+					content: '需要打开定位权限',
+					success: function(res) {
+						if (res.confirm) {
+							that.isToSetting = true;
+							permision.gotoAppPermissionSetting();
+						}
+					}
+				});
+			},
+			getimg(img){
+				return service.getimg(img)
+			},
+		}
+	}
+</script>
+
+<style scoped>
+	.minh100{
+		/* #ifdef H5 */
+		
+		min-height: calc(100vh - 100upx);
+		/* #endif */
+	}
+	.index_map{
+		width: 100%;
+		height: calc(100vh - 246upx);
+		/* #ifdef H5 */
+		
+		height: calc(100vh - 246upx - 100upx);
+		/* #endif */
+	}
+	.map_btn_list{
+		width: 100%;
+		height: 246upx;
+		background: #FFFFFF;
+		box-shadow: 0px -3px 10px 0px rgba(0, 0, 0, 0.06);
+		border-radius: 15upx 15upx 0 0;
+		display: flex;
+		align-items: center;
+		justify-content: space-around;
+		flex-direction: row;
+	}
+	.map_btn_li{
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		font-size: 26upx;
+		color: #555;
+	}
+	.map_btn_li image{
+		width: 95upx;
+		height: 95upx;
+		border-radius: 50%;
+		margin-bottom: 20upx;
+	}
+	.bj_box{
+		position: fixed;
+		top: 130upx;
+		right: 30upx;
+		z-index:999998;
+		width: 114upx;
+		height: 114upx;
+		background: #FFFFFF;
+		box-shadow: 0px 0px 21upx 0px rgba(0, 0, 0, 0.16);
+		border-radius: 50%;
+	}
+	.bj_box_img{
+		width: 100%;
+		height: 100%;
+	}
+	
+	.bj_main{
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100vw;
+		height: 100vh;
+		background: rgba(0,0,0,.8);
+		z-index:999999;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+	}
+	.bj_cnum{
+		width: 508upx;
+		height: 508upx;
+		background: #FF0000;
+		border-radius: 50%;
+		padding: 36upx;
+		margin-bottom: 50upx;
+	}
+	.bj_cnum_1{
+		width: 100%;
+		height: 100%;
+		background: #FF0000;
+		border: 4upx solid #FFFFFF;
+		border-radius: 50%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+	.bj_cnum_num{
+		font-size: 300upx;
+		font-family: DIN;
+		font-weight: 500;
+		color: #FFFFFF;
+	}
+	.bj_tip{
+		font-size: 30upx;
+		color: #fff;
+	}
+</style>

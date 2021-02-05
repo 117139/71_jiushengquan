@@ -1,0 +1,108 @@
+
+.top_r.data-v-8273a0a6{
+	font-size: 40rpx;
+	color: #333;
+	position: relative;
+}
+.tip_box.data-v-8273a0a6{
+	position: absolute;
+	top: -5rpx;
+	right: -5rpx;
+	width: 23rpx;
+	height: 23rpx;
+	background: #FF4F11;
+	border-radius: 50%;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	        justify-content: center;
+	font-size: 14rpx;
+	color: #fff;
+}
+.team_list.data-v-8273a0a6{
+	width: 100%;
+	padding: 0 30rpx 200rpx;
+}
+.team_li.data-v-8273a0a6{
+	width: 100%;
+	height: 130rpx;
+	border-bottom: 1px solid #eee;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	-webkit-box-pack: justify;
+	-webkit-justify-content: space-between;
+	        justify-content: space-between;
+}
+.team_li_img.data-v-8273a0a6{
+	width: 88rpx;
+	height: 88rpx;
+	background: #3C77F1;
+	border-radius: 50%;
+	-webkit-box-flex: 0;
+	-webkit-flex: none;
+	        flex: none;
+	margin-right: 18rpx;
+}
+.team_li_next.data-v-8273a0a6{
+	margin-left: 15rpx;
+	font-size: 20rpx;
+	-webkit-box-flex: 0;
+	-webkit-flex: none;
+	        flex: none;
+}
+.team_li_msg.data-v-8273a0a6{
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	font-size: 32rpx;
+	color: #000;
+	font-weight: bold;
+	width: 440rpx;
+}
+.team_cz.data-v-8273a0a6{
+	width: 100%;
+	height: 200rpx;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	-webkit-justify-content: space-around;
+	        justify-content: space-around;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	background: rgba(255,255,255,.8);
+}
+.team_cz view.data-v-8273a0a6{
+	width: 300rpx;
+	height: 72rpx;
+	background: #3C77F1;
+	box-shadow: 1px 3px 10rpx 0px rgba(0, 0, 0, 0.1);
+	border-radius: 36rpx;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	        justify-content: center;
+	font-size: 28rpx;
+	color: #fff;
+}
+

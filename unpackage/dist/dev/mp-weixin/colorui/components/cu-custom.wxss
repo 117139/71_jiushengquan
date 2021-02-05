@@ -1,0 +1,13 @@
+
+.cu-custom.data-v-213e6c59{
+	overflow: hidden;
+}
+.cu-bar_image.data-v-213e6c59{
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	width: 100%;
+}
+

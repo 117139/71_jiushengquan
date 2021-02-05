@@ -1,0 +1,104 @@
+{
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+			"path": "pages/map/map",
+			"style": {
+				// "navigationBarTitleText": "乐哉",
+				"navigationStyle": "custom", // 取消本页面的导航栏
+				"disableScroll": true, // 禁止原生页面滚动, 解决Android小程序下拉卡顿的问题
+				"app-plus": {
+					"bounce": "false" // 取消APP端iOS回弹,避免与下拉刷新冲突 (可统一配在 'globalStyle')
+				}
+
+			}
+
+		}, {
+			"path": "pages/index/index",
+			"style": {
+				"navigationBarTitleText": "uni-app"
+			}
+		}, {
+			"path": "pages/my/my",
+			"style": {
+				"navigationStyle": "custom", // 取消本页面的导航栏
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+
+		}
+	],
+	"subPackages": [{
+		"root": "pagesA",
+		"pages": [{
+			"path": "my_set/my_set",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "lxwm/lxwm",
+			"style": {
+				"navigationBarTitleText": "联系我们",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "team_list/team_list",
+			"style": {
+				"navigationStyle": "custom", // 取消本页面的导航栏
+				"navigationBarTitleText": "团队",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "team_join/team_join",
+			"style": {
+				"navigationStyle": "custom", // 取消本页面的导航栏
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "my_cankao/my_cankao",
+			"style": {
+				"navigationBarTitleText": "参考",
+				"enablePullDownRefresh": true
+			}
+
+		}, {
+			"path": "my_cankao_details/my_cankao_details",
+			"style": {
+				"navigationBarTitleText": "参考详情",
+				"enablePullDownRefresh": false
+			}
+
+		}]
+	}],
+	"preloadRule": {
+		"pages/index/index": {
+			"network": "all",
+			"packages": ["pagesA"]
+		}
+
+	},
+	"tabBar": {
+		"color": "#797979",
+		"selectedColor": "#3C77F1",
+		"backgroundColor": "#ffffff",
+		"list": [{
+			"pagePath": "pages/map/map",
+			"text": "首页"
+		}, {
+			"pagePath": "pages/my/my",
+			"text": "我的"
+		}]
+	},
+
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "救生圈",
+		"navigationBarBackgroundColor": "#fff",
+		"backgroundColor": "#fff"
+	}
+}
