@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import store from './store/index.js'
-import event from 'common/event.js'
+import event from './common/event.js'
 // 管理账号信息
 const USERS_KEY = 'USERS_KEY';
 const STATE_KEY = 'STATE_KEY';
@@ -724,7 +724,6 @@ export default {
 	imgurl,
 	gologin,
 	jump,
-	pveimg,
 	call,
 	wxlogin,
 	setUsermsg,
@@ -735,6 +734,7 @@ export default {
 	gettime,
 	getimg,
 	getimgarr,
+	pveimg,
 	get_fwb,
 	wx_upload
 }

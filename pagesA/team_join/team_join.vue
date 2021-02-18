@@ -4,7 +4,7 @@
 			<block slot="backText"></block>
 			<block slot="content">加入团队</block>
 			<block slot="right">
-				<view class="top_r">
+				<view class="top_r"  @tap="jump" data-url="/pagesA/team_msgs/team_msgs">
 					<text class="tip_box">1</text>
 					<text class="iconfont icontongzhi"></text>
 				</view>
@@ -68,7 +68,7 @@
 			sousuo_ing() {
 				clearInterval(inputt)
 				inputt = setTimeout(function() {
-					var kw = that.daiyan_ss
+					var kw = that.ss_key
 					console.log(kw.length)
 					if (kw.length > 0) {
 
@@ -88,6 +88,20 @@
 					icon: 'none',
 					title: '申请已提交'
 				})
+			},
+			jump(e) {
+				var that = this
+			
+				if (that.btn_kg == 1) {
+					return
+				} else {
+					that.btn_kg = 1
+					setTimeout(function() {
+						that.btn_kg = 0
+					}, 1000)
+				}
+			
+				service.jump(e)
 			},
 			getimg(img) {
 				return service.getimg(img)

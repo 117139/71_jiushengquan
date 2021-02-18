@@ -73,6 +73,49 @@
 				"enablePullDownRefresh": false
 			}
 
+		}, {
+			"path": "my_zn/my_zn",
+			"style": {
+				"navigationBarTitleText": "用户指南 ",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "team_user_li/team_user_li",
+			"style": {
+				"navigationBarTitleText": "组织成员",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "team_user_add/team_user_add",
+			"style": {
+				"navigationStyle": "custom", // 取消本页面的导航栏
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "team_msgs/team_msgs",
+			"style": {
+				"navigationBarTitleText": "消息通知",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "my_camera/my_camera",
+			"style": {
+				"navigationBarTitleText": "照相机",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "my_notepad/my_notepad",
+			"style": {
+				"navigationBarTitleText": "记事本",
+				"enablePullDownRefresh": true
+			}
+
 		}]
 	}],
 	"preloadRule": {
@@ -86,6 +129,7 @@
 		"color": "#797979",
 		"selectedColor": "#3C77F1",
 		"backgroundColor": "#ffffff",
+		"fontSize": "16px",
 		"list": [{
 			"pagePath": "pages/map/map",
 			"text": "首页"

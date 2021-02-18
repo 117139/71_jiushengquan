@@ -35,13 +35,17 @@ const store = new Vuex.Store({
 		fj_data:'',
 		bj_prodata:'',
 		
+		zn:"" ,//新手指南
+		address:{},//当前坐标
 		
 		
 		
 		
-		xcx_status:1,     //0 商家端  1 用户端  2智能安装端
 	},
 	mutations: {
+		setAddress(state, provider) { //当前坐标
+			state.address = provider;
+		},
 		set_xcx(state, xcx_status){
 			var tip_text='正在切换至'
 			if(xcx_status==0){

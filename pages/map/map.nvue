@@ -1,6 +1,6 @@
 <template>
 	<view class="minh100">
-		<map class="index_map" name="map" :show-compass="false"
+		<map class="index_map" name="map" :show-compass="false" :style="{height: mapHeight+'px'}"  
 			 :enable-rotate="false" :latitude="latitude" :longitude="longitude" :markers="markersArr" @markertap="markertap"
 			 :controls="mapControls" @regionchange='mapChange'></map>	
 		<view class="bj_box">
@@ -17,19 +17,19 @@
 		</view>
 		<view class="map_btn_list">
 			<view class="map_btn_li" @tap="shuaxin">
-				<image :src="getimg('/static/images/index_btn1.png')" mode="aspectFit"></image>
+				<image class="map_btn_li_image" :src="getimg('/static/images/index_btn1.png')" mode="aspectFit"></image>
 				<text>刷新</text>
 			</view>
 			<view class="map_btn_li">
-				<image :src="getimg('/static/images/index_btn2.png')" mode="aspectFit"></image>
+				<image  class="map_btn_li_image" :src="getimg('/static/images/index_btn2.png')" mode="aspectFit"></image>
 				<text>标记</text>
 			</view>
 			<view class="map_btn_li">
-				<image :src="getimg('/static/images/index_btn3.png')" mode="aspectFit"></image>
+				<image  class="map_btn_li_image" :src="getimg('/static/images/index_btn3.png')" mode="aspectFit"></image>
 				<text>天气</text>
 			</view>
 			<view class="map_btn_li">
-				<image :src="getimg('/static/images/index_btn4.png')" mode="aspectFit"></image>
+				<image  class="map_btn_li_image" :src="getimg('/static/images/index_btn4.png')" mode="aspectFit"></image>
 				<text>筛选</text>
 			</view>
 		</view>
@@ -48,6 +48,7 @@
 	} from 'vuex'
 	var that, mapContext, mapEndloading;
 	var djs_fuc
+	var that 
 	export default {
 		data() {
 			return {
@@ -87,6 +88,10 @@
 			...mapState(['hasLogin', 'forcedLogin', 'userName', 'loginDatas']),
 		},
 		onLoad() {
+			that=this
+			// #ifdef APP-PLUS
+			this.getLocation();
+			// #endif
 			/*const innerAudioContext = uni.createInnerAudioContext();
 			innerAudioContext.autoplay = true;
 			innerAudioContext.src = 'https://vkceyugu.cdn.bspapp.com/VKCEYUGU-hello-uniapp/2cc220e0-c27a-11ea-9dfb-6da8e309e0d8.mp3';
@@ -98,7 +103,15 @@
 			  console.log(res.errCode);
 			});*/
 		},
+		mounted() {
+			that.mapWidth=750
+			that.sHeight = uni.getSystemInfoSync().statusBarHeight;
+			that.mapHeight = (uni.getSystemInfoSync().windowHeight*2 - uni.getSystemInfoSync().statusBarHeight);
+			console.log(that.mapHeight)
+			console.log(uni.getSystemInfoSync().screenHeight)
+		},
 		methods: {
+			...mapMutations(['setAddress']),
 			baojing_fuc(){
 				var that=this
 				this.baojing=true
@@ -146,6 +159,11 @@
 			},
 			//移动地图结束
 			mapChange(e) {
+				console.log(e)
+				if(e){
+					return
+				}
+				
 				if (mapEndloading) {
 					return;
 				}
@@ -223,7 +241,7 @@
 			
 			
 			},
-			
+			getList(){},
 			//地图移动
 			mapEnd(res) {
 				console.log('加载数据')
@@ -244,7 +262,8 @@
 			},
 			getLocation(type) {
 				uni.getLocation({
-					type: 'wgs84',
+					// type: 'wgs84',
+					type:'gcj02',
 					success: function(res) {
 						that.longitude = res.longitude;
 						that.latitude = res.latitude;
@@ -309,39 +328,50 @@
 
 <style scoped>
 	.minh100{
+		width: 750px;
 		/* #ifdef H5 */
-		
 		min-height: calc(100vh - 100upx);
 		/* #endif */
 	}
 	.index_map{
-		width: 100%;
+		/* position: fixed; */
+		
+		width: 750px;
+		/*  #ifndef APP-PLUS-NVUE  */
 		height: calc(100vh - 246upx);
+		/*  #endif  */
+	
 		/* #ifdef H5 */
 		
 		height: calc(100vh - 246upx - 100upx);
 		/* #endif */
 	}
 	.map_btn_list{
-		width: 100%;
+		position: fixed;
+		bottom: 0;
+			width: 750px;
 		height: 246upx;
 		background: #FFFFFF;
 		box-shadow: 0px -3px 10px 0px rgba(0, 0, 0, 0.06);
 		border-radius: 15upx 15upx 0 0;
-		display: flex;
+		/*  #ifndef APP-PLUS-NVUE  */
+		display: flex;  
+		/*  #endif  */
 		align-items: center;
 		justify-content: space-around;
 		flex-direction: row;
 	}
 	.map_btn_li{
-		display: flex;
+		/*  #ifndef APP-PLUS-NVUE  */
+		display: flex;  
+		/*  #endif  */
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
 		font-size: 26upx;
 		color: #555;
 	}
-	.map_btn_li image{
+	.map_btn_li_image{
 		width: 95upx;
 		height: 95upx;
 		border-radius: 50%;
@@ -359,8 +389,8 @@
 		border-radius: 50%;
 	}
 	.bj_box_img{
-		width: 100%;
-		height: 100%;
+		width: 114upx;
+		height: 114upx;
 	}
 	
 	.bj_main{
@@ -371,7 +401,9 @@
 		height: 100vh;
 		background: rgba(0,0,0,.8);
 		z-index:999999;
-		display: flex;
+		/*  #ifndef APP-PLUS-NVUE  */
+		display: flex;  
+		/*  #endif  */
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
@@ -390,7 +422,9 @@
 		background: #FF0000;
 		border: 4upx solid #FFFFFF;
 		border-radius: 50%;
-		display: flex;
+		/*  #ifndef APP-PLUS-NVUE  */
+		display: flex;  
+		/*  #endif  */
 		align-items: center;
 		justify-content: center;
 	}

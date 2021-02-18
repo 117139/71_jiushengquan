@@ -5,12 +5,16 @@
 			<view class="list_tit_li" :class="fw_cur==index?' cur':''" @tap="fwcur_fuc(index)" v-for="(item,index) in tabs">{{item.name}}</view>
 		</scroll-view>
 		<view class="ck_list">
-			<view v-for="(item,index) in datas" class="ck_li" @tap="jump" :data-url="'/pagesA/my_cankao_details/my_cankao_details'+item.id">
-				<image :src="getimg(item.img)" mode="aspectFill"></image>
-				<view class="ck_tit">
-					<text>{{item.title}}</text>
+			<view class="ck_li_box" v-for="(item,index) in datas">
+				<view class="ck_li" @tap="jump" :data-url="'/pagesA/my_cankao_details/my_cankao_details?id='+item.id">
+					<image :src="getimg(item.img)" mode="aspectFill"></image>
+					<view class="ck_tit">
+						<!-- <text>{{item.title}}-{{tabs[fw_cur].name}}</text> -->
+						<text>{{item.title}}</text>
+					</view>
 				</view>
 			</view>
+			
 		</view>
 		<bao-jing></bao-jing>
 	</view>
@@ -172,23 +176,28 @@
 	}
 	.ck_list{
 		width: 100%;
-		padding: 30upx;
+		padding: 20upx;
 		display: flex;
 		flex-wrap: wrap;
 	}
+	.ck_li_box{
+		width: 50%;
+		max-width: 400upx;
+		padding: 10upx;
+	}
 	.ck_li{
-		width: 335upx;
-		margin-right: 18upx;
+		width: 100%;
+		/* margin-right: 18upx; */
 		background: #FFFFFF;
 		border: 1px solid #D6D6D6;
 		border-radius: 4upx;
-		margin-bottom: 25upx;
+		/* margin-bottom: 25upx; */
 	}
-	.ck_li:nth-child(2n){
+	/* .ck_li:nth-child(2n){
 		margin-right: 0;
-	}
+	} */
 	.ck_li image{
-		width: 335upx;
+		width: 100%;
 		height: 228upx;
 	}
 	.ck_tit{

@@ -10,6 +10,9 @@
 			return {
 				btnkg:0,
 				uuid1:'',
+				b_name:'jiushengquan_su',
+				pwd:'123456',
+				zz_name:'wenxin'
 			};
 		},
 		onLaunch: function() {
@@ -87,6 +90,7 @@
 	}
 	view{
 		box-sizing: border-box;
+		font-family: PingFang SC;
 	}
 	.dis_flex{
 		display: flex;

@@ -8550,7 +8550,6 @@ var get_fwb = function get_fwb(str) {
   imgurl: imgurl,
   gologin: gologin,
   jump: jump,
-  pveimg: pveimg,
   call: call,
   wxlogin: wxlogin,
   setUsermsg: setUsermsg,
@@ -8561,6 +8560,7 @@ var get_fwb = function get_fwb(str) {
   gettime: gettime,
   getimg: getimg,
   getimgarr: getimgarr,
+  pveimg: pveimg,
   get_fwb: get_fwb,
   wx_upload: wx_upload };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))

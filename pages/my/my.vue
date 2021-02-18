@@ -28,7 +28,7 @@
 						<image class="my_yw_img" :src="getimg('/static/images/mybtn1.png')" mode="aspectFill"></image>
 						<text class="my_yw_text">参考</text>
 					</view>
-					<view class="my_yw_li">
+					<view class="my_yw_li" @tap="jump" data-url="/pagesA/my_camera/my_camera">
 						<image class="my_yw_img" :src="getimg('/static/images/mybtn2.png')" mode="aspectFill"></image>
 						<text class="my_yw_text">照相机</text>
 					</view>
@@ -36,7 +36,7 @@
 						<image class="my_yw_img" :src="getimg('/static/images/mybtn3.png')" mode="aspectFill"></image>
 						<text class="my_yw_text">检伤分类</text>
 					</view>
-					<view class="my_yw_li">
+					<view class="my_yw_li"  @tap="jump" data-url="/pagesA/my_notepad/my_notepad">
 						<image class="my_yw_img" :src="getimg('/static/images/mybtn4.png')" mode="aspectFill"></image>
 						<text class="my_yw_text">记事本</text>
 					</view>
@@ -48,7 +48,7 @@
 						<image class="my_yw_img" :src="getimg('/static/images/mybtn6.png')" mode="aspectFill"></image>
 						<text class="my_yw_text">团队</text>
 					</view>
-					<view class="my_yw_li">
+					<view class="my_yw_li"  @tap="jump" data-url="/pagesA/my_zn/my_zn">
 						<image class="my_yw_img" :src="getimg('/static/images/mybtn7.png')" mode="aspectFill"></image>
 						<text class="my_yw_text">用户指南</text>
 					</view>
