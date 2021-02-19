@@ -1,0 +1,34 @@
+
+.minh100.data-v-831bad46{
+	padding: 30rpx;
+	background: #FAFAFA;
+}
+.camera_box.data-v-831bad46{
+	width: 100%;
+	height: 1057rpx;
+	border-radius: 4px;
+	background: #fff;
+}
+.camera_box image.data-v-831bad46{
+	width: 100%;
+	height: 100%;
+}
+.b_btns.data-v-831bad46{
+	width: 100%;
+	height: 200rpx;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	        justify-content: center;
+}
+.b_btns image.data-v-831bad46{
+	width: 89rpx;
+	height: 89rpx;
+	margin: 0 60rpx;
+}
+

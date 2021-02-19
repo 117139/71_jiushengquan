@@ -1,0 +1,210 @@
+
+.minh100.data-v-efa7c2ea {
+}
+.my_bg.data-v-efa7c2ea {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 418rpx;
+	z-index: 0;
+}
+.my_box.data-v-efa7c2ea {
+	position: relative;
+	z-index: 1;
+	min-height: 100vh;
+}
+.head_box1.data-v-efa7c2ea{
+	position: relative;
+}
+.head_box.data-v-efa7c2ea {
+	position: fixed;
+	width: 100%;
+	top: 0;
+	left: 0;
+	/* text-align: center; */
+	font-size: 32rpx;
+	font-family: PingFang SC;
+	font-weight: 500;
+
+	color: rgba(0, 0, 0, 0);
+	z-index: 99999;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	        justify-content: center;
+	box-sizing: border-box;
+	-webkit-transition: all .5s;
+	transition: all .5s;
+
+
+	padding-right: 220rpx;
+	box-shadow: 0rpx 0rpx 0rpx;
+	z-index: 9999;
+	overflow: hidden;
+	background: #fff;
+}
+.head_box_img.data-v-efa7c2ea {
+	position: absolute;
+	top: 0;
+	width: 100%;
+	height: 418rpx;
+	left: 0;
+	right: 0;
+}
+.my_tit_box.data-v-efa7c2ea {
+	width: calc(100% - 440rpx);
+	position: absolute;
+	text-align: center;
+	/* width: calc(100% - 340rpx); */
+	left: 0;
+
+	right: 0;
+	bottom: 0;
+	top: 0;
+	margin: auto;
+	height: 60rpx;
+	font-size: 32rpx;
+	line-height: 60rpx;
+	color: #333;
+	cursor: none;
+	pointer-events: none;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+}
+.header_r.data-v-efa7c2ea {
+	font-size: 40rpx;
+	color: #000;
+	position: absolute;
+	left: 10rpx;
+	z-index: 9999;
+	top: 50%;
+	-webkit-transform: translateY(-50%);
+	        transform: translateY(-50%);
+}
+.user_tx.data-v-efa7c2ea{
+	width: 165rpx;
+	height: 165rpx;
+	border-radius: 50%;
+	position: relative;
+	margin: 50rpx auto 10rpx;
+}
+.user_tx_icon.data-v-efa7c2ea{
+	width: 51rpx;
+	height: 51rpx;
+	border-radius: 50%;
+	position: absolute;
+	bottom: 0;
+	right: 0;
+}
+.msg_list.data-v-efa7c2ea{
+	width: 100%;
+	padding: 0 50rpx;
+}
+.add_user.data-v-efa7c2ea {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background: rgba(255, 255, 255, .8);
+	/* background: #FAFAFA; */
+	height: 200rpx;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	        justify-content: center;
+	z-index: 800;
+}
+.add_user_btn.data-v-efa7c2ea {
+	width: 624rpx;
+	height: 86rpx;
+	background: #609AEC;
+	border-radius: 4px;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	        justify-content: center;
+	font-size: 30rpx;
+	color: #fff;
+}
+.msg_li.data-v-efa7c2ea{
+	width: 100%;
+}
+.msg_tit.data-v-efa7c2ea{
+	width: 100%;
+	font-size: 30rpx;
+	color: #222;
+	padding-top: 35rpx;
+}
+.msg_int.data-v-efa7c2ea{
+	width: 100%;
+	height: 80rpx;
+	font-size: 30rpx;
+	border-bottom: 1px solid #EEEEEE;
+}
+.zuobiao_icon.data-v-efa7c2ea{
+	width: 50rpx;
+	height: 48rpx;
+}
+.zuobiao_icon_c.data-v-efa7c2ea{
+	width: 50rpx;
+	height: 50rpx;
+}
+.tk_popop.data-v-efa7c2ea{
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 9999999999;
+	background: rgba(0,0,0,.5);
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	-webkit-flex-direction: column;
+	        flex-direction: column;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	        justify-content: center;
+}
+.tk_main.data-v-efa7c2ea{
+	margin-bottom: 30rpx;
+	width: 505rpx;
+	min-height: 494rpx;
+	max-height: 700rpx;
+	overflow-y: scroll;
+	background: #FFFFFF;
+	border-radius: 10rpx;
+	padding:30rpx 40rpx;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-flex-wrap: wrap;
+	        flex-wrap: wrap;
+}
+.tk_main image.data-v-efa7c2ea{
+	width: 25%;
+	height: 100rpx;
+}
+

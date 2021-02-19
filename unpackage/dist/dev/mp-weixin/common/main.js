@@ -12,9 +12,9 @@ var _App = _interopRequireDefault(__webpack_require__(/*! ./App */ 5));
 
 var _store = _interopRequireDefault(__webpack_require__(/*! ./store */ 9));
 var _event = _interopRequireDefault(__webpack_require__(/*! common/event.js */ 11));
-var _base = _interopRequireDefault(__webpack_require__(/*! common/base64.js */ 15));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function ownKeys(object, enumerableOnly) {var keys = Object.keys(object);if (Object.getOwnPropertySymbols) {var symbols = Object.getOwnPropertySymbols(object);if (enumerableOnly) symbols = symbols.filter(function (sym) {return Object.getOwnPropertyDescriptor(object, sym).enumerable;});keys.push.apply(keys, symbols);}return keys;}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};if (i % 2) {ownKeys(Object(source), true).forEach(function (key) {_defineProperty(target, key, source[key]);});} else if (Object.getOwnPropertyDescriptors) {Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));} else {ownKeys(Object(source)).forEach(function (key) {Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));});}}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}var cuCustom = function cuCustom() {__webpack_require__.e(/*! require.ensure | colorui/components/cu-custom */ "colorui/components/cu-custom").then((function () {return resolve(__webpack_require__(/*! ./colorui/components/cu-custom.vue */ 83));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};
+var _base = _interopRequireDefault(__webpack_require__(/*! common/base64.js */ 15));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function ownKeys(object, enumerableOnly) {var keys = Object.keys(object);if (Object.getOwnPropertySymbols) {var symbols = Object.getOwnPropertySymbols(object);if (enumerableOnly) symbols = symbols.filter(function (sym) {return Object.getOwnPropertyDescriptor(object, sym).enumerable;});keys.push.apply(keys, symbols);}return keys;}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};if (i % 2) {ownKeys(Object(source), true).forEach(function (key) {_defineProperty(target, key, source[key]);});} else if (Object.getOwnPropertyDescriptors) {Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));} else {ownKeys(Object(source)).forEach(function (key) {Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));});}}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}var cuCustom = function cuCustom() {__webpack_require__.e(/*! require.ensure | colorui/components/cu-custom */ "colorui/components/cu-custom").then((function () {return resolve(__webpack_require__(/*! ./colorui/components/cu-custom.vue */ 164));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};
 
-_vue.default.component('cu-custom', cuCustom);var baoJing = function baoJing() {__webpack_require__.e(/*! require.ensure | components/baojing/baojing */ "components/baojing/baojing").then((function () {return resolve(__webpack_require__(/*! ./components/baojing/baojing.vue */ 90));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};
+_vue.default.component('cu-custom', cuCustom);var baoJing = function baoJing() {__webpack_require__.e(/*! require.ensure | components/baojing/baojing */ "components/baojing/baojing").then((function () {return resolve(__webpack_require__(/*! ./components/baojing/baojing.vue */ 171));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};
 
 _vue.default.component('bao-jing', baoJing);
 
@@ -111,7 +111,10 @@ var _vuex = __webpack_require__(/*! vuex */ 10);function _interopRequireDefault(
   data: function data() {
     return {
       btnkg: 0,
-      uuid1: '' };
+      uuid1: '',
+      b_name: 'jiushengquan_su',
+      pwd: '123456',
+      zz_name: 'wenxin' };
 
   },
   onLaunch: function onLaunch() {

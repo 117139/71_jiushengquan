@@ -1,0 +1,223 @@
+
+.minh100.data-v-21ec2c2a{
+	padding-bottom: 50rpx;
+}
+.bg_t.data-v-21ec2c2a {
+	position: absolute;
+	background: #3C77F1;
+	width: 100%;
+	height: 200rpx;
+}
+.card-swiper.data-v-21ec2c2a {
+
+	height: 370rpx !important;
+}
+.swiper-item.data-v-21ec2c2a {
+	-webkit-transition: all .2s;
+	transition: all .2s;
+	box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+}
+.lv_tip.data-v-21ec2c2a {
+	position: absolute;
+	top: 90rpx;
+	left: 40rpx;
+	font-size: 38rpx;
+	font-family: PingFang SC;
+	font-weight: 500;
+	color: #AB6834;
+}
+.lv_tip1.data-v-21ec2c2a {
+	position: absolute;
+	top: 160rpx;
+	left: 40rpx;
+	right: 50rpx;
+	font-size: 24rpx;
+	font-family: PingFang SC;
+	font-weight: 500;
+	color: #282828;
+	height: 90rpx;
+	line-height: 30rpx;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-line-clamp: 3;
+	-webkit-box-orient: vertical;
+}
+.dj_box.data-v-21ec2c2a {
+	padding-bottom: 30rpx;
+}
+.dj_box_tit.data-v-21ec2c2a {
+	display: block;
+	margin: 0 auto;
+	width: 250rpx;
+	height: 100rpx;
+}
+.dj_list.data-v-21ec2c2a {
+	width: 100%;
+	padding: 0 15rpx;
+}
+.dj_list_box.data-v-21ec2c2a {
+	width: 100%;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-flex-wrap: wrap;
+	        flex-wrap: wrap;
+}
+.dj_li.data-v-21ec2c2a {
+	width: 50%;
+	height: 178rpx;
+	padding: 15rpx;
+}
+.dj_li_box.data-v-21ec2c2a {
+	width: 100%;
+	height: 100%;
+	position: relative;
+	box-shadow: 0px 0px 6rpx 0px rgba(0, 0, 0, 0.2);
+	border-radius: 4rpx;
+}
+.dj_li_box_img.data-v-21ec2c2a {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+.dj_text.data-v-21ec2c2a {
+	position: relative;
+	z-index: 10;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: baseline;
+	-webkit-align-items: baseline;
+	        align-items: baseline;
+	top: 50%;
+	-webkit-transform: translateY(-50%);
+	        transform: translateY(-50%);
+	padding-left: 30rpx;
+}
+.pay_tit.data-v-21ec2c2a {
+	width: 100%;
+	height: 100rpx;
+	padding: 0 30rpx;
+	border-bottom: 1px solid #eee;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+}
+.buy_list.data-v-21ec2c2a{
+	width: 100%;
+	padding: 0 30rpx;
+}
+.buy_li.data-v-21ec2c2a{
+	width: 100%;
+	height: 100rpx;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	font-size: 30rpx;
+	color: #333;
+}
+.pay_sm.data-v-21ec2c2a{
+	width: 100%;
+	padding: 20rpx 30rpx;
+	font-size: 26rpx;color: #666;
+}
+.buy_smtit.data-v-21ec2c2a{
+	font-size: 30rpx;
+	color: #666;
+	margin-bottom: 28rpx;
+}
+.buy_li_img.data-v-21ec2c2a{
+	width: 56rpx;
+	height: 56rpx;
+	margin-right: 34rpx;
+}
+.buy_name.data-v-21ec2c2a{
+	-webkit-box-flex: 1;
+	-webkit-flex: 1;
+	        flex: 1;
+}
+.buy_btn.data-v-21ec2c2a{
+	width: 32rpx;
+	height: 32rpx;
+	background: #FFFFFF;
+	border: 1px solid #FFBC5C;
+	border-radius: 50%;
+	position: relative;
+}
+.buy_btn.cur.data-v-21ec2c2a::before{
+	content: '';
+	width: 22rpx;
+	height: 22rpx;
+	background: #FFBC5C;
+	border-radius: 50%;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-top: -11rpx;
+	margin-left: -11rpx;
+}
+.pay_xz_li.data-v-21ec2c2a{
+	width: 100%;
+	padding: 0 30rpx;
+	height: 150rpx;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+}
+.pay_xz.data-v-21ec2c2a{
+	width: 32rpx;
+	height: 32rpx;
+	border: 1px solid #999999;
+	border-radius: 4px;
+	margin-right: 20rpx;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	        justify-content: center;
+}
+.pay_xz text.data-v-21ec2c2a{
+	color: #fff;
+	font-size: 25rpx;
+}
+.pay_xz.cur.data-v-21ec2c2a{
+	border: 1px solid #007AFF;
+}
+.pay_xz.cur text.data-v-21ec2c2a{
+	color: #007AFF;
+}
+.set_btn.data-v-21ec2c2a{
+	font-size: 32rpx;
+	color: #fff;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	        justify-content: center;
+	width: 690rpx;
+	height: 89rpx;
+	background: #FFA95C;
+	border-radius: 10rpx;
+	margin: 0 auto;
+}
+

@@ -61,6 +61,9 @@
 			that.htmlReset = 0
 			
 		},
+		onPullDownRefresh() {
+			uni.stopPullDownRefresh()
+		},
 		computed: {
 			...mapState(['hasLogin', 'forcedLogin', 'userName', 'loginDatas']),
 			style() {

@@ -2,7 +2,9 @@
   "pages": [
     "pages/map/map",
     "pages/index/index",
-    "pages/my/my"
+    "pages/my/my",
+    "pages/login/login",
+    "pages/map_dw/map_dw"
   ],
   "subPackages": [
     {
@@ -13,7 +15,16 @@
         "team_list/team_list",
         "team_join/team_join",
         "my_cankao/my_cankao",
-        "my_cankao_details/my_cankao_details"
+        "my_cankao_details/my_cankao_details",
+        "my_zn/my_zn",
+        "team_user_li/team_user_li",
+        "team_user_add/team_user_add",
+        "team_msgs/team_msgs",
+        "my_camera/my_camera",
+        "my_notepad/my_notepad",
+        "my_jianshang/my_jianshang",
+        "team_created/team_created",
+        "about/about"
       ]
     }
   ],
@@ -27,6 +38,7 @@
     "color": "#797979",
     "selectedColor": "#3C77F1",
     "backgroundColor": "#ffffff",
+    "fontSize": "16px",
     "list": [
       {
         "pagePath": "pages/map/map",

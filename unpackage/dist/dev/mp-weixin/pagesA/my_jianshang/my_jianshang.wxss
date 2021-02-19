@@ -1,0 +1,217 @@
+
+.minh100.data-v-26f9342a{
+	padding: 30rpx;
+	background: #FAFAFA;
+}
+.add_user.data-v-26f9342a {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	/* background: rgba(255, 255, 255, .8); */
+	background: #FAFAFA;
+	height: 200rpx;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	        justify-content: center;
+	z-index: 800;
+}
+.add_user_btn.data-v-26f9342a {
+	width: 624rpx;
+	height: 86rpx;
+	background: #609AEC;
+	border-radius: 4px;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	        justify-content: center;
+	font-size: 30rpx;
+	color: #fff;
+}
+.js_box.data-v-26f9342a{
+	width: 100%;
+	
+	min-height: 616rpx;
+	background: #FFFFFF;
+	box-shadow: 0px 0px 10rpx 0px rgba(0, 0, 0, 0.1);
+	border-radius: 4rpx;
+}
+.num_li.data-v-26f9342a{
+	width: 100%;
+	height: 125rpx;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	-webkit-box-pack: justify;
+	-webkit-justify-content: space-between;
+	        justify-content: space-between;
+	padding: 0 30rpx;
+}
+.num_li_name.data-v-26f9342a{
+	width: 150rpx;
+	font-size: 34rpx;
+	color: #333;
+}
+.num_btn.data-v-26f9342a{
+	min-width: 112rpx;
+	height: 57rpx;
+	background: #E8E8E8;
+	border-radius: 4px;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	        justify-content: center;
+	font-size: 28rpx;
+	color: #666;
+	padding: 0 10rpx;
+}
+.num_tep.data-v-26f9342a{
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+}
+.num_tep text.data-v-26f9342a{
+	color: #02A44F;
+		font-size: 57rpx;
+}
+.num_num.data-v-26f9342a{
+	font-size: 34rpx;
+	color: #333;
+	width: 80rpx;
+	text-align: center;
+}
+.sub_li.data-v-26f9342a{
+	width: 100%;
+	border-top: 1px solid #F1F1F1;
+	height: 115rpx;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	padding: 0 30rpx;
+}
+.sub_name.data-v-26f9342a{
+	font-size: 34rpx;
+	color: #333;
+}
+.share_btn.data-v-26f9342a{
+	width: 50rpx;
+	height: 50rpx;
+	margin-left: 50rpx;
+}
+.tk_popop.data-v-26f9342a{
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 9999999999;
+	background: rgba(0,0,0,.5);
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	-webkit-flex-direction: column;
+	        flex-direction: column;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	        justify-content: center;
+}
+.tk_main.data-v-26f9342a{
+	margin-bottom: 30rpx;
+	width: 505rpx;
+	min-height: 494rpx;
+	background: #FFFFFF;
+	border-radius: 10rpx;
+	padding:30rpx 40rpx;
+}
+.notetk_tit.data-v-26f9342a{
+	font-size: 34rpx;
+	color: #333;
+	text-align: center;
+	font-weight: bold;
+}
+.notetk_time.data-v-26f9342a{
+	font-size: 26rpx;
+	color: #333;
+	margin-bottom: 50rpx;
+	text-align: center;
+}
+.note_text.data-v-26f9342a{
+	width: 100%;
+	height: 100rpx;
+	padding: 10rpx 20rpx;
+	border-bottom: 1px solid #DDDDDD;
+	font-size: 26rpx;
+	color: #999;
+	margin-bottom: 30rpx;
+}
+.note_addbtn.data-v-26f9342a{
+	width: 409rpx;
+	height: 72rpx;
+	background: #3C77F1;
+	box-shadow: 1px 3px 10px 0px rgba(0, 0, 0, 0.1);
+	border-radius: 36rpx;
+	margin: 0 auto 20rpx;
+	font-size: 28rpx;
+	color: #fff;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	        justify-content: center;
+}
+.tkshare_text.data-v-26f9342a{
+	font-size: 20rpx;
+	color: #666;
+	text-align: center;
+}
+.tkshare_btns.data-v-26f9342a{
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	-webkit-justify-content: space-around;
+	        justify-content: space-around;
+	width: 100%;
+	height: 80rpx;
+}
+.tkshare_btns image.data-v-26f9342a{
+	width: 50rpx;
+	height: 50rpx;
+}
+

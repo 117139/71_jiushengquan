@@ -13,12 +13,16 @@
 			</view>
 			<view class="my_top">
 				
-				<view class="my_msg dis_flex ">
+				<view v-if="hasLogin" class="my_msg dis_flex ">
 					<image class="my_tx" :src="getimg('/static/images/tx_m2.jpg')" mode="aspectFill"></image>
 					<view class="flex_1 dis_flex_c ju_b" style="height: 110upx;">
 						<view class="my_name">救生圈员工</view>
 						<view class="my_yx">2560015822@qq.com</view>
 					</view>
+					
+				</view>
+				<view v-else class="my_msg dis_flex aic ju_c" @tap="jump" data-url="/pages/login/login">
+					登录/注册
 				</view>
 			</view>
 			<view class="my_main">
@@ -32,7 +36,7 @@
 						<image class="my_yw_img" :src="getimg('/static/images/mybtn2.png')" mode="aspectFill"></image>
 						<text class="my_yw_text">照相机</text>
 					</view>
-					<view class="my_yw_li">
+					<view class="my_yw_li" @tap="jump" data-url="/pagesA/my_jianshang/my_jianshang">
 						<image class="my_yw_img" :src="getimg('/static/images/mybtn3.png')" mode="aspectFill"></image>
 						<text class="my_yw_text">检伤分类</text>
 					</view>

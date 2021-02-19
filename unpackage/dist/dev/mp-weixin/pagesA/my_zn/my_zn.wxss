@@ -1,0 +1,21 @@
+
+.minh100.data-v-143ae28a{
+	background:#FAFAFA;
+	padding: 30rpx;
+}
+.xmfwb_box.data-v-143ae28a{
+	font-size: 30rpx;
+	color: #333;
+	line-height: 40rpx;
+}
+.pz_name.data-v-143ae28a{
+	font-size: 36rpx;
+	color: #333;
+	margin-top: 50rpx;
+	margin-bottom: 30rpx;
+}
+.mapimg.data-v-143ae28a{
+	width: 496rpx;
+	margin-top: 30rpx;
+}
+

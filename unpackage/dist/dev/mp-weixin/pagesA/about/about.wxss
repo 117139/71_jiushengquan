@@ -1,0 +1,20 @@
+
+.minh100.data-v-9cfec3f2{
+}
+.cu-custom.data-v-9cfec3f2{
+	border-bottom: 1px solid #DBDBDB;
+}
+.content_wrap.data-v-9cfec3f2{
+	width: 100%;
+	min-height: 100%;
+	background: #fff;
+}
+.xieyi_main.data-v-9cfec3f2{
+	 width: 100%;
+	 padding: 30rpx;
+	 box-sizing: border-box;
+	 font-size: 28rpx;
+	 color: #333;
+}
+ 
+

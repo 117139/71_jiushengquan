@@ -1,0 +1,186 @@
+
+.minh100.data-v-21a02b95{
+	background: #F1F1F1;
+}
+.team_list.data-v-21a02b95 {
+	width: 100%;
+	padding: 0 30rpx 0;
+	background: #fff;
+}
+.team_li.data-v-21a02b95 {
+	width: 100%;
+	height: 150rpx;
+	border-bottom: 1px solid #eee;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	-webkit-box-pack: justify;
+	-webkit-justify-content: space-between;
+	        justify-content: space-between;
+}
+.team_li_img.data-v-21a02b95 {
+	width: 88rpx;
+	height: 88rpx;
+	background: #3C77F1;
+	border-radius: 50%;
+	-webkit-box-flex: 0;
+	-webkit-flex: none;
+	        flex: none;
+	margin-right: 18rpx;
+}
+.join_btn.data-v-21a02b95 {
+	margin-left: 15rpx;
+	width: 93rpx;
+	height: 42rpx;
+	background: #3775F6;
+	border-radius: 4rpx;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	        justify-content: center;
+	font-size: 24rpx;
+	color: #fff;
+	-webkit-box-flex: 0;
+	-webkit-flex: none;
+	        flex: none;
+	margin-top: 20rpx;
+	margin-bottom: 20rpx;
+}
+.join_btn1.data-v-21a02b95 {
+	background: #CBCBCB;
+	color: #242424;
+}
+.team_li_msg.data-v-21a02b95 {
+	/* display: flex;
+	align-items: center; */
+	font-size: 32rpx;
+	color: #000;
+	font-weight: bold;
+	width: 440rpx;
+}
+.list_tit.data-v-21a02b95 {
+	width: 100%;
+	height: 100rpx;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	font-size: 30rpx;
+	color: #333;
+}
+.ss_box.data-v-21a02b95 {
+	width: 100%;
+	height: 100rpx;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	-webkit-box-pack: justify;
+	-webkit-justify-content: space-between;
+	        justify-content: space-between;
+	border-top: 1px solid #eee;
+	border-bottom: 1px solid #eee;
+	padding: 0 30rpx;
+}
+.sr_k.data-v-21a02b95 {
+	width: 543rpx;
+	height: 64rpx;
+	background: #E9ECF2;
+	border-radius: 4rpx;
+	padding: 0 20rpx;
+	font-size: 30rpx;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+}
+.sr_icon.data-v-21a02b95 {
+	font-size: 32rpx;
+	color: #999;
+	margin-right: 20rpx;
+}
+.sr_int.data-v-21a02b95 {
+	min-width: 0;
+	font-size: 30rpx;
+}
+.sr_btn.data-v-21a02b95 {
+	width: 129rpx;
+	height: 64rpx;
+	background: #3775F6;
+	border-radius: 4rpx;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	        justify-content: center;
+	font-size: 30rpx;
+	color: #fff;
+}
+.team_tit.data-v-21a02b95 {
+	font-size: 24rpx;
+	color: #999;
+	height: 45rpx;
+	width: 100%;
+	padding-left: 40rpx;
+	background: rgba(231, 231, 231, .83);
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+}
+.add_user.data-v-21a02b95 {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background: rgba(255, 255, 255, .8);
+	height: 200rpx;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	        justify-content: center;
+	z-index: 800;
+}
+.add_user_btn.data-v-21a02b95 {
+	width: 624rpx;
+	height: 86rpx;
+	background: #609AEC;
+	border-radius: 4px;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	        justify-content: center;
+	font-size: 30rpx;
+	color: #fff;
+}
+

@@ -26,7 +26,9 @@
 			</view>
 		</view>
 		<view class="team_cz">
-			<view @tap="jump" data-url="/pagesA/team_user_add/team_user_add">创建团队</view>
+			<!-- team_created -->
+			<view @tap="jump" data-url="/pagesA/team_created/team_created">创建团队</view>
+			<!-- <view @tap="jump" data-url="/pagesA/team_user_add/team_user_add">创建团队</view> -->
 			<view @tap="jump" data-url="/pagesA/team_join/team_join">加入团队</view>
 		</view>
 		<bao-jing></bao-jing>

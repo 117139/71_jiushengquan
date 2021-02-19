@@ -25,13 +25,31 @@
 				"enablePullDownRefresh": false
 			}
 
+		}, {
+			"path": "pages/login/login",
+			"style": {
+				"navigationStyle": "custom", // 取消本页面的导航栏
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+
 		}
-	],
+	    ,{
+            "path" : "pages/map_dw/map_dw",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+    ],
 	"subPackages": [{
 		"root": "pagesA",
 		"pages": [{
 			"path": "my_set/my_set",
 			"style": {
+				"navigationStyle": "custom", // 取消本页面的导航栏
 				"navigationBarTitleText": "",
 				"enablePullDownRefresh": false
 			}
@@ -116,7 +134,35 @@
 				"enablePullDownRefresh": true
 			}
 
-		}]
+		}, {
+			"path": "my_jianshang/my_jianshang",
+			"style": {
+				"navigationBarTitleText": "检伤分类",
+				"enablePullDownRefresh": false
+			}
+
+		}    ,{
+                    "path" : "team_created/team_created",
+                    "style" :                                                                                    
+                {
+                    "navigationBarTitleText": "创建团队",
+                    "enablePullDownRefresh": false,
+										"navigationBarBackgroundColor":"#3C77F1",
+										"navigationBarTextStyle":"white"
+										
+                }
+                
+                }
+                ,{
+                    "path" : "about/about",
+                    "style" :                                                                                    
+                {
+                    "navigationBarTitleText": "",
+                    "enablePullDownRefresh": false
+                }
+                
+                }
+            ]
 	}],
 	"preloadRule": {
 		"pages/index/index": {

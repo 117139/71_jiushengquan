@@ -1,12 +1,22 @@
 
 .minh100.data-v-99bedd2a{
 	width: 100%;
-	padding: 10rpx 30rpx;
+	padding: 20rpx 30rpx;
 }
-.xq_titxq_tit.data-v-99bedd2a{
+.xq_tit.data-v-99bedd2a{
 	font-size: 38rpx;
 	color: #444;
 	line-height: 45rpx;
 	margin-bottom: 30rpx;
+	
+
+	font-weight: bold;
+}
+.xq_xq.data-v-99bedd2a{
+	font-size: 30rpx;
+	color: #444;
+	margin-top: 30rpx;
+	line-height: 45rpx;
+	padding-bottom: 100rpx;
 }
 
