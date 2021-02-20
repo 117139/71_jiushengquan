@@ -39,12 +39,15 @@ const store = new Vuex.Store({
 		address:{},//当前坐标
 		
 		
-		
+		wheight:''
 		
 	},
 	mutations: {
 		setAddress(state, provider) { //当前坐标
 			state.address = provider;
+		},
+		setHeight(state, height) { //视窗高度
+			state.wheight = height||750;
 		},
 		set_xcx(state, xcx_status){
 			var tip_text='正在切换至'

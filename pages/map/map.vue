@@ -26,7 +26,7 @@
 			</view>
 			<view class="map_btn_li">
 				<image class="map_btn_li_image" :src="getimg('/static/images/index_btn3.png')" mode="aspectFit"></image>
-				<text>天气1</text>
+				<text>天气</text>
 			</view>
 			<view class="map_btn_li">
 				<image class="map_btn_li_image" :src="getimg('/static/images/index_btn4.png')" mode="aspectFit"></image>
@@ -45,10 +45,10 @@
 				</view>
 				<view class="bj_type">
 					<view @tap="open_tk(1)">危害</view>
-					<view @tap="open_tk(1)">命令</view>
-					<view @tap="open_tk(1)">受困者</view>
-					<view @tap="open_tk(1)">建筑破坏</view>
-					<view @tap="open_tk(1)">搜索</view>
+					<view @tap="open_tk(2)">命令</view>
+					<view @tap="open_tk(3)">受困者</view>
+					<view @tap="open_tk(4)">建筑破坏</view>
+					<view @tap="open_tk(5)">搜索</view>
 				</view>
 			</view>
 			<text @tap="tk_show=false" class="iconfont iconguanbi" style="font-size: 50upx;color: #fff;"></text>
@@ -92,6 +92,7 @@
 						<text class="bj_icon_text">水灾</text>
 					</view>
 				</view>
+				<view class="tkset_btn" @tap="jump_fuc" data-url="/pages/map_dw/map_dw?type=fwsm">设置位置</view>
 			</view>
 			<text @tap="tk_show1=false" class="iconfont iconguanbi" style="font-size: 50upx;color: #fff;"></text>
 		</view>
@@ -416,6 +417,32 @@
 			getimg(img) {
 				return service.getimg(img)
 			},
+			jump_fuc(e){
+				if(that.tk_show1_cur==-1){
+					uni.showToast({
+						icon:'none',
+						title:'请选择类型'
+					})
+					return
+				}
+				uni.navigateTo({
+					url:'/pages/map_dw/map_dw?tk_show1_cur='+that.tk_show1_cur+'&tk_show1_num='+that.tk_show1_num
+				})
+			},
+			jump(e) {
+				var that = this
+
+				if (that.btn_kg == 1) {
+					return
+				} else {
+					that.btn_kg = 1
+					setTimeout(function() {
+						that.btn_kg = 0
+					}, 1000)
+				}
+
+				service.jump(e)
+			},
 		}
 	}
 </script>
@@ -438,6 +465,7 @@
 
 		/* #ifdef H5 */
 		max-width: 100vw;
+		max-height: 100vh;
 		height: calc(100vh - 246upx - 100upx);
 		/* #endif */
 	}
@@ -640,8 +668,8 @@
 		display: flex;
 		flex-direction: row;
 		flex-wrap: wrap;
-		padding-top: 40upx;
-		padding-bottom: 30upx;
+		padding-top: 30upx;
+		padding-bottom: 20upx;
 	}
 	.bj_list_box_li{
 		width: 134upx;
@@ -678,5 +706,17 @@
 	.bj_icon_icon{
 		font-size: 26upx;
 		color: #333;
+	}
+	.tkset_btn{
+		font-size: 28upx;
+		color: #fff;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 409upx;
+		height: 72upx;
+		background: #3C77F1;
+		box-shadow: 1px 3px 10upx 0px rgba(0, 0, 0, 0.1);
+		border-radius: 36upx;
 	}
 </style>

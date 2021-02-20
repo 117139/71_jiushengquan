@@ -61,5 +61,6 @@
   "usingComponents": {
     "cu-custom": "/colorui/components/cu-custom",
     "bao-jing": "/components/baojing/baojing"
-  }
+  },
+  "sitemapLocation": "sitemap72.json"
 }

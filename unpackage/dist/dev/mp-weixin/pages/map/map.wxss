@@ -250,8 +250,8 @@
 	        flex-direction: row;
 	-webkit-flex-wrap: wrap;
 	        flex-wrap: wrap;
-	padding-top: 40rpx;
-	padding-bottom: 30rpx;
+	padding-top: 30rpx;
+	padding-bottom: 20rpx;
 }
 .bj_list_box_li.data-v-0b31f540{
 	width: 134rpx;
@@ -295,5 +295,23 @@
 .bj_icon_icon.data-v-0b31f540{
 	font-size: 26rpx;
 	color: #333;
+}
+.tkset_btn.data-v-0b31f540{
+	font-size: 28rpx;
+	color: #fff;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	        justify-content: center;
+	width: 409rpx;
+	height: 72rpx;
+	background: #3C77F1;
+	box-shadow: 1px 3px 10rpx 0px rgba(0, 0, 0, 0.1);
+	border-radius: 36rpx;
 }
 
