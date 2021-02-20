@@ -140,29 +140,29 @@
 					
 				</view>
 				<view  v-if="tk_show1_num==2" class="bj_list_box">
-					<view class="bj_list_box_li_w">
-						<view class="bj_list_box_li" :class="tk_show1_cur==0?'bj_list_box_li_cur':''" @click="tk_show1_cur=0">
+					<view class="bj_list_box_li_w bj_list_box_li_w_ml">
+						<view class="bj_list_box_li bj_list_box_li_ml" :class="tk_show1_cur==0?'bj_list_box_li_cur':''" @click="tk_show1_cur=0">
 							<image class="bj_icon " src="../../static/images/ml_zhihui.png" mode="aspectFit"></image>
 							<text class="bj_icon_text">指挥</text>
 						</view>
 						<image class="xz_ok" :class="tk_show1_cur==0?'xz_ok_cur':''" src="../../static/images/xz_ok.png" mode=""></image>
 					</view>
-					<view class="bj_list_box_li_w">
-						<view class="bj_list_box_li" :class="tk_show1_cur==1?'bj_list_box_li_cur':''" @click="tk_show1_cur=1">
+					<view class="bj_list_box_li_w bj_list_box_li_w_ml">
+						<view class="bj_list_box_li bj_list_box_li_ml" :class="tk_show1_cur==1?'bj_list_box_li_cur':''" @click="tk_show1_cur=1">
 							<image class="bj_icon" src="../../static/images/ml_jihe.png" mode="aspectFit"></image>
 							<text class="bj_icon_text">集结</text>
 						</view>
 						<image class="xz_ok" :class="tk_show1_cur==1?'xz_ok_cur':''" src="../../static/images/xz_ok.png" mode=""></image>
 					</view>
-					<view class="bj_list_box_li_w">
-						<view class="bj_list_box_li" :class="tk_show1_cur==2?'bj_list_box_li_cur':''" @click="tk_show1_cur=2">
+					<view class="bj_list_box_li_w bj_list_box_li_w_ml">
+						<view class="bj_list_box_li bj_list_box_li_ml" :class="tk_show1_cur==2?'bj_list_box_li_cur':''" @click="tk_show1_cur=2">
 							<image class="bj_icon" src="../../static/images/ml_yiliao.png" mode="aspectFit"></image>
 							<text class="bj_icon_text">医疗</text>
 						</view>
 						<image class="xz_ok" :class="tk_show1_cur==2?'xz_ok_cur':''" src="../../static/images/xz_ok.png" mode=""></image>
 					</view>
-					<view class="bj_list_box_li_w">
-						<view class="bj_list_box_li" :class="tk_show1_cur==3?'bj_list_box_li_cur':''" @click="tk_show1_cur=3">
+					<view class="bj_list_box_li_w bj_list_box_li_w_ml">
+						<view class="bj_list_box_li bj_list_box_li_ml" :class="tk_show1_cur==3?'bj_list_box_li_cur':''" @click="tk_show1_cur=3">
 							<image class="bj_icon" src="../../static/images/ml_tingche.png" mode="aspectFit"></image>
 							<text class="bj_icon_text">停车</text>
 						</view>
@@ -170,6 +170,77 @@
 					</view>
 					
 				</view>
+				<view  v-if="tk_show1_num==3" class="bj_list_box">
+					<view class="bj_list_box_li_w bj_list_box_li_w_sk">
+						<view class="bj_list_box_li bj_list_box_li_sk" :class="tk_show1_cur==0?'bj_list_box_li_cur':''" @click="tk_show1_cur=0">
+							<image class="bj_icon " src="../../static/images/sk_1.png" mode="aspectFit"></image>
+							<text class="bj_icon_text">潜在的受困者</text>
+						</view>
+						<image class="xz_ok" :class="tk_show1_cur==0?'xz_ok_cur':''" src="../../static/images/xz_ok.png" mode=""></image>
+					</view>
+					<view class="bj_list_box_li_w bj_list_box_li_w_sk">
+						<view class="bj_list_box_li bj_list_box_li_sk" :class="tk_show1_cur==1?'bj_list_box_li_cur':''" @click="tk_show1_cur=1">
+							<image class="bj_icon" src="../../static/images/sk_2.png" mode="aspectFit"></image>
+							<text class="bj_icon_text">确认生还者</text>
+						</view>
+						<image class="xz_ok" :class="tk_show1_cur==1?'xz_ok_cur':''" src="../../static/images/xz_ok.png" mode=""></image>
+					</view>
+					<view class="bj_list_box_li_w bj_list_box_li_w_sk">
+						<view class="bj_list_box_li bj_list_box_li_sk" :class="tk_show1_cur==2?'bj_list_box_li_cur':''" @click="tk_show1_cur=2">
+							<image class="bj_icon" src="../../static/images/sk_3.png" mode="aspectFit"></image>
+							<text class="bj_icon_text">确认遇难者</text>
+						</view>
+						<image class="xz_ok" :class="tk_show1_cur==2?'xz_ok_cur':''" src="../../static/images/xz_ok.png" mode=""></image>
+					</view>
+					<view class="bj_list_box_li_w bj_list_box_li_w_sk">
+						<view class="bj_list_box_li bj_list_box_li_sk" :class="tk_show1_cur==3?'bj_list_box_li_cur':''" @click="tk_show1_cur=3">
+							<image class="bj_icon" src="../../static/images/sk_4.png" mode="aspectFit"></image>
+							<text class="bj_icon_text">移除生还者</text>
+						</view>
+						<image class="xz_ok" :class="tk_show1_cur==3?'xz_ok_cur':''" src="../../static/images/xz_ok.png" mode=""></image>
+					</view>
+					<view class="bj_list_box_li_w bj_list_box_li_w_sk">
+						<view class="bj_list_box_li bj_list_box_li_sk" :class="tk_show1_cur==4?'bj_list_box_li_cur':''" @click="tk_show1_cur=4">
+							<image class="bj_icon" src="../../static/images/sk_5.png" mode="aspectFit"></image>
+							<text class="bj_icon_text">移除遇难者</text>
+						</view>
+						<image class="xz_ok" :class="tk_show1_cur==4?'xz_ok_cur':''" src="../../static/images/xz_ok.png" mode=""></image>
+					</view>
+					<view class="bj_list_box_li_w bj_list_box_li_w_sk">
+						<view class="bj_list_box_li bj_list_box_li_sk" :class="tk_show1_cur==5?'bj_list_box_li_cur':''" @click="tk_show1_cur=5">
+							<image class="bj_icon" src="../../static/images/sk_6.png" mode="aspectFit"></image>
+							<text class="bj_icon_text">最后一次看到</text>
+						</view>
+						<image class="xz_ok" :class="tk_show1_cur==5?'xz_ok_cur':''" src="../../static/images/xz_ok.png" mode=""></image>
+					</view>
+					
+				</view>
+				<view  v-if="tk_show1_num==4" class="bj_list_box">
+					<view class="bj_list_box_li_w">
+						<view class="bj_list_box_li" :class="tk_show1_cur==0?'bj_list_box_li_cur':''" @click="tk_show1_cur=0">
+							<image class="bj_icon " src="../../static/images/ph_1.png" mode="aspectFit"></image>
+							<text class="bj_icon_text">低风险</text>
+						</view>
+						<image class="xz_ok" :class="tk_show1_cur==0?'xz_ok_cur':''" src="../../static/images/xz_ok.png" mode=""></image>
+					</view>
+					<view class="bj_list_box_li_w">
+						<view class="bj_list_box_li" :class="tk_show1_cur==1?'bj_list_box_li_cur':''" @click="tk_show1_cur=1">
+							<image class="bj_icon" src="../../static/images/ph_2.png" mode="aspectFit"></image>
+							<text class="bj_icon_text">中风险</text>
+						</view>
+						<image class="xz_ok" :class="tk_show1_cur==1?'xz_ok_cur':''" src="../../static/images/xz_ok.png" mode=""></image>
+					</view>
+					<view class="bj_list_box_li_w">
+						<view class="bj_list_box_li" :class="tk_show1_cur==2?'bj_list_box_li_cur':''" @click="tk_show1_cur=2">
+							<image class="bj_icon" src="../../static/images/ph_3.png" mode="aspectFit"></image>
+							<text class="bj_icon_text">高风险</text>
+						</view>
+						<image class="xz_ok" :class="tk_show1_cur==2?'xz_ok_cur':''" src="../../static/images/xz_ok.png" mode=""></image>
+					</view>
+					
+					
+				</view>
+				
 				<view class="tkset_btn" @click="jump_fuc" data-url="/pages/map_dw/map_dw?type=fwsm">
 					<text style="font-size: 28px;color: #fff;">设置位置</text>
 				</view>
@@ -889,6 +960,7 @@
 		position: relative;
 		margin-left: 5px;
 	}
+	
 	.bj_list_box_li {
 		width: 124px;
 		height: 124px;
@@ -909,7 +981,19 @@
 		background: #EFF4FF;
 		border: 1px solid #3C77F1;
 	}
-
+	.bj_list_box_li_w_ml{
+		width: 105px;
+		margin-left: 1px;
+	}
+	.bj_list_box_li_ml{
+		width: 95px;
+	}
+	.bj_list_box_li_w_sk{
+		height: 155px;
+	}
+	.bj_list_box_li_sk{
+		height: 145px;
+	}
 	.xz_ok {
 		width: 31upx;
 		height: 31upx;
@@ -948,5 +1032,8 @@
 		background: #3C77F1;
 		box-shadow: 1px 3px 10upx 0px rgba(0, 0, 0, 0.1);
 		border-radius: 36upx;
+	}
+	.bj_icon_text{
+		text-align: center;
 	}
 </style>
