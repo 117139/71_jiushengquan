@@ -45,7 +45,7 @@
 				<view class="sub_li">
 					<view class="sub_name">分享</view>
 					<image class="share_btn" @tap="getShare" :src="getimg('/static/images/tk_share_icon1.png')" mode="aspectFit"></image>
-					<image class="share_btn" @tap="duanxin" :src="getimg('/static/images/tk_share_icon2.png')" mode="aspectFit"></image>
+					<!-- <image class="share_btn" @tap="duanxin" :src="getimg('/static/images/tk_share_icon2.png')" mode="aspectFit"></image> -->
 					<view class="flex_1"></view>
 					
 					<view class="num_btn" @tap="reset_all">重置所有</view>

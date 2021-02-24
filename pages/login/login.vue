@@ -11,7 +11,7 @@
 					<!-- 万屋智能 -->
 				</view>
 
-				<text v-if="login_type==0" @tap="login_type=1"  class=" header_r">去登录</text>
+				<text v-if="login_type==0" @tap="login_type=1" class=" header_r">去登录</text>
 			</view>
 			<view class="login_top">
 				欢迎您使用救生圈
@@ -86,14 +86,14 @@
 				CustomBar: this.CustomBar,
 				PageScroll: 0,
 				tel: '',
-				code:'',
-				yzm_type:0,
-				yztime:60,
+				code: '',
+				yzm_type: 0,
+				yztime: 60,
 				pwd: '',
-				pwd1:'',
+				pwd1: '',
 				yhxy: true,
 				datas: '救生圈服务声明救生圈服务声明救生圈服务声明救生圈服务声明救生圈服务声明救生圈服务声明救生圈服务声明救生圈服务声明',
-				login_type:0
+				login_type: 1
 			}
 		},
 
@@ -115,7 +115,7 @@
 			},
 		},
 		onLoad() {
-			that=this
+			that = this
 			var yhxy = uni.getStorageSync('yhxy')
 			// this.getdata()
 			if (yhxy) {
@@ -132,7 +132,7 @@
 			// }
 		},
 		methods: {
-
+			...mapMutations(['login', 'logindata']),
 			back() {
 				uni.navigateBack({
 					delta: 1
@@ -151,7 +151,7 @@
 			},
 			getCode() {
 				let that = this
-			
+
 				if (that.tel == '' || !(/^1\d{10}$/.test(that.tel))) {
 					wx.showToast({
 						icon: 'none',
@@ -169,7 +169,7 @@
 					title: '发送成功'
 				})
 				that.codetime()
-				that.btnkg= 0
+				that.btnkg = 0
 				return
 				var jkurl = '/api/login/register'
 				var data = {
@@ -177,17 +177,17 @@
 				}
 				service.post(jkurl, data,
 					function(res) {
-						that.btnkg =0
+						that.btnkg = 0
 						if (res.data.code == 1) {
-			
+
 							uni.showToast({
 								icon: 'none',
 								title: '发送成功'
 							})
 							console.log(res)
-							that.verification_key=res.data.data.key
+							that.verification_key = res.data.data.key
 							that.codetime()
-			
+
 						} else {
 							if (res.data.msg) {
 								uni.showToast({
@@ -203,7 +203,7 @@
 						}
 					},
 					function(err) {
-						that.btnkg =0
+						that.btnkg = 0
 						if (err.data.msg) {
 							uni.showToast({
 								icon: 'none',
@@ -217,7 +217,7 @@
 						}
 					}
 				)
-			
+
 			},
 			codetime() {
 				let that = this
@@ -231,12 +231,12 @@
 						// console.log(news)
 						that.yzm_type = 1
 						that.yztime = news
-			
+
 					}
 				}, 1000);
 			},
-			
-			reg_fuc(){
+
+			reg_fuc() {
 				if (that.tel == '' || !(/^1\d{10}$/.test(that.tel))) {
 					wx.showToast({
 						icon: 'none',
@@ -244,7 +244,7 @@
 					})
 					return
 				}
-				
+
 				if (!that.code) {
 					uni.showToast({
 						icon: 'none',
@@ -266,36 +266,36 @@
 					});
 					return;
 				}
-				if (that.pwd!=that.pwd1) {
+				if (that.pwd != that.pwd1) {
 					uni.showToast({
 						icon: 'none',
 						title: '两次密码不一致'
 					});
 					return;
 				}
-				
+
 				const data = {
 					phone: that.tel,
 					code: that.code,
 					password: that.pwd,
 					password1: that.pwd1,
-					device_id:that.uuid?that.uuid:'h5'
+					device_id: that.uuid ? that.uuid : 'h5'
 				}
 				console.log(data)
-				if(that.login_type==0){
+				if (that.login_type == 0) {
 					uni.showToast({
 						icon: 'none',
 						title: '注册成功'
 					});
 				}
-				if(that.login_type==-1){
+				if (that.login_type == -1) {
 					uni.showToast({
 						icon: 'none',
 						title: '修改成功'
 					});
 				}
 			},
-			login_fuc(){
+			login_fuc() {
 				if (that.tel == '' || !(/^1\d{10}$/.test(that.tel))) {
 					wx.showToast({
 						icon: 'none',
@@ -303,7 +303,7 @@
 					})
 					return
 				}
-				
+
 				if (!that.pwd) {
 					uni.showToast({
 						icon: 'none',
@@ -311,17 +311,25 @@
 					});
 					return;
 				}
-				
+
 				const data = {
 					phone: that.tel,
 					password: that.pwd,
-					device_id:that.uuid?that.uuid:'h5'
+					device_id: that.uuid ? that.uuid : 'h5'
 				}
 				console.log(data)
 				uni.showToast({
 					icon: 'none',
 					title: '登录成功'
 				});
+
+				that.logindata(data)
+				that.login('问心')
+				setTimeout(()=>{
+					uni.navigateBack({
+						delta:1
+					})
+				},1000)
 			},
 			getbanner() {
 
@@ -639,7 +647,8 @@
 	.next_btn_cal {
 		background: #ddd;
 	}
-	.getyzm{
+
+	.getyzm {
 		width: 164upx;
 		height: 47upx;
 		background: #3C77F1;

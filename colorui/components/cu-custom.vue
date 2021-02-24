@@ -1,8 +1,9 @@
 <template>
 	<view>
 		<view class="cu-custom" :style="[{height:CustomBar + 'px'}]">
-			<view class="cu-bar fixed" :style="style" :class="[bgImage!=''?'none-bg text-white bg-img':'',bgColor]">
-				<image class="cu-bar_image" v-if="bgImage!=''" :src="bgImage" mode="aspectFill" :style="[{height:CustomBar + 'px'}]"></image>
+			<view class="cu-bar fixed" :style="style" :class="[bgImage!=''?'none-bg text-white bg-img':'',bgColor]" style="overflow: hidden;">
+				<!-- <image class="cu-bar_image" v-if="bgImage!=''" :src="bgImage" mode="aspectFill" :style="[{height:CustomBar + 'px'}]"></image> -->
+				<image class="cu-bar_image" v-if="bgImage!=''" :src="bgImage" mode="widthFix" :style="[{height:CustomBar + 'px'}]"></image>
 				<view class="action" @tap="BackPage" v-if="isBack">
 					<text class="cuIcon-back iconfont iconicon-test"></text>
 					<slot name="backText"></slot>
@@ -78,5 +79,16 @@
 		right: 0;
 		bottom: 0;
 		width: 100%;
+		z-index: 99999;
+	}
+	.action{
+		z-index: 99999999;
+		color: #333;
+	}
+	.content{
+		z-index: 99999999;
+	}
+	.nav_right{
+		z-index: 99999999;
 	}
 </style>

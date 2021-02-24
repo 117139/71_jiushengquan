@@ -1,9 +1,16 @@
 <template>
 	<view class="minh100">
+		<!-- <view style="width: 100px;height: 200px;"></view> -->
+		<!-- <picker @change="bindTimeChange" :value="r_index" :range="array">
+						array:::<view class="uni-input">{{array[r_index]}}</view>array
+				</picker> -->
+				<!-- <view @click="pickTime">时间</view> -->
+		<!-- <block v-if="time"> -->
+			
 		<map class="index_map" id="map" name="map" :show-compass="false" :style="{height: mapHeight+'px'}" :enable-rotate="false"
 		 :latitude="latitude" :longitude="longitude" :markers="markersArr" @markertap="markertap" :controls="mapControls"
 		 @regionchange='mapChange'>
-		 <!-- 警报组件 -->
+			<!-- 警报组件
 			<view class="bj_box">
 				<image @click="baojing_fuc" class="bj_box_img" src="../../static/images/baojing1.png" mode="aspectFit"></image>
 				<view v-if="baojing" @click="baojing_del" class="bj_main">
@@ -23,15 +30,15 @@
 				<view class="tk_main">
 					<view class="add_bj">
 						<view class="add_bj_text"></view>
-						<text style="font-weight: bold;">添加标记</text>
+						<text class="add_bj_wz">添加标记</text>
 						<view class="add_bj_text"></view>
 					</view>
 					<view class="bj_type">
-						<view class="bj_type_li bj_type_li_cur" @click="open_tk(1)"><text style="color: #fff;">危害</text></view>
-						<view class="bj_type_li bj_type_li_cur" @click="open_tk(2)"><text style="color: #fff;">命令</text></view>
-						<view class="bj_type_li bj_type_li_cur" @click="open_tk(3)"><text style="color: #fff;">受困者</text></view>
-						<view class="bj_type_li bj_type_li_cur" @click="open_tk(4)"><text style="color: #fff;">建筑破坏</text></view>
-						<view class="bj_type_li bj_type_li_cur" @click="open_tk(5)"><text style="color: #fff;">搜索</text></view>
+						<view class="bj_type_li bj_type_li_cur" @click="open_tk(1)"><text class="bj_type_li_text bj_type_li_text_cur">危害</text></view>
+						<view class="bj_type_li bj_type_li_cur" @click="open_tk(2)"><text class="bj_type_li_text bj_type_li_text_cur">命令</text></view>
+						<view class="bj_type_li bj_type_li_cur" @click="open_tk(3)"><text class="bj_type_li_text bj_type_li_text_cur">受困者</text></view>
+						<view class="bj_type_li bj_type_li_cur" @click="open_tk(4)"><text class="bj_type_li_text bj_type_li_text_cur">建筑破坏</text></view>
+						<view class="bj_type_li bj_type_li_cur" @click="open_tk(5)"><text class="bj_type_li_text bj_type_li_text_cur">搜索</text></view>
 					</view>
 				</view>
 				<!-- <text @click="tk_show=false" class="iconfont iconguanbi" style="font-size: 50upx;color: #fff;"></text> -->
@@ -64,21 +71,22 @@
 		</map>
 
 		<view class="map_btn_list">
+		
 			<view class="map_btn_li" @click="shuaxin">
 				<image class="map_btn_li_image" :src="getimg('/static/images/index_btn1.png')" mode="aspectFit"></image>
-				<text>刷新</text>
+				<text class="map_btn_li_text">刷新</text>
 			</view>
 			<view class="map_btn_li" @click="tk_show=true">
 				<image class="map_btn_li_image" :src="getimg('/static/images/index_btn2.png')" mode="aspectFit"></image>
-				<text>标记</text>
+				<text class="map_btn_li_text">标记</text>
 			</view>
 			<view class="map_btn_li">
 				<image class="map_btn_li_image" :src="getimg('/static/images/index_btn3.png')" mode="aspectFit"></image>
-				<text>天气</text>
+				<text class="map_btn_li_text">天气</text>
 			</view>
 			<view class="map_btn_li" @click="tk_show_sx=true">
 				<image class="map_btn_li_image" :src="getimg('/static/images/index_btn4.png')" mode="aspectFit"></image>
-				<text>筛选</text>
+				<text class="map_btn_li_text">筛选</text>
 			</view>
 		</view>
 		<!-- 标记 -->
@@ -91,10 +99,10 @@
 				<text v-if="tk_show1_num==2" class="notetk_tit">选择命令类型</text>
 				<text v-if="tk_show1_num==3" class="notetk_tit">受困者</text>
 				<text v-if="tk_show1_num==4" class="notetk_tit">选择建筑破坏等级</text>
-				<text v-if="tk_show1_num==5" class="notetk_tit">搜索</text>
+				<text v-if="tk_show1_num==5" class="notetk_tit">补充搜索信息</text>
 				<text class="notetk_time">{{note_time_t}}</text>
-				<input class="bz_int_tk" type="text" value="" placeholder="备注" />
-				<view  v-if="tk_show1_num==1" class="bj_list_box">
+				<input v-if="tk_show1_num!=5" class="bz_int_tk" type="text" value="" placeholder="备注" />
+				<view v-if="tk_show1_num==1" class="bj_list_box">
 					<view class="bj_list_box_li_w">
 						<view class="bj_list_box_li" :class="tk_show1_cur==0?'bj_list_box_li_cur':''" @click="tk_show1_cur=0">
 							<image class="bj_icon " src="../../static/images/huozai.png" mode="aspectFit"></image>
@@ -137,9 +145,9 @@
 						</view>
 						<image class="xz_ok" :class="tk_show1_cur==5?'xz_ok_cur':''" src="../../static/images/xz_ok.png" mode=""></image>
 					</view>
-					
+
 				</view>
-				<view  v-if="tk_show1_num==2" class="bj_list_box">
+				<view v-if="tk_show1_num==2" class="bj_list_box">
 					<view class="bj_list_box_li_w bj_list_box_li_w_ml">
 						<view class="bj_list_box_li bj_list_box_li_ml" :class="tk_show1_cur==0?'bj_list_box_li_cur':''" @click="tk_show1_cur=0">
 							<image class="bj_icon " src="../../static/images/ml_zhihui.png" mode="aspectFit"></image>
@@ -168,9 +176,9 @@
 						</view>
 						<image class="xz_ok" :class="tk_show1_cur==3?'xz_ok_cur':''" src="../../static/images/xz_ok.png" mode=""></image>
 					</view>
-					
+
 				</view>
-				<view  v-if="tk_show1_num==3" class="bj_list_box">
+				<view v-if="tk_show1_num==3" class="bj_list_box">
 					<view class="bj_list_box_li_w bj_list_box_li_w_sk">
 						<view class="bj_list_box_li bj_list_box_li_sk" :class="tk_show1_cur==0?'bj_list_box_li_cur':''" @click="tk_show1_cur=0">
 							<image class="bj_icon " src="../../static/images/sk_1.png" mode="aspectFit"></image>
@@ -213,9 +221,9 @@
 						</view>
 						<image class="xz_ok" :class="tk_show1_cur==5?'xz_ok_cur':''" src="../../static/images/xz_ok.png" mode=""></image>
 					</view>
-					
+
 				</view>
-				<view  v-if="tk_show1_num==4" class="bj_list_box">
+				<view v-if="tk_show1_num==4" class="bj_list_box">
 					<view class="bj_list_box_li_w">
 						<view class="bj_list_box_li" :class="tk_show1_cur==0?'bj_list_box_li_cur':''" @click="tk_show1_cur=0">
 							<image class="bj_icon " src="../../static/images/ph_1.png" mode="aspectFit"></image>
@@ -237,18 +245,107 @@
 						</view>
 						<image class="xz_ok" :class="tk_show1_cur==2?'xz_ok_cur':''" src="../../static/images/xz_ok.png" mode=""></image>
 					</view>
-					
-					
+
+
 				</view>
-				
+				<view v-if="tk_show1_num==5" class="bj_list_box">
+
+					<view class="search_mbox">
+						<image class="search_mbox_img" src="../../static/images/search_bg_03.png" mode="aspectFit"></image>
+						<view class="search_mbox_d1">时间/日期</view>
+						<view class="search_mbox_d2">
+							<!-- <input class="search_mbox_d2_int" type="text" value="" placeholder="进入"/> -->
+							<!-- <picker mode="time" value="12:00" @change="bindTimeChange" data-type="1"> -->
+								<view @click="pickTime(1)" class="search_mbox_d2_int aic ju_c">
+									<text class=" search_mbox_d2_inttext ">{{time?time:'进入'}}</text>
+								</view>
+							<!-- </picker> -->
+							<text class="search_mbox_d2_text"></text>
+							<!-- <input class="search_mbox_d2_int" type="text" value="" placeholder="撤出"/> -->
+
+							<!-- <picker mode="time" value="12:00" @change="bindTimeChange" data-type="2"> -->
+								<view @click="pickTime(2)" class="search_mbox_d2_int aic ju_c">
+									
+										<text class=" search_mbox_d2_inttext">{{time1?time1:'撤出'}}</text>
+								</view>
+							<!-- </picker> -->
+						</view>
+						<view class="search_mbox_d3">
+							<input class="search_mbox_d3_int" type="text" value="" placeholder="团队名称" />
+							<image v-if="search_type==1" @click="search_type=2" class="search_mbox_d3_text" :src="getimg('/static/images/search_type_062.png')"
+							 mode="aspectFit"></image>
+							<image v-if="search_type==2" @click="search_type=3" class="search_mbox_d3_text" :src="getimg('/static/images/search_type_032.png')"
+							 mode="aspectFit"></image>
+							<image v-if="search_type==3" @click="search_type=1" class="search_mbox_d3_text" :src="getimg('/static/images/search_type_092.png')"
+							 mode="aspectFit"></image>
+							<input class="search_mbox_d3_int" type="text" value="" placeholder="危险类型" />
+						</view>
+						<view class="search_mbox_d4">
+							<input class="search_mbox_d4_int" type="text" value="" placeholder="生还者数量" />
+						</view>
+						<view class="search_mbox_d4">
+							<input class="search_mbox_d4_int" type="text" value="" placeholder="遇难者数量" />
+						</view>
+					</view>
+					
+					 <picker mode="time" :value="time" start="09:01" end="21:01" @change="bindTimeChange">
+							时间选择<view class="uni-input">{{time}}</view>
+					</picker>
+					<view class="search_type_tip">
+						<text class="search_type_tip_text">注：</text>
+						<image class="search_type_tip_img" :src="getimg('/static/images/search_type_06.png')" mode="aspectFit"></image>
+						<text class="search_type_tip_text">未搜索</text>
+						<image class="search_type_tip_img" style="margin-left: 15px;" :src="getimg('/static/images/search_type_03.png')"
+						 mode="aspectFit"></image>
+						<text class="search_type_tip_text">正在搜索</text>
+						<image class="search_type_tip_img" style="margin-left: 15px;" :src="getimg('/static/images/search_type_09.png')"
+						 mode="aspectFit"></image>
+						<text class="search_type_tip_text">搜索完成</text>
+					</view>
+				</view>
+
 				<view class="tkset_btn" @click="jump_fuc" data-url="/pages/map_dw/map_dw?type=fwsm">
 					<text style="font-size: 28px;color: #fff;">设置位置</text>
 				</view>
 			</view>
-			
+
 			<!-- <text @tap="tk_show1=false" class="iconfont iconguanbi" style="font-size: 50upx;color: #fff;"></text> -->
 			<text @click="tk_show1=false" class="iconfont iconguanbi" style="font-size: 50px;color: #fff;">&#xe621;</text>
 		</view>
+
+		<!-- 标记详情 -->
+		<view v-if="tk_show_bjxq" class="tk_popop" @touchmove.stop.prevent='test'>
+			<view class="tk_main1" style="padding: 0!important;">
+				<view class="bj_user_msg">
+					<image class="bj_user_tx" src="../../static/images/tx_m2.jpg" mode="aspectFill"></image>
+					<view class="flex_1 bj_user_lxmsg">
+						<text class="bj_user_name">张若昀</text>
+						<text class="bj_user_tel">17869523520</text>
+					</view>
+				</view>
+				<view class="bjxq_xq">
+					<view class="bj_d1">
+						<image class="bj_d1_icon" :src="getimg('/static/images/huozai.png')" mode="aspectFit"></image>
+						<text class="bj_d1_name">海淀火灾点</text>
+					</view>
+					<view class="bj_d2">
+						<view class="bj_d2_l">
+							<text class="bj_d2_text">时间：2020-04-12 19:23</text>
+							<text class="bj_d2_text">经度：39.85412513215</text>
+							<text class="bj_d2_text">纬度：39.85412513215</text>
+						</view>
+						<image @click="getShare" class="bj_d2_share" :src="getimg('/static/images/tk_share.png')" mode="aspectFit"></image>
+					</view>
+					<input class="bz_int_tk" type="text" style="margin-bottom: 35px;" value="" placeholder="备注" />
+					<view class="bj_type_li bj_type_li_cur" style="width: 425px;" @click="update_bj(1)"><text style="color: #fff;">更新</text></view>
+					<view class="bj_type_li bj_type_li_cur1" style="width: 425px;" @click="update_bj(2)"><text style="color: #fff;">删除</text></view>
+				</view>
+			</view>
+			<!-- <text @click="tk_show=false" class="iconfont iconguanbi" style="font-size: 50upx;color: #fff;"></text> -->
+			<text @click="tk_show_bjxq=false" class="iconfont " style="font-size: 50px;color: #fff;">&#xe621;</text>
+		</view>
+
+		<!-- </block> -->
 	</view>
 </template>
 
@@ -262,7 +359,7 @@
 	var that, mapContext, mapEndloading;
 	var djs_fuc
 	var that
-	
+
 	const domModule = weex.requireModule('dom');
 	domModule.addRule('fontFace', {
 		'fontFamily': "iconfont",
@@ -271,37 +368,40 @@
 	export default {
 		data() {
 			return {
-				latitude: 41.638883,
-				longitude: 123.499625,
+				latitude: 39.909,
+				longitude: 116.39742,
 				mapWidth: 0, //地图区域宽度
 				mapHeight: 0, //地图区域高度
 				centerTop: 0, //中心图片坐标
 				centerLeft: 0, //中心图片坐标
 				translateY: 165,
 				markersArr: [{
-					id:1,
+					id: 1,
 					latitude: 39.909,
 					longitude: 116.39742,
 					iconPath: '/static/images/huozai.png'
 				}, {
-					id:2,
+					id: 12,
 					latitude: 39.919,
 					longitude: 116.39742,
 					iconPath: '/static/images/huozai.png'
 				}, {
-					id:3,
+					id: 3,
 					"latitude": 39.975643747304986,
 					"longitude": 116.314328,
 					"iconPath": "/static/images/shuizai.png"
-				}, {id:4,
+				}, {
+					id: 4,
 					"latitude": 39.94254855057598,
 					"longitude": 116.314328,
 					"iconPath": "/static/images/chehuo.png"
-				}, {id:5,
+				}, {
+					id: 5,
 					"latitude": 39.95254855057598,
 					"longitude": 116.314328,
 					"iconPath": "/static/images/luzhang.png"
-				}, {id:6,
+				}, {
+					id: 6,
 					"latitude": 39.95554855057598,
 					"longitude": 116.324328,
 					"iconPath": "/static/images/dianli.png"
@@ -326,25 +426,37 @@
 
 				tk_show: false,
 				tk_show1: false,
-				tk_show1_num: 0,    //标记1级分类
+				tk_show1_num: 0, //标记1级分类
 				note_time_t: '',
-				tk_show1_cur: -1,//标记2级分类
-				
-				tk_show_sx:false, //筛选
-				tk_show_sx_cur:0, //筛选分类
+				tk_show1_cur: -1, //标记2级分类
+
+				tk_show_sx: false, //筛选
+				tk_show_sx_cur: 0, //筛选分类
+
+				tk_show_bjxq: false, //标记详情
+				bj_id: -1, //标记id
+
+
+				search_type: 1, // 搜索状态  1未搜索  2正在搜索 3搜索完成
+				time:'',
+				time1:'',
+				array:[
+					1,1,1,1,2
+				]
 			}
 		},
 		computed: {
 			...mapState(['hasLogin', 'forcedLogin', 'userName', 'loginDatas']),
 		},
 		onLoad() {
+			// return
 			that = this
 			// #ifdef APP-PLUS
 			this.getLocation();
 			// #endif
-			
-			
-			
+
+
+
 			/*const innerAudioContext = uni.createInnerAudioContext();
 			innerAudioContext.autoplay = true;
 			innerAudioContext.src = 'https://vkceyugu.cdn.bspapp.com/VKCEYUGU-hello-uniapp/2cc220e0-c27a-11ea-9dfb-6da8e309e0d8.mp3';
@@ -369,38 +481,87 @@
 				console.log('_navHeight------------------------------------>')
 				console.log(_navHeight)
 				// _navHeight=_navHeight+uni.getSystemInfoSync().statusBarHeight
-				_navHeight=_navHeight/2
-				_navHeight=_navHeight.toFixed(0)
-				
+				_navHeight = _navHeight / 2
+				_navHeight = _navHeight.toFixed(0)
+
 				console.log(typeof _navHeight)
 				console.log(typeof 710)
-				var sss=[
-						{
-							id: "1",
-							position: {
-								left: 750 / 2 - 28,
-								// top: _navHeight - 68,
-								top: _navHeight,
-								width: 55,
-								height: 68
-							},
-							iconPath: "/static/images/huozai.png",
-							clickable: false
-						}
-					]
+				var sss = [{
+					id: "1",
+					position: {
+						left: 750 / 2 - 28,
+						// top: _navHeight - 68,
+						top: _navHeight,
+						width: 55,
+						height: 68
+					},
+					iconPath: "/static/images/huozai.png",
+					clickable: false
+				}]
 				that.setHeight(sss)
 				// Vue.set(that.mapControls[0].position,'top',sss)
 				console.log(that.mapControls)
 			}).exec();
-			
+
 		},
 		onShow() {
-			
-			
+
+
 		},
 		methods: {
-			...mapMutations(['setAddress','setHeight']),
+			...mapMutations(['setAddress', 'setHeight']),
+			pickTime(type){
+				plus.nativeUI.pickTime(function(e){
+					var d=e.date;
+					console.log("选择的时间："+d.getHours()+":"+d.getMinutes());
+					var min=d.getMinutes()
+					if(d.getMinutes()<10){
+						min='0'+d.getMinutes()
+					}
+					if(type==1){
+						that.time=d.getHours()+":"+min
+					}else{
+						that.time1=d.getHours()+":"+min
+					}
+					
+				}, function(e){
+					console.log("未选择时间："+JSON.stringify(e));
+				});
+			},
 			test() {},
+			bindTimeChange(e) {
+				console.log(e)
+				this.time = e.target.value
+			},
+			update_bj(type) {
+				if (type == 1) {
+					uni.showToast({
+						icon: 'none',
+						title: '更新成功'
+					})
+				}
+				if (type == 2) {
+					uni.showToast({
+						icon: 'none',
+						title: '删除成功'
+					})
+				}
+				that.tk_show_bjxq = false
+			},
+			getShare() {
+				uni.shareWithSystem({
+					type: 'text',
+					href: 'https://uniapp.dcloud.io',
+					summary: '分享内容',
+					success() {
+						// 分享完成，请注意此时不一定是成功分享
+					},
+					fail() {
+						// 分享失败
+					}
+				})
+				// _app.getShare(false, false, 2, '', '', '', that.camera_img, false, false);
+			},
 			open_tk(num) {
 				that.tk_show = false
 				that.tk_show1 = true
@@ -426,16 +587,16 @@
 				}
 				that.note_time_t = now_year + '-' + now_month + '-' + now_date + ' ' + hour + ':' + minute
 			},
-			shai_tk(num){
+			shai_tk(num) {
 				that.tk_show_sx_cur = num
 				uni.showLoading({
-					mask:true,
-					title:'正在筛选...'
+					mask: true,
+					title: '正在筛选...'
 				})
-				setTimeout(()=>{
-					that.tk_show_sx=false
+				setTimeout(() => {
+					that.tk_show_sx = false
 					uni.hideLoading()
-				},1000)
+				}, 1000)
 			},
 			baojing_fuc() {
 				var that = this
@@ -472,9 +633,12 @@
 			markertap(e) {
 				var _id = e.detail.markerId,
 					_index;
-					console.log('_id-------------------------------------->')
-					console.log(_id)
-					return
+
+				that.tk_show_bjxq = true
+				that.bj_id = _id
+				console.log('_id-------------------------------------->')
+				console.log(_id)
+				return
 				var _list = that.markersArr;
 				for (var i = 0; i < _list.length; i++) {
 					if (_list[i].id == _id) {
@@ -651,14 +815,19 @@
 				return service.getimg(img)
 			},
 			jump_fuc(e) {
-				if (that.tk_show1_cur == -1) {
-					uni.showToast({
-						icon: 'none',
-						title: '请选择类型'
-					})
-					return
+				if(that.tk_show1_num==5){
+					
+				}else{
+					if (that.tk_show1_cur == -1) {
+						uni.showToast({
+							icon: 'none',
+							title: '请选择类型'
+						})
+						return
+					}
 				}
-				that.tk_show1=false
+				
+				that.tk_show1 = false
 				uni.navigateTo({
 					url: '/pages/map_dw/map_dw?tk_show1_cur=' + that.tk_show1_cur + '&tk_show1_num=' + that.tk_show1_num
 				})
@@ -682,9 +851,10 @@
 </script>
 
 <style scoped>
-	.iconfont {  
-	    font-family: iconfont;  
-	}  
+	.iconfont {
+		font-family: iconfont;
+	}
+
 	/* .icon-like {  
 	    width: 36px;  
 	    height: 36px;  
@@ -727,9 +897,7 @@
 		box-shadow: 0px -3px 10px 0px rgba(0, 0, 0, 0.06);
 		border-radius: 15upx 15upx 0 0;
 		/*  #ifndef APP-PLUS-NVUE  */
-		/*  #ifndef APP-PLUS-NVUE  */
 		display: flex;
-		/*  #endif  */
 		/*  #endif  */
 		align-items: center;
 		justify-content: space-around;
@@ -738,9 +906,7 @@
 
 	.map_btn_li {
 		/*  #ifndef APP-PLUS-NVUE  */
-		/*  #ifndef APP-PLUS-NVUE  */
 		display: flex;
-		/*  #endif  */
 		/*  #endif  */
 		flex-direction: column;
 		justify-content: center;
@@ -755,7 +921,10 @@
 		border-radius: 50%;
 		margin-bottom: 20upx;
 	}
-
+	.map_btn_li_text{
+		font-size: 26upx;
+		color: #555;
+	}
 	.bj_box {
 		position: fixed;
 		top: 130upx;
@@ -783,9 +952,7 @@
 		background: rgba(0, 0, 0, .8);
 		z-index: 999999;
 		/*  #ifndef APP-PLUS-NVUE  */
-		/*  #ifndef APP-PLUS-NVUE  */
 		display: flex;
-		/*  #endif  */
 		/*  #endif  */
 		flex-direction: column;
 		align-items: center;
@@ -858,6 +1025,16 @@
 		align-items: center;
 	}
 
+	.tk_main1 {
+		width: 505upx;
+		/* min-height: 494upx; */
+		/* max-height: 80%; */
+		/* overflow-y: scroll; */
+		background: #FFFFFF;
+		border-radius: 10upx;
+		margin-bottom: 30upx;
+	}
+
 	.add_bj {
 		/* width: 100%; */
 		width: 425px;
@@ -878,7 +1055,11 @@
 		background: #D8D8D8;
 		margin: 0 10upx;
 	}
-
+	.add_bj_wz{
+		font-size: 34upx;
+		color: #333;
+		font-weight: bold;
+	}
 	.bj_type {
 		/* width: 100%; */
 		width: 425px;
@@ -901,16 +1082,26 @@
 		color: #333333;
 		margin-bottom: 33upx;
 	}
-	.bj_type_li_cur{
+
+	.bj_type_li_cur {
 		background: #3C77F1;
 		color: #fff;
 	}
-	.bj_type_li_text{
-		color: #333;
-	}
-	.bj_type_li_text_cur{
+
+	.bj_type_li_cur1 {
+		background: #FF7575;
 		color: #fff;
 	}
+
+	.bj_type_li_text {
+		color: #333;
+		font-size: 28upx;
+	}
+
+	.bj_type_li_text_cur {
+		color: #fff;
+	}
+
 	.notetk_tit {
 		font-size: 34upx;
 		color: #333;
@@ -922,7 +1113,7 @@
 	.notetk_time {
 		font-size: 26upx;
 		color: #333;
-		margin-bottom: 30upx;
+		margin-bottom: 20upx;
 		text-align: center;
 	}
 
@@ -952,7 +1143,8 @@
 		padding-top: 30upx;
 		padding-bottom: 20upx;
 	}
-	.bj_list_box_li_w{
+
+	.bj_list_box_li_w {
 		width: 134px;
 		height: 134px;
 		padding-top: 10upx;
@@ -960,11 +1152,11 @@
 		position: relative;
 		margin-left: 5px;
 	}
-	
+
 	.bj_list_box_li {
 		width: 124px;
 		height: 124px;
-		
+
 		border: 1px solid #fff;
 		border-radius: 4upx;
 		/*  #ifndef APP-PLUS-NVUE  */
@@ -981,19 +1173,24 @@
 		background: #EFF4FF;
 		border: 1px solid #3C77F1;
 	}
-	.bj_list_box_li_w_ml{
+
+	.bj_list_box_li_w_ml {
 		width: 105px;
 		margin-left: 1px;
 	}
-	.bj_list_box_li_ml{
+
+	.bj_list_box_li_ml {
 		width: 95px;
 	}
-	.bj_list_box_li_w_sk{
+
+	.bj_list_box_li_w_sk {
 		height: 155px;
 	}
-	.bj_list_box_li_sk{
+
+	.bj_list_box_li_sk {
 		height: 145px;
 	}
+
 	.xz_ok {
 		width: 31upx;
 		height: 31upx;
@@ -1005,7 +1202,7 @@
 		position: absolute;
 		top: 0;
 		right: 0;
-		z-index:999999999999;
+		z-index: 999999999999;
 	}
 
 	.bj_icon {
@@ -1033,7 +1230,191 @@
 		box-shadow: 1px 3px 10upx 0px rgba(0, 0, 0, 0.1);
 		border-radius: 36upx;
 	}
-	.bj_icon_text{
+
+	.bj_icon_text {
+		text-align: center;
+	}
+
+	.bj_user_msg {
+		/*  #ifndef APP-PLUS-NVUE  */
+		display: flex;
+		/*  #endif  */
+		flex-direction: row;
+		width: 505px;
+		/* width: 425px; */
+		height: 150px;
+		padding: 30upx 40upx;
+		align-items: center;
+		border-bottom: 1px solid #eee;
+	}
+
+	.bj_user_tx {
+		width: 84px;
+		height: 84px;
+		border-radius: 50%;
+		margin-right: 23upx;
+	}
+
+	.bj_user_lxmsg {
+		justify-content: space-around;
+	}
+
+	.bj_user_name {
+		font-size: 36px;
+		color: #333;
+		font-weight: bold;
+	}
+
+	.bj_user_tel {
+		font-size: 26px;
+		color: #333;
+	}
+
+	.bjxq_xq {
+		width: 505px;
+		padding: 30upx;
+	}
+
+	.bj_d1 {
+		flex-direction: row;
+		align-items: center;
+		margin-bottom: 25upx;
+	}
+
+	.bj_d1_icon {
+		width: 39px;
+		height: 50px;
+		margin-right: 17upx;
+	}
+
+	.bj_d1_name {
+		font-size: 34upx;
+		color: #333;
+		font-weight: bold;
+	}
+
+	.bj_d2 {
+		flex-direction: row;
+		align-items: center;
+		margin-bottom: 25upx;
+		justify-content: space-between;
+	}
+
+	.bj_d2_text {
+		font-size: 26upx;
+		color: #333;
+		margin-bottom: 25upx;
+	}
+
+	.bj_d2_share {
+		margin-right: 10upx;
+		/* flex: none; */
+		width: 48upx;
+		height: 48upx;
+	}
+
+
+
+	/* 搜索 */
+	.search_type_tip {
+		flex-direction: row;
+		align-items: center;
+	}
+
+	.search_type_tip_text {
+		font-size: 22px;
+		color: #666;
+	}
+
+	.search_type_tip_img {
+		width: 28px;
+		height: 28px;
+	}
+
+	.search_mbox {
+		width: 420px;
+		height: 420px;
+		/* background-size: 100% 100%;
+		background-image: url(/static/images/search_bg_03.png);
+		background-repeat: no-repeat; */
+		margin-top: -10px;
+		margin-bottom: 20px;
+		position: relative;
+	}
+
+	.search_mbox_img {
+		width: 420px;
+		height: 420px;
+		position: absolute;
+		top: 0;
+	}
+
+	.search_mbox_d1 {
+		width: 420px;
+		align-items: center;
+		padding-top: 26px;
+		margin-bottom: 20px;
+	}
+
+	.search_mbox_d2 {
+		flex-direction: row;
+		align-items: center;
+		justify-content: center;
+		margin-bottom: 51px;
+	}
+
+	.search_mbox_d2_int {
+		width: 71px;
+		height: 41px;
+		border: 1px solid #D5D5D5;
+		font-size: 26upx;
+		text-align: center;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.search_mbox_d2_text {
+		width: 19px;
+		height: 1px;
+		background: #D5D5D5;
+		margin: 0 5px;
+	}
+
+	.search_mbox_d3 {
+		flex-direction: row;
+		align-items: center;
+		justify-content: center;
+		margin-bottom: 37px;
+	}
+
+	.search_mbox_d3_int {
+		width: 130px;
+		height: 41px;
+		border: 1px solid #D5D5D5;
+		font-size: 26upx;
+		text-align: center;
+	}
+
+	.search_mbox_d3_text {
+		width: 90px;
+		height: 90px;
+		background: #FFFFFF;
+		border-radius: 50%;
+		margin: 0 20px;
+	}
+
+	.search_mbox_d4 {
+		flex-direction: row;
+		align-items: center;
+		justify-content: center;
+		margin-bottom: 10px;
+	}
+
+	.search_mbox_d4_int {
+		width: 155px;
+		height: 41px;
+		border: 1px solid #D5D5D5;
+		font-size: 26upx;
 		text-align: center;
 	}
 </style>

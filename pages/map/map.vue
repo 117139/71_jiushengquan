@@ -96,6 +96,22 @@
 			</view>
 			<text @tap="tk_show1=false" class="iconfont iconguanbi" style="font-size: 50upx;color: #fff;"></text>
 		</view>
+		
+		
+		<!-- 标记详情 -->
+		<view v-if="tk_show_bjxq" class="tk_popop" @touchmove.stop.prevent='test'>
+			<view class="tk_main">
+				<view class="bj_user_msg">
+					<image class="bj_user_tx" src="../../static/images/tx_m2.jpg" mode="aspectFill"></image>
+					<view class="flex_1">
+						<view class="bj_user_name">张若昀</view>
+						<view class="bj_user_tel">17869523520</view>
+					</view>
+				</view>
+			</view>
+			<!-- <text @click="tk_show=false" class="iconfont iconguanbi" style="font-size: 50upx;color: #fff;"></text> -->
+			<text @click="tk_show_bjxq=false" class="iconfont " style="font-size: 50px;color: #fff;">&#xe621;</text>
+		</view>
 	</view>
 </template>
 
@@ -112,20 +128,22 @@
 	export default {
 		data() {
 			return {
-				latitude: 41.638883,
-				longitude: 123.499625,
+				latitude: 39.909,
+				longitude: 116.39742,
 				mapWidth: 0, //地图区域宽度
 				mapHeight: 0, //地图区域高度
 				centerTop: 0, //中心图片坐标
 				centerLeft: 0, //中心图片坐标
 				translateY: 165,
 				markersArr: [{
+					id:1,
 					latitude: 39.909,
 					longitude: 116.39742,
 					iconPath: '/static/images/huozai.png'
 				}, {
-					latitude: 139.90,
-					longitude: 116.39,
+					id:12,
+					latitude: 39.919,
+					longitude: 116.39742,
 					iconPath: '/static/images/chehuo.png'
 				}], //覆盖物
 				mapControls: [],
@@ -151,12 +169,17 @@
 				tk_show1_num:0,
 				note_time_t:'',
 				tk_show1_cur:-1,
+				
+				
+				tk_show_bjxq:false, //标记详情
+				bj_id:-1,    //标记id
 			}
 		},
 		computed: {
 			...mapState(['hasLogin', 'forcedLogin', 'userName', 'loginDatas']),
 		},
 		onLoad() {
+			// return
 			that = this
 			// #ifdef APP-PLUS
 			this.getLocation();
@@ -242,6 +265,9 @@
 			markertap(e) {
 				var _id = e.detail.markerId,
 					_index;
+					that.tk_show_bjxq=true
+					that.bj_id=_id
+					return
 				var _list = that.markersArr;
 				for (var i = 0; i < _list.length; i++) {
 					if (_list[i].id == _id) {
@@ -718,5 +744,25 @@
 		background: #3C77F1;
 		box-shadow: 1px 3px 10upx 0px rgba(0, 0, 0, 0.1);
 		border-radius: 36upx;
+	}
+	.bj_user_msg{
+		display: flex;
+		flex-direction: row;
+		width: 425px;
+	}
+	.bj_user_tx{
+		width: 84upx;
+		height: 84upx;
+		border-radius: 50%;
+		margin-right: 23upx;
+	}
+	.bj_user_name{
+		font-size: 36upx;
+		color: #333;
+		font-weight: bold;
+	}
+	.bj_user_tel{
+		font-size: 26upx;
+		color: #333;
 	}
 </style>

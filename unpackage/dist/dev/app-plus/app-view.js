@@ -1229,7 +1229,15 @@ var render = function() {
                   ),
                   _c(
                     "v-uni-view",
-                    { staticClass: _vm._$g(30, "sc"), attrs: { _i: 30 } },
+                    {
+                      staticClass: _vm._$g(30, "sc"),
+                      attrs: { "data-url": "/pagesA/my_set/my_set", _i: 30 },
+                      on: {
+                        click: function($event) {
+                          return _vm.$handleViewEvent($event)
+                        }
+                      }
+                    },
                     [
                       _c("v-uni-image", {
                         staticClass: _vm._$g(31, "sc"),
@@ -2033,7 +2041,7 @@ if(false) {}
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../../../../../HBuilderX/plugins/uniapp-cli/node_modules/css-loader/dist/runtime/api.js */ 10);
 exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
-exports.push([module.i, "\n.minh100[data-v-5b26a3ac] {\n}\n.my_bg[data-v-5b26a3ac] {\n\tposition: absolute;\n\ttop: 0;\n\tleft: 0;\n\twidth: 100%;\n\theight: 418upx;\n\tz-index: 0;\n}\n.my_box[data-v-5b26a3ac] {\n\tposition: relative;\n\tz-index: 1;\n\tmin-height: 100vh;\n}\n.head_box1[data-v-5b26a3ac] {\n\tposition: relative;\n}\n.head_box[data-v-5b26a3ac] {\n\tposition: fixed;\n\twidth: 100%;\n\ttop: 0;\n\tleft: 0;\n\t/* text-align: center; */\n\tfont-size: 32upx;\n\tfont-family: PingFang SC;\n\tfont-weight: 500;\n\n\tcolor: rgba(0, 0, 0, 0);\n\tz-index: 99999;\n\tdisplay: -webkit-box;\n\tdisplay: -webkit-flex;\n\tdisplay: flex;\n\t-webkit-box-align: center;\n\t-webkit-align-items: center;\n\t        align-items: center;\n\t-webkit-box-pack: center;\n\t-webkit-justify-content: center;\n\t        justify-content: center;\n\tbox-sizing: border-box;\n\t-webkit-transition: all .5s;\n\ttransition: all .5s;\n\n\n\tpadding-right: 220rpx;\n\tbox-shadow: 0rpx 0rpx 0rpx;\n\tz-index: 9999;\n\toverflow: hidden;\n\tbackground: #fff;\n}\n.head_box_img[data-v-5b26a3ac] {\n\tposition: absolute;\n\ttop: 0;\n\twidth: 100%;\n\theight: 418upx;\n\tleft: 0;\n\tright: 0;\n}\n.my_tit_box[data-v-5b26a3ac] {\n\twidth: calc(100% - 440rpx);\n\tposition: absolute;\n\ttext-align: center;\n\t/* width: calc(100% - 340rpx); */\n\tleft: 0;\n\n\tright: 0;\n\tbottom: 0;\n\ttop: 0;\n\tmargin: auto;\n\theight: 60rpx;\n\tfont-size: 32rpx;\n\tline-height: 60rpx;\n\tcursor: none;\n\tpointer-events: none;\n\ttext-overflow: ellipsis;\n\twhite-space: nowrap;\n\toverflow: hidden;\n}\n.header_r[data-v-5b26a3ac] {\n\tfont-size: 30upx;\n\tcolor: #3C77F1;\n\tposition: absolute;\n\tright: 30upx;\n\tz-index: 9999;\n\ttop: 50%;\n\t-webkit-transform: translateY(-50%);\n\t        transform: translateY(-50%);\n}\n.header_l[data-v-5b26a3ac] {\n\tfont-size: 40upx;\n\tcolor: #000;\n\tposition: absolute;\n\tleft: 10upx;\n\tz-index: 9999;\n\ttop: 50%;\n\t-webkit-transform: translateY(-50%);\n\t        transform: translateY(-50%);\n}\n.login_top[data-v-5b26a3ac] {\n\tfont-size: 50upx;\n\tcolor: #333;\n\twidth: 100%;\n\tpadding: 180upx 30upx 100upx;\n\tfont-weight: bold;\n\tmargin-bottom: 150upx;\n}\n.login_box[data-v-5b26a3ac] {\n\twidth: 100%;\n\tpadding: 0 40upx 40upx;\n}\n.login_li[data-v-5b26a3ac] {\n\twidth: 100%;\n\tborder-bottom: 1px solid #eee;\n\tdisplay: -webkit-box;\n\tdisplay: -webkit-flex;\n\tdisplay: flex;\n\t-webkit-box-align: center;\n\t-webkit-align-items: center;\n\t        align-items: center;\n\theight: 90upx;\n\tmargin-top: 10upx;\n}\n.login_icon[data-v-5b26a3ac] {\n\twidth: 50upx;\n\tmargin-right: 30upx;\n\ttext-align: center;\n\tdisplay: -webkit-box;\n\tdisplay: -webkit-flex;\n\tdisplay: flex;\n\t-webkit-box-align: center;\n\t-webkit-align-items: center;\n\t        align-items: center;\n\t-webkit-box-pack: center;\n\t-webkit-justify-content: center;\n\t        justify-content: center;\n}\n.login_input[data-v-5b26a3ac] {\n\t-webkit-box-flex: 1;\n\t-webkit-flex: 1;\n\t        flex: 1;\n\tfont-size: 30upx;\n}\n.login_btn[data-v-5b26a3ac] {\n\twidth: 100%;\n\theight: 88upx;\n\tbackground: #3C77F1;\n\tborder-radius: 44upx;\n\tdisplay: -webkit-box;\n\tdisplay: -webkit-flex;\n\tdisplay: flex;\n\t-webkit-box-align: center;\n\t-webkit-align-items: center;\n\t        align-items: center;\n\t-webkit-box-pack: center;\n\t-webkit-justify-content: center;\n\t        justify-content: center;\n\tfont-size: 30upx;\n\tcolor: #fff;\n\tmargin-top: 60upx;\n\tmargin-bottom: 40upx;\n}\n.login_cz[data-v-5b26a3ac] {\n\twidth: 100%;\n\tfont-size: 26upx;\n\tcolor: #777A89;\n\tmargin-bottom: 200upx;\n}\n.login_yx[data-v-5b26a3ac] {\n\n\tfont-size: 26upx;\n\tcolor: #777A89;\n\tpadding-bottom: 20upx;\n\ttext-align: center;\n\twidth: 100%;\n}\n.yhxy_box[data-v-5b26a3ac] {\n\tposition: fixed;\n\ttop: 0;\n\tleft: 0;\n\tright: 0;\n\tbottom: 0;\n\tbackground-color: rgba(0, 0, 0, .5);\n\tz-index: 9999;\n\tdisplay: -webkit-box;\n\tdisplay: -webkit-flex;\n\tdisplay: flex;\n\t-webkit-box-align: center;\n\t-webkit-align-items: center;\n\t        align-items: center;\n\t-webkit-box-pack: center;\n\t-webkit-justify-content: center;\n\t        justify-content: center;\n}\n.yhxy_box_xy[data-v-5b26a3ac] {\n\tcolor: #007aff;\n}\n.dyxy_box[data-v-5b26a3ac] {\n\twidth: 80%;\n\t/* min-height: 80%; */\n\tbackground-color: #fff;\n\tborder-radius: 18upx;\n\tpadding: 30upx 44upx;\n\tbox-sizing: border-box;\n\tdisplay: -webkit-box;\n\tdisplay: -webkit-flex;\n\tdisplay: flex;\n\t-webkit-box-orient: vertical;\n\t-webkit-box-direction: normal;\n\t-webkit-flex-direction: column;\n\t        flex-direction: column;\n}\n.dyxy_tit[data-v-5b26a3ac] {\n\ttext-align: center;\n\tfont-size: 36upx;\n\tcolor: #000;\n\tpadding-bottom: 20upx;\n\tborder-bottom: 1px solid #ddd;\n\tmargin-bottom: 26upx;\n}\n.dyxy_inr[data-v-5b26a3ac] {\n\tfont-size: 28upx;\n\tcolor: #666;\n\tmin-height: 400upx;\n\tmax-height: 800upx;\n\toverflow: scroll;\n}\n.next_btn[data-v-5b26a3ac] {\n\tmargin: 20px 10px 5px;\n\tfont-size: 28upx;\n\tcolor: #fff;\n\t-webkit-box-flex: 1;\n\t-webkit-flex: 1;\n\t        flex: 1;\n\theight: 80upx;\n\tbackground: #3C77F1;\n\tborder-radius: 18upx;\n\t-webkit-box-align: center;\n\t-webkit-align-items: center;\n\t        align-items: center;\n\t-webkit-box-pack: center;\n\t-webkit-justify-content: center;\n\t        justify-content: center;\n}\n.next_btn_cal[data-v-5b26a3ac] {\n\tbackground: #ddd;\n}\n.getyzm[data-v-5b26a3ac]{\n\twidth: 164upx;\n\theight: 47upx;\n\tbackground: #3C77F1;\n\tborder-radius: 24upx;\n\tdisplay: -webkit-box;\n\tdisplay: -webkit-flex;\n\tdisplay: flex;\n\t-webkit-box-align: center;\n\t-webkit-align-items: center;\n\t        align-items: center;\n\t-webkit-box-pack: center;\n\t-webkit-justify-content: center;\n\t        justify-content: center;\n\tcolor: #fff;\n\tfont-size: 26upx;\n}\n", ""]);
+exports.push([module.i, "\n.minh100[data-v-5b26a3ac] {\n}\n.my_bg[data-v-5b26a3ac] {\n\tposition: absolute;\n\ttop: 0;\n\tleft: 0;\n\twidth: 100%;\n\theight: 418upx;\n\tz-index: 0;\n}\n.my_box[data-v-5b26a3ac] {\n\tposition: relative;\n\tz-index: 1;\n\tmin-height: 100vh;\n}\n.head_box1[data-v-5b26a3ac] {\n\tposition: relative;\n}\n.head_box[data-v-5b26a3ac] {\n\tposition: fixed;\n\twidth: 100%;\n\ttop: 0;\n\tleft: 0;\n\t/* text-align: center; */\n\tfont-size: 32upx;\n\tfont-family: PingFang SC;\n\tfont-weight: 500;\n\n\tcolor: rgba(0, 0, 0, 0);\n\tz-index: 99999;\n\tdisplay: -webkit-box;\n\tdisplay: -webkit-flex;\n\tdisplay: flex;\n\t-webkit-box-align: center;\n\t-webkit-align-items: center;\n\t        align-items: center;\n\t-webkit-box-pack: center;\n\t-webkit-justify-content: center;\n\t        justify-content: center;\n\tbox-sizing: border-box;\n\t-webkit-transition: all .5s;\n\ttransition: all .5s;\n\n\n\tpadding-right: 220rpx;\n\tbox-shadow: 0rpx 0rpx 0rpx;\n\tz-index: 9999;\n\toverflow: hidden;\n\tbackground: #fff;\n}\n.head_box_img[data-v-5b26a3ac] {\n\tposition: absolute;\n\ttop: 0;\n\twidth: 100%;\n\theight: 418upx;\n\tleft: 0;\n\tright: 0;\n}\n.my_tit_box[data-v-5b26a3ac] {\n\twidth: calc(100% - 440rpx);\n\tposition: absolute;\n\ttext-align: center;\n\t/* width: calc(100% - 340rpx); */\n\tleft: 0;\n\n\tright: 0;\n\tbottom: 0;\n\ttop: 0;\n\tmargin: auto;\n\theight: 60rpx;\n\tfont-size: 32rpx;\n\tline-height: 60rpx;\n\tcursor: none;\n\tpointer-events: none;\n\ttext-overflow: ellipsis;\n\twhite-space: nowrap;\n\toverflow: hidden;\n}\n.header_r[data-v-5b26a3ac] {\n\tfont-size: 30upx;\n\tcolor: #3C77F1;\n\tposition: absolute;\n\tright: 30upx;\n\tz-index: 9999;\n\ttop: 50%;\n\t-webkit-transform: translateY(-50%);\n\t        transform: translateY(-50%);\n}\n.header_l[data-v-5b26a3ac] {\n\tfont-size: 40upx;\n\tcolor: #000;\n\tposition: absolute;\n\tleft: 10upx;\n\tz-index: 9999;\n\ttop: 50%;\n\t-webkit-transform: translateY(-50%);\n\t        transform: translateY(-50%);\n}\n.login_top[data-v-5b26a3ac] {\n\tfont-size: 50upx;\n\tcolor: #333;\n\twidth: 100%;\n\tpadding: 180upx 30upx 100upx;\n\tfont-weight: bold;\n\tmargin-bottom: 150upx;\n}\n.login_box[data-v-5b26a3ac] {\n\twidth: 100%;\n\tpadding: 0 40upx 40upx;\n}\n.login_li[data-v-5b26a3ac] {\n\twidth: 100%;\n\tborder-bottom: 1px solid #eee;\n\tdisplay: -webkit-box;\n\tdisplay: -webkit-flex;\n\tdisplay: flex;\n\t-webkit-box-align: center;\n\t-webkit-align-items: center;\n\t        align-items: center;\n\theight: 90upx;\n\tmargin-top: 10upx;\n}\n.login_icon[data-v-5b26a3ac] {\n\twidth: 50upx;\n\tmargin-right: 30upx;\n\ttext-align: center;\n\tdisplay: -webkit-box;\n\tdisplay: -webkit-flex;\n\tdisplay: flex;\n\t-webkit-box-align: center;\n\t-webkit-align-items: center;\n\t        align-items: center;\n\t-webkit-box-pack: center;\n\t-webkit-justify-content: center;\n\t        justify-content: center;\n}\n.login_input[data-v-5b26a3ac] {\n\t-webkit-box-flex: 1;\n\t-webkit-flex: 1;\n\t        flex: 1;\n\tfont-size: 30upx;\n}\n.login_btn[data-v-5b26a3ac] {\n\twidth: 100%;\n\theight: 88upx;\n\tbackground: #3C77F1;\n\tborder-radius: 44upx;\n\tdisplay: -webkit-box;\n\tdisplay: -webkit-flex;\n\tdisplay: flex;\n\t-webkit-box-align: center;\n\t-webkit-align-items: center;\n\t        align-items: center;\n\t-webkit-box-pack: center;\n\t-webkit-justify-content: center;\n\t        justify-content: center;\n\tfont-size: 30upx;\n\tcolor: #fff;\n\tmargin-top: 60upx;\n\tmargin-bottom: 40upx;\n}\n.login_cz[data-v-5b26a3ac] {\n\twidth: 100%;\n\tfont-size: 26upx;\n\tcolor: #777A89;\n\tmargin-bottom: 200upx;\n}\n.login_yx[data-v-5b26a3ac] {\n\n\tfont-size: 26upx;\n\tcolor: #777A89;\n\tpadding-bottom: 20upx;\n\ttext-align: center;\n\twidth: 100%;\n}\n.yhxy_box[data-v-5b26a3ac] {\n\tposition: fixed;\n\ttop: 0;\n\tleft: 0;\n\tright: 0;\n\tbottom: 0;\n\tbackground-color: rgba(0, 0, 0, .5);\n\tz-index: 9999;\n\tdisplay: -webkit-box;\n\tdisplay: -webkit-flex;\n\tdisplay: flex;\n\t-webkit-box-align: center;\n\t-webkit-align-items: center;\n\t        align-items: center;\n\t-webkit-box-pack: center;\n\t-webkit-justify-content: center;\n\t        justify-content: center;\n}\n.yhxy_box_xy[data-v-5b26a3ac] {\n\tcolor: #007aff;\n}\n.dyxy_box[data-v-5b26a3ac] {\n\twidth: 80%;\n\t/* min-height: 80%; */\n\tbackground-color: #fff;\n\tborder-radius: 18upx;\n\tpadding: 30upx 44upx;\n\tbox-sizing: border-box;\n\tdisplay: -webkit-box;\n\tdisplay: -webkit-flex;\n\tdisplay: flex;\n\t-webkit-box-orient: vertical;\n\t-webkit-box-direction: normal;\n\t-webkit-flex-direction: column;\n\t        flex-direction: column;\n}\n.dyxy_tit[data-v-5b26a3ac] {\n\ttext-align: center;\n\tfont-size: 36upx;\n\tcolor: #000;\n\tpadding-bottom: 20upx;\n\tborder-bottom: 1px solid #ddd;\n\tmargin-bottom: 26upx;\n}\n.dyxy_inr[data-v-5b26a3ac] {\n\tfont-size: 28upx;\n\tcolor: #666;\n\tmin-height: 400upx;\n\tmax-height: 800upx;\n\toverflow: scroll;\n}\n.next_btn[data-v-5b26a3ac] {\n\tmargin: 20px 10px 5px;\n\tfont-size: 28upx;\n\tcolor: #fff;\n\t-webkit-box-flex: 1;\n\t-webkit-flex: 1;\n\t        flex: 1;\n\theight: 80upx;\n\tbackground: #3C77F1;\n\tborder-radius: 18upx;\n\t-webkit-box-align: center;\n\t-webkit-align-items: center;\n\t        align-items: center;\n\t-webkit-box-pack: center;\n\t-webkit-justify-content: center;\n\t        justify-content: center;\n}\n.next_btn_cal[data-v-5b26a3ac] {\n\tbackground: #ddd;\n}\n.getyzm[data-v-5b26a3ac] {\n\twidth: 164upx;\n\theight: 47upx;\n\tbackground: #3C77F1;\n\tborder-radius: 24upx;\n\tdisplay: -webkit-box;\n\tdisplay: -webkit-flex;\n\tdisplay: flex;\n\t-webkit-box-align: center;\n\t-webkit-align-items: center;\n\t        align-items: center;\n\t-webkit-box-pack: center;\n\t-webkit-justify-content: center;\n\t        justify-content: center;\n\tcolor: #fff;\n\tfont-size: 26upx;\n}\n", ""]);
 // Exports
 module.exports = exports;
 
@@ -2130,44 +2138,29 @@ var render = function() {
         "v-uni-view",
         { staticClass: _vm._$g(2, "sc"), attrs: { _i: 2 } },
         [
-          _c("v-uni-view", {
-            staticClass: _vm._$g(3, "sc"),
-            style: _vm._$g(3, "s"),
-            attrs: { _i: 3 }
-          }),
           _c(
-            "v-uni-view",
-            {
-              staticClass: _vm._$g(4, "sc"),
-              class: _vm._$g(4, "c"),
-              style: _vm._$g(4, "s"),
-              attrs: { _i: 4 }
-            },
+            "cu-custom",
+            { attrs: { _i: 3 } },
             [
-              _c("v-uni-image", {
-                staticClass: _vm._$g(5, "sc"),
-                attrs: { src: _vm._$g(5, "a-src"), mode: "aspectFill", _i: 5 }
-              }),
-              _c("v-uni-text", {
-                staticClass: _vm._$g(6, "sc"),
-                attrs: { _i: 6 },
-                on: {
-                  click: function($event) {
-                    return _vm.$handleViewEvent($event)
-                  }
-                }
+              _c("template", {
+                attrs: { slot: "backText", _i: 4 },
+                slot: "backText"
               }),
               _c(
-                "v-uni-view",
-                {
-                  staticClass: _vm._$g(7, "sc"),
-                  style: _vm._$g(7, "s"),
-                  attrs: { _i: 7 }
-                },
-                [_vm._v("编辑资料")]
-              )
+                "template",
+                { attrs: { slot: "content", _i: 5 }, slot: "content" },
+                [
+                  _c(
+                    "v-uni-text",
+                    { staticStyle: { color: "#333" }, attrs: { _i: 6 } },
+                    [_vm._v("编辑资料")]
+                  )
+                ],
+                1
+              ),
+              _c("template", { attrs: { slot: "right", _i: 7 }, slot: "right" })
             ],
-            1
+            2
           ),
           _c(
             "v-uni-view",
@@ -3107,7 +3100,7 @@ if(false) {}
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../../../../../HBuilderX/plugins/uniapp-cli/node_modules/css-loader/dist/runtime/api.js */ 10);
 exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
-exports.push([module.i, "\n.my-canvas[data-v-795a15bc] {\n\tdisplay: -webkit-box;\n\tdisplay: -webkit-flex;\n\tdisplay: flex;\n\tposition: fixed !important;\n\tbackground: #000000;\n\tleft: 0;\n\tz-index: 100000;\n\twidth: 100%;\n}\n.my-avatar[data-v-795a15bc] {\n\twidth: 150upx;\n\theight: 150upx;\n\tborder-radius: 100%;\n}\n.oper-canvas[data-v-795a15bc] {\n\tdisplay: -webkit-box;\n\tdisplay: -webkit-flex;\n\tdisplay: flex;\n\tposition: fixed !important;\n\tleft: 0;\n\tz-index: 100001;\n\twidth: 100%;\n}\n.prv-canvas[data-v-795a15bc] {\n\tdisplay: -webkit-box;\n\tdisplay: -webkit-flex;\n\tdisplay: flex;\n\tposition: fixed !important;\n\tbackground: #000000;\n\tleft: 0;\n\tz-index: 200000;\n\twidth: 100%;\n}\n.oper-wrapper[data-v-795a15bc] {\n\theight: 50px;\n\tposition: fixed !important;\n\tbox-sizing: border-box;\n\tborder: 1px solid #F1F1F1;\n\tbackground: #ffffff;\n\twidth: 100%;\n\tleft: 0;\n\tbottom: 0;\n\tz-index: 100009;\n\t-webkit-box-orient: horizontal;\n\t-webkit-box-direction: normal;\n\t-webkit-flex-direction: row;\n\t        flex-direction: row;\n}\n.oper[data-v-795a15bc] {\n\tdisplay: -webkit-box;\n\tdisplay: -webkit-flex;\n\tdisplay: flex;\n\t-webkit-box-orient: vertical;\n\t-webkit-box-direction: normal;\n\t-webkit-flex-direction: column;\n\t        flex-direction: column;\n\t-webkit-box-pack: center;\n\t-webkit-justify-content: center;\n\t        justify-content: center;\n\tpadding: 10upx 20upx;\n\twidth: 100%;\n\theight: 100%;\n\tbox-sizing: border-box;\n\t-webkit-align-self: center;\n\t        align-self: center;\n}\n.btn-wrapper[data-v-795a15bc] {\n\tdisplay: -webkit-box;\n\tdisplay: -webkit-flex;\n\tdisplay: flex;\n\t-webkit-box-orient: horizontal;\n\t-webkit-box-direction: normal;\n\t-webkit-flex-direction: row;\n\t        flex-direction: row;\n\n\t-webkit-box-flex: 1;\n\t-webkit-flex-grow: 1;\n\t        flex-grow: 1;\n\n\n\n\n\t-webkit-box-pack: justify;\n\t-webkit-justify-content: space-between;\n\t        justify-content: space-between;\n}\n.btn-wrapper uni-view[data-v-795a15bc] {\n\tdisplay: -webkit-box;\n\tdisplay: -webkit-flex;\n\tdisplay: flex;\n\t-webkit-box-align: center;\n\t-webkit-align-items: center;\n\t        align-items: center;\n\t-webkit-box-pack: center;\n\t-webkit-justify-content: center;\n\t        justify-content: center;\n\tfont-size: 16px;\n\tcolor: #333;\n\tborder: 1px solid #f1f1f1;\n\tborder-radius: 6%;\n}\n.hover[data-v-795a15bc] {\n\tbackground: #f1f1f1;\n\tborder-radius: 6%;\n}\n.clr-wrapper[data-v-795a15bc] {\n\tdisplay: -webkit-box;\n\tdisplay: -webkit-flex;\n\tdisplay: flex;\n\t-webkit-box-orient: horizontal;\n\t-webkit-box-direction: normal;\n\t-webkit-flex-direction: row;\n\t        flex-direction: row;\n\t-webkit-box-flex: 1;\n\t-webkit-flex-grow: 1;\n\t        flex-grow: 1;\n}\n.clr-wrapper uni-view[data-v-795a15bc] {\n\tdisplay: -webkit-box;\n\tdisplay: -webkit-flex;\n\tdisplay: flex;\n\t-webkit-box-align: center;\n\t-webkit-align-items: center;\n\t        align-items: center;\n\t-webkit-box-pack: center;\n\t-webkit-justify-content: center;\n\t        justify-content: center;\n\tfont-size: 16px;\n\tcolor: #333;\n\tborder: 1px solid #f1f1f1;\n\tborder-radius: 6%;\n}\n.my-slider[data-v-795a15bc] {\n\t-webkit-box-flex: 1;\n\t-webkit-flex-grow: 1;\n\t        flex-grow: 1;\n}\n", ""]);
+exports.push([module.i, "\n.my-canvas[data-v-795a15bc] {\n\tdisplay: -webkit-box;\n\tdisplay: -webkit-flex;\n\tdisplay: flex;\n\tposition: fixed !important;\n\tbackground: #000000;\n\tleft: 0;\n\tz-index: 100000;\n\twidth: 100%;\n\tmin-height: 100vh;\n\theight: 100vh!important;\n}\n.my-avatar[data-v-795a15bc] {\n\twidth: 150upx;\n\theight: 150upx;\n\tborder-radius: 100%;\n}\n.oper-canvas[data-v-795a15bc] {\n\tdisplay: -webkit-box;\n\tdisplay: -webkit-flex;\n\tdisplay: flex;\n\tposition: fixed !important;\n\tleft: 0;\n\tz-index: 100001;\n\twidth: 100%;\n}\n.prv-canvas[data-v-795a15bc] {\n\tdisplay: -webkit-box;\n\tdisplay: -webkit-flex;\n\tdisplay: flex;\n\tposition: fixed !important;\n\tbackground: #000000;\n\tleft: 0;\n\tz-index: 200000;\n\twidth: 100%;\n}\n.oper-wrapper[data-v-795a15bc] {\n\theight: 50px;\n\tposition: fixed !important;\n\tbox-sizing: border-box;\n\tborder: 1px solid #F1F1F1;\n\tbackground: #ffffff;\n\twidth: 100%;\n\tleft: 0;\n\tbottom: 0;\n\tz-index: 100009;\n\t-webkit-box-orient: horizontal;\n\t-webkit-box-direction: normal;\n\t-webkit-flex-direction: row;\n\t        flex-direction: row;\n}\n.oper[data-v-795a15bc] {\n\tdisplay: -webkit-box;\n\tdisplay: -webkit-flex;\n\tdisplay: flex;\n\t-webkit-box-orient: vertical;\n\t-webkit-box-direction: normal;\n\t-webkit-flex-direction: column;\n\t        flex-direction: column;\n\t-webkit-box-pack: center;\n\t-webkit-justify-content: center;\n\t        justify-content: center;\n\tpadding: 10upx 20upx;\n\twidth: 100%;\n\theight: 100%;\n\tbox-sizing: border-box;\n\t-webkit-align-self: center;\n\t        align-self: center;\n}\n.btn-wrapper[data-v-795a15bc] {\n\tdisplay: -webkit-box;\n\tdisplay: -webkit-flex;\n\tdisplay: flex;\n\t-webkit-box-orient: horizontal;\n\t-webkit-box-direction: normal;\n\t-webkit-flex-direction: row;\n\t        flex-direction: row;\n\n\t-webkit-box-flex: 1;\n\t-webkit-flex-grow: 1;\n\t        flex-grow: 1;\n\n\n\n\n\t-webkit-box-pack: justify;\n\t-webkit-justify-content: space-between;\n\t        justify-content: space-between;\n}\n.btn-wrapper uni-view[data-v-795a15bc] {\n\tdisplay: -webkit-box;\n\tdisplay: -webkit-flex;\n\tdisplay: flex;\n\t-webkit-box-align: center;\n\t-webkit-align-items: center;\n\t        align-items: center;\n\t-webkit-box-pack: center;\n\t-webkit-justify-content: center;\n\t        justify-content: center;\n\tfont-size: 16px;\n\tcolor: #333;\n\tborder: 1px solid #f1f1f1;\n\tborder-radius: 6%;\n}\n.hover[data-v-795a15bc] {\n\tbackground: #f1f1f1;\n\tborder-radius: 6%;\n}\n.clr-wrapper[data-v-795a15bc] {\n\tdisplay: -webkit-box;\n\tdisplay: -webkit-flex;\n\tdisplay: flex;\n\t-webkit-box-orient: horizontal;\n\t-webkit-box-direction: normal;\n\t-webkit-flex-direction: row;\n\t        flex-direction: row;\n\t-webkit-box-flex: 1;\n\t-webkit-flex-grow: 1;\n\t        flex-grow: 1;\n}\n.clr-wrapper uni-view[data-v-795a15bc] {\n\tdisplay: -webkit-box;\n\tdisplay: -webkit-flex;\n\tdisplay: flex;\n\t-webkit-box-align: center;\n\t-webkit-align-items: center;\n\t        align-items: center;\n\t-webkit-box-pack: center;\n\t-webkit-justify-content: center;\n\t        justify-content: center;\n\tfont-size: 16px;\n\tcolor: #333;\n\tborder: 1px solid #f1f1f1;\n\tborder-radius: 6%;\n}\n.my-slider[data-v-795a15bc] {\n\t-webkit-box-flex: 1;\n\t-webkit-flex-grow: 1;\n\t        flex-grow: 1;\n}\n", ""]);
 // Exports
 module.exports = exports;
 
@@ -3159,7 +3152,7 @@ if(false) {}
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../../../../../HBuilderX/plugins/uniapp-cli/node_modules/css-loader/dist/runtime/api.js */ 10);
 exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
-exports.push([module.i, "\n.minh100[data-v-40d2f35b] {\n}\n.my_bg[data-v-40d2f35b] {\n\tposition: absolute;\n\ttop: 0;\n\tleft: 0;\n\twidth: 100%;\n\theight: 418upx;\n\tz-index: 0;\n}\n.my_box[data-v-40d2f35b] {\n\tposition: relative;\n\tz-index: 1;\n\tmin-height: 100vh;\n}\n.head_box1[data-v-40d2f35b]{\n\tposition: relative;\n}\n.head_box[data-v-40d2f35b] {\n\tposition: fixed;\n\twidth: 100%;\n\ttop: 0;\n\tleft: 0;\n\t/* text-align: center; */\n\tfont-size: 32upx;\n\tfont-family: PingFang SC;\n\tfont-weight: 500;\n\n\tcolor: rgba(0, 0, 0, 0);\n\tz-index: 99999;\n\tdisplay: -webkit-box;\n\tdisplay: -webkit-flex;\n\tdisplay: flex;\n\t-webkit-box-align: center;\n\t-webkit-align-items: center;\n\t        align-items: center;\n\t-webkit-box-pack: center;\n\t-webkit-justify-content: center;\n\t        justify-content: center;\n\tbox-sizing: border-box;\n\t-webkit-transition: all .5s;\n\ttransition: all .5s;\n\n\n\tpadding-right: 220rpx;\n\tbox-shadow: 0rpx 0rpx 0rpx;\n\tz-index: 9999;\n\toverflow: hidden;\n\tbackground: #fff;\n}\n.head_box_img[data-v-40d2f35b] {\n\tposition: absolute;\n\ttop: 0;\n\twidth: 100%;\n\theight: 418upx;\n\tleft: 0;\n\tright: 0;\n}\n.my_tit_box[data-v-40d2f35b] {\n\twidth: calc(100% - 440rpx);\n\tposition: absolute;\n\ttext-align: center;\n\t/* width: calc(100% - 340rpx); */\n\tleft: 0;\n\n\tright: 0;\n\tbottom: 0;\n\ttop: 0;\n\tmargin: auto;\n\theight: 60rpx;\n\tfont-size: 32rpx;\n\tline-height: 60rpx;\n\tcolor: #333;\n\tcursor: none;\n\tpointer-events: none;\n\ttext-overflow: ellipsis;\n\twhite-space: nowrap;\n\toverflow: hidden;\n}\n.header_r[data-v-40d2f35b] {\n\tfont-size: 40upx;\n\tcolor: #000;\n\tposition: absolute;\n\tleft: 10upx;\n\tz-index: 9999;\n\ttop: 50%;\n\t-webkit-transform: translateY(-50%);\n\t        transform: translateY(-50%);\n}\n.user_tx[data-v-40d2f35b]{\n\twidth: 165upx;\n\theight: 165upx;\n\tborder-radius: 50%;\n\tposition: relative;\n\tmargin: 50upx auto 10upx;\n}\n.user_tx_icon[data-v-40d2f35b]{\n\twidth: 51upx;\n\theight: 51upx;\n\tborder-radius: 50%;\n\tposition: absolute;\n\tbottom: 0;\n\tright: 0;\n}\n.msg_list[data-v-40d2f35b]{\n\twidth: 100%;\n\tpadding: 0 50upx;\n}\n.add_user[data-v-40d2f35b] {\n\tposition: fixed;\n\tbottom: 0;\n\tleft: 0;\n\tright: 0;\n\tbackground: rgba(255, 255, 255, .8);\n\t/* background: #FAFAFA; */\n\theight: 200upx;\n\tdisplay: -webkit-box;\n\tdisplay: -webkit-flex;\n\tdisplay: flex;\n\t-webkit-box-align: center;\n\t-webkit-align-items: center;\n\t        align-items: center;\n\t-webkit-box-pack: center;\n\t-webkit-justify-content: center;\n\t        justify-content: center;\n\tz-index: 800;\n}\n.add_user_btn[data-v-40d2f35b] {\n\twidth: 624upx;\n\theight: 86upx;\n\tbackground: #609AEC;\n\tborder-radius: 4px;\n\tdisplay: -webkit-box;\n\tdisplay: -webkit-flex;\n\tdisplay: flex;\n\t-webkit-box-align: center;\n\t-webkit-align-items: center;\n\t        align-items: center;\n\t-webkit-box-pack: center;\n\t-webkit-justify-content: center;\n\t        justify-content: center;\n\tfont-size: 30upx;\n\tcolor: #fff;\n}\n.msg_li[data-v-40d2f35b]{\n\twidth: 100%;\n}\n.msg_tit[data-v-40d2f35b]{\n\twidth: 100%;\n\tfont-size: 30upx;\n\tcolor: #222;\n\tpadding-top: 35upx;\n}\n.msg_int[data-v-40d2f35b]{\n\twidth: 100%;\n\theight: 80upx;\n\tfont-size: 30upx;\n\tborder-bottom: 1px solid #EEEEEE;\n}\n.zuobiao_icon[data-v-40d2f35b]{\n\twidth: 50upx;\n\theight: 48upx;\n}\n.zuobiao_icon_c[data-v-40d2f35b]{\n\twidth: 50upx;\n\theight: 50upx;\n}\n.tk_popop[data-v-40d2f35b]{\n\tposition: fixed;\n\ttop: 0;\n\tleft: 0;\n\tright: 0;\n\tbottom: 0;\n\tz-index: 9999999999;\n\tbackground: rgba(0,0,0,.5);\n\tdisplay: -webkit-box;\n\tdisplay: -webkit-flex;\n\tdisplay: flex;\n\t-webkit-box-orient: vertical;\n\t-webkit-box-direction: normal;\n\t-webkit-flex-direction: column;\n\t        flex-direction: column;\n\t-webkit-box-align: center;\n\t-webkit-align-items: center;\n\t        align-items: center;\n\t-webkit-box-pack: center;\n\t-webkit-justify-content: center;\n\t        justify-content: center;\n}\n.tk_main[data-v-40d2f35b]{\n\tmargin-bottom: 30upx;\n\twidth: 505upx;\n\tmin-height: 494upx;\n\tmax-height: 700upx;\n\toverflow-y: scroll;\n\tbackground: #FFFFFF;\n\tborder-radius: 10upx;\n\tpadding:30upx 40upx;\n\tdisplay: -webkit-box;\n\tdisplay: -webkit-flex;\n\tdisplay: flex;\n\t-webkit-flex-wrap: wrap;\n\t        flex-wrap: wrap;\n}\n.tk_main uni-image[data-v-40d2f35b]{\n\twidth: 25%;\n\theight: 100upx;\n}\n", ""]);
+exports.push([module.i, "\n.minh100[data-v-40d2f35b] {\n}\n.my_bg[data-v-40d2f35b] {\n\tposition: absolute;\n\ttop: 0;\n\tleft: 0;\n\twidth: 100%;\n\theight: 418upx;\n\tz-index: 0;\n}\n.my_box[data-v-40d2f35b] {\n\tposition: relative;\n\tz-index: 1;\n\tmin-height: 100vh;\n}\n.head_box1[data-v-40d2f35b]{\n\tposition: relative;\n}\n.head_box[data-v-40d2f35b] {\n\tposition: fixed;\n\twidth: 100%;\n\ttop: 0;\n\tleft: 0;\n\t/* text-align: center; */\n\tfont-size: 32upx;\n\tfont-family: PingFang SC;\n\tfont-weight: 500;\n\n\tcolor: rgba(0, 0, 0, 0);\n\tz-index: 99999;\n\tdisplay: -webkit-box;\n\tdisplay: -webkit-flex;\n\tdisplay: flex;\n\t-webkit-box-align: center;\n\t-webkit-align-items: center;\n\t        align-items: center;\n\t-webkit-box-pack: center;\n\t-webkit-justify-content: center;\n\t        justify-content: center;\n\tbox-sizing: border-box;\n\t-webkit-transition: all .5s;\n\ttransition: all .5s;\n\n\n\tpadding-right: 220rpx;\n\tbox-shadow: 0rpx 0rpx 0rpx;\n\tz-index: 9999;\n\toverflow: hidden;\n\tbackground: #fff;\n}\n.head_box_img[data-v-40d2f35b] {\n\tposition: absolute;\n\ttop: 0;\n\twidth: 100%;\n\theight: 418upx;\n\tleft: 0;\n\tright: 0;\n}\n.my_tit_box[data-v-40d2f35b] {\n\twidth: calc(100% - 440rpx);\n\tposition: absolute;\n\ttext-align: center;\n\t/* width: calc(100% - 340rpx); */\n\tleft: 0;\n\n\tright: 0;\n\tbottom: 0;\n\ttop: 0;\n\tmargin: auto;\n\theight: 60rpx;\n\tfont-size: 32rpx;\n\tline-height: 60rpx;\n\tcolor: #333;\n\tcursor: none;\n\tpointer-events: none;\n\ttext-overflow: ellipsis;\n\twhite-space: nowrap;\n\toverflow: hidden;\n}\n.header_r[data-v-40d2f35b] {\n\tfont-size: 40upx;\n\tcolor: #000;\n\tposition: absolute;\n\tleft: 10upx;\n\tz-index: 9999;\n\ttop: 50%;\n\t-webkit-transform: translateY(-50%);\n\t        transform: translateY(-50%);\n}\n.user_tx[data-v-40d2f35b]{\n\twidth: 165upx;\n\theight: 165upx;\n\tborder-radius: 50%;\n\tposition: relative;\n\tmargin: 50upx auto 10upx;\n}\n.user_tx_icon[data-v-40d2f35b]{\n\twidth: 51upx;\n\theight: 51upx;\n\tborder-radius: 50%;\n\tposition: absolute;\n\tbottom: 0;\n\tright: 0;\n}\n.msg_list[data-v-40d2f35b]{\n\twidth: 100%;\n\tpadding: 0 50upx;\n}\n.add_user[data-v-40d2f35b] {\n\t/* position: fixed;\n\tbottom: 0;\n\tleft: 0;\n\tright: 0; */\n\tbackground: rgba(255, 255, 255, .8);\n\t/* background: #FAFAFA; */\n\theight: 200upx;\n\tdisplay: -webkit-box;\n\tdisplay: -webkit-flex;\n\tdisplay: flex;\n\t-webkit-box-align: center;\n\t-webkit-align-items: center;\n\t        align-items: center;\n\t-webkit-box-pack: center;\n\t-webkit-justify-content: center;\n\t        justify-content: center;\n\t/* z-index: 100; */\n}\n.add_user_btn[data-v-40d2f35b] {\n\twidth: 624upx;\n\theight: 86upx;\n\tbackground: #609AEC;\n\tborder-radius: 4px;\n\tdisplay: -webkit-box;\n\tdisplay: -webkit-flex;\n\tdisplay: flex;\n\t-webkit-box-align: center;\n\t-webkit-align-items: center;\n\t        align-items: center;\n\t-webkit-box-pack: center;\n\t-webkit-justify-content: center;\n\t        justify-content: center;\n\tfont-size: 30upx;\n\tcolor: #fff;\n}\n.msg_li[data-v-40d2f35b]{\n\twidth: 100%;\n}\n.msg_tit[data-v-40d2f35b]{\n\twidth: 100%;\n\tfont-size: 30upx;\n\tcolor: #222;\n\tpadding-top: 35upx;\n}\n.msg_int[data-v-40d2f35b]{\n\twidth: 100%;\n\theight: 80upx;\n\tfont-size: 30upx;\n\tborder-bottom: 1px solid #EEEEEE;\n}\n.zuobiao_icon[data-v-40d2f35b]{\n\twidth: 50upx;\n\theight: 48upx;\n}\n.zuobiao_icon_c[data-v-40d2f35b]{\n\twidth: 50upx;\n\theight: 50upx;\n}\n.tk_popop[data-v-40d2f35b]{\n\tposition: fixed;\n\ttop: 0;\n\tleft: 0;\n\tright: 0;\n\tbottom: 0;\n\tz-index: 9999999999;\n\tbackground: rgba(0,0,0,.5);\n\tdisplay: -webkit-box;\n\tdisplay: -webkit-flex;\n\tdisplay: flex;\n\t-webkit-box-orient: vertical;\n\t-webkit-box-direction: normal;\n\t-webkit-flex-direction: column;\n\t        flex-direction: column;\n\t-webkit-box-align: center;\n\t-webkit-align-items: center;\n\t        align-items: center;\n\t-webkit-box-pack: center;\n\t-webkit-justify-content: center;\n\t        justify-content: center;\n}\n.tk_main[data-v-40d2f35b]{\n\tmargin-bottom: 30upx;\n\twidth: 505upx;\n\tmin-height: 494upx;\n\tmax-height: 700upx;\n\toverflow-y: scroll;\n\tbackground: #FFFFFF;\n\tborder-radius: 10upx;\n\tpadding:30upx 40upx;\n\tdisplay: -webkit-box;\n\tdisplay: -webkit-flex;\n\tdisplay: flex;\n\t-webkit-flex-wrap: wrap;\n\t        flex-wrap: wrap;\n}\n.tk_main uni-image[data-v-40d2f35b]{\n\twidth: 25%;\n\theight: 100upx;\n}\n", ""]);
 // Exports
 module.exports = exports;
 
@@ -6608,18 +6601,6 @@ var render = function() {
                                   return _vm.$handleViewEvent($event)
                                 }
                               }
-                            }),
-                            _c("v-uni-image", {
-                              attrs: {
-                                src: _vm._$g(22, "a-src"),
-                                mode: "aspectFit",
-                                _i: 22
-                              },
-                              on: {
-                                click: function($event) {
-                                  return _vm.$handleViewEvent($event)
-                                }
-                              }
                             })
                           ],
                           1
@@ -6628,9 +6609,9 @@ var render = function() {
                       1
                     ),
                     _c("v-uni-text", {
-                      staticClass: _vm._$g(23, "sc"),
+                      staticClass: _vm._$g(22, "sc"),
                       staticStyle: { "font-size": "50upx", color: "#fff" },
-                      attrs: { _i: 23 },
+                      attrs: { _i: 22 },
                       on: {
                         click: function($event) {
                           return _vm.$handleViewEvent($event)
@@ -7106,28 +7087,15 @@ var render = function() {
                         }
                       }
                     }),
-                    _c("v-uni-image", {
-                      staticClass: _vm._$g(37, "sc"),
-                      attrs: {
-                        src: _vm._$g(37, "a-src"),
-                        mode: "aspectFit",
-                        _i: 37
-                      },
-                      on: {
-                        click: function($event) {
-                          return _vm.$handleViewEvent($event)
-                        }
-                      }
-                    }),
                     _c("v-uni-view", {
-                      staticClass: _vm._$g(38, "sc"),
-                      attrs: { _i: 38 }
+                      staticClass: _vm._$g(37, "sc"),
+                      attrs: { _i: 37 }
                     }),
                     _c(
                       "v-uni-view",
                       {
-                        staticClass: _vm._$g(39, "sc"),
-                        attrs: { _i: 39 },
+                        staticClass: _vm._$g(38, "sc"),
+                        attrs: { _i: 38 },
                         on: {
                           click: function($event) {
                             return _vm.$handleViewEvent($event)
@@ -7144,13 +7112,13 @@ var render = function() {
             ),
             _c(
               "v-uni-view",
-              { staticClass: _vm._$g(40, "sc"), attrs: { _i: 40 } },
+              { staticClass: _vm._$g(39, "sc"), attrs: { _i: 39 } },
               [
                 _c(
                   "v-uni-view",
                   {
-                    staticClass: _vm._$g(41, "sc"),
-                    attrs: { _i: 41 },
+                    staticClass: _vm._$g(40, "sc"),
+                    attrs: { _i: 40 },
                     on: {
                       click: function($event) {
                         return _vm.$handleViewEvent($event)
@@ -7162,7 +7130,7 @@ var render = function() {
               ],
               1
             ),
-            _c("bao-jing", { attrs: { _i: 42 } })
+            _c("bao-jing", { attrs: { _i: 41 } })
           ]
         : _vm._e()
     ],
@@ -8267,6 +8235,7 @@ var render = function() {
             {
               staticClass: _vm._$g(2, "sc"),
               class: _vm._$g(2, "c"),
+              staticStyle: { overflow: "hidden" },
               style: _vm._$g(2, "s"),
               attrs: { _i: 2 }
             },
@@ -8275,11 +8244,7 @@ var render = function() {
                 ? _c("v-uni-image", {
                     staticClass: _vm._$g(3, "sc"),
                     style: _vm._$g(3, "s"),
-                    attrs: {
-                      src: _vm._$g(3, "a-src"),
-                      mode: "aspectFill",
-                      _i: 3
-                    }
+                    attrs: { src: _vm._$g(3, "a-src"), mode: "widthFix", _i: 3 }
                   })
                 : _vm._e(),
               _vm._$g(4, "i")
@@ -8418,7 +8383,7 @@ if(false) {}
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../../../../../HBuilderX/plugins/uniapp-cli/node_modules/css-loader/dist/runtime/api.js */ 10);
 exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
-exports.push([module.i, "\n.cu-custom[data-v-213e6c59]{\n\toverflow: hidden;\n}\n.cu-bar_image[data-v-213e6c59]{\n\tposition: absolute;\n\ttop: 0;\n\tleft: 0;\n\tright: 0;\n\tbottom: 0;\n\twidth: 100%;\n}\n", ""]);
+exports.push([module.i, "\n.cu-custom[data-v-213e6c59]{\n\toverflow: hidden;\n}\n.cu-bar_image[data-v-213e6c59]{\n\tposition: absolute;\n\ttop: 0;\n\tleft: 0;\n\tright: 0;\n\tbottom: 0;\n\twidth: 100%;\n\tz-index: 99999;\n}\n.action[data-v-213e6c59]{\n\tz-index: 99999999;\n\tcolor: #333;\n}\n.content[data-v-213e6c59]{\n\tz-index: 99999999;\n}\n.nav_right[data-v-213e6c59]{\n\tz-index: 99999999;\n}\n", ""]);
 // Exports
 module.exports = exports;
 

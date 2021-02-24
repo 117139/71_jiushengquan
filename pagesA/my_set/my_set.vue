@@ -2,16 +2,22 @@
 	<view class="minh100">
 		<image class="my_bg" :src="getimg('/static/images/mybg_01.png')" mode=""></image>
 		<view class="my_box ">
-			<view class="head_box1" :style="style"></view>
+			<!-- <view class="head_box1" :style="style"></view>
 			<view class="head_box" :class="{'cur_H':PageScroll>10}" :style="style">
 				<image class="head_box_img" :src="getimg('/static/images/mybg_01.png')" mode="aspectFill"></image>
 				<text @tap="back"  class="iconfont iconprev header_r"></text>
 				<view class="my_tit_box" :style="style1">
 					编辑资料
-					<!-- 万屋智能 -->
 				</view>
-				<!-- <text @tap="jump" data-url="/pagesA/my_set/my_set" class="iconfont iconshezhi_huaban header_r"></text> -->
-			</view>
+			</view> -->
+			<!-- <cu-custom bgColor="bg-white" :isBack="true"> -->
+			
+			<cu-custom :bgImage="getimg('/static/images/mybg_01.png')" :isBack="true">
+			    <block slot="backText"></block>
+					
+			    <block slot="content"><text style="color: #333;">编辑资料</text></block>
+					<block slot="right"></block>
+			</cu-custom>
 			<view class="user_tx">
 				<avatar stretch="short" inner="true" selWidth="400upx" selHeight="400upx" @upload="myUpload" :avatarSrc="getimg(loginDatas_data.avatarurl)"
 				 avatarStyle="width: 165upx; height: 165upx; border-radius: 100%;">
@@ -325,17 +331,17 @@
 	}
 	
 	.add_user {
-		position: fixed;
+		/* position: fixed;
 		bottom: 0;
 		left: 0;
-		right: 0;
+		right: 0; */
 		background: rgba(255, 255, 255, .8);
 		/* background: #FAFAFA; */
 		height: 200upx;
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		z-index: 800;
+		/* z-index: 100; */
 	}
 	
 	.add_user_btn {

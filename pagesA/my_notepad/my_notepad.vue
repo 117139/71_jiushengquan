@@ -27,7 +27,7 @@
 					<view class="tkshare_text">通过分享</view>
 					<view class="tkshare_btns">
 						<image @tap="getShare" :src="getimg('/static/images/tk_share_icon1.png')" mode="aspectFit"></image>
-						<image @tap="duanxin" :src="getimg('/static/images/tk_share_icon2.png')" mode="aspectFit"></image>
+						<!-- <image @tap="duanxin" :src="getimg('/static/images/tk_share_icon2.png')" mode="aspectFit"></image> -->
 					</view>
 				</view>
 				<text @tap="tk_show=false" class="iconfont iconguanbi" style="font-size: 50upx;color: #fff;"></text>

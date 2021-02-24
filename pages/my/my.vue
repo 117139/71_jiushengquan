@@ -44,7 +44,7 @@
 						<image class="my_yw_img" :src="getimg('/static/images/mybtn4.png')" mode="aspectFill"></image>
 						<text class="my_yw_text">记事本</text>
 					</view>
-					<view class="my_yw_li">
+					<view class="my_yw_li" @tap="jump" data-url="/pagesA/my_set/my_set">
 						<image class="my_yw_img" :src="getimg('/static/images/mybtn5.png')" mode="aspectFill"></image>
 						<text class="my_yw_text">编辑资料</text>
 					</view>
