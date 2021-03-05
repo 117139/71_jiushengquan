@@ -1,6 +1,6 @@
 <template>
 	<view class="minh100">
-		<image class="my_bg" :src="getimg('/static/images/mybg_01.png')" mode=""></image>
+		<image class="my_bg" src="/static/images/mybg_01.png" mode=""></image>
 		<view class="my_box ">
 			<!-- <view class="head_box1" :style="style"></view>
 			<view class="head_box" :class="{'cur_H':PageScroll>10}" :style="style">
@@ -12,14 +12,14 @@
 			</view> -->
 			<!-- <cu-custom bgColor="bg-white" :isBack="true"> -->
 			
-			<cu-custom :bgImage="getimg('/static/images/mybg_01.png')" :isBack="true">
+			<cu-custom bgImage="/static/images/mybg_01.png" :isBack="true">
 			    <block slot="backText"></block>
 					
 			    <block slot="content"><text style="color: #333;">编辑资料</text></block>
 					<block slot="right"></block>
 			</cu-custom>
 			<view class="user_tx">
-				<avatar stretch="short" inner="true" selWidth="400upx" selHeight="400upx" @upload="myUpload" :avatarSrc="getimg(loginDatas_data.avatarurl)"
+				<avatar stretch="short" inner="true" selWidth="400upx" selHeight="400upx" @upload="myUpload" :avatarSrc="getimg(loginDatas_data.avatar)"
 				 avatarStyle="width: 165upx; height: 165upx; border-radius: 100%;">
 				</avatar>
 				<image class="user_tx_icon" :src="getimg('/static/images/tx_icon.png')" mode="aspectFit"></image>
@@ -27,11 +27,11 @@
 			<view class="msg_list">
 				<view class="msg_li">
 					<view class="msg_tit">姓名</view>
-					<input class="msg_int" type="text" placeholder="请输入您的姓名" v-model="loginDatas_data.nickname">
+					<input class="msg_int" type="text" placeholder="请输入您的姓名" v-model="loginDatas_data.name">
 				</view>
 				<view class="msg_li">
 					<view class="msg_tit">手机号码</view>
-					<input class="msg_int" type="number" placeholder="请输入您的手机号码" v-model="loginDatas_data.tel">
+					<input class="msg_int" type="number" placeholder="请输入您的手机号码" v-model="loginDatas_data.phone">
 				</view>
 				<view class="msg_li">
 					<view class="msg_tit">电子邮件</view>
@@ -42,32 +42,32 @@
 						<text>标记点颜色</text>
 						<view class="flex_1"></view>
 						<view class="zuobiao_icon_c" style="overflow: hidden;margin-right: 10upx;">
-							<image v-if="loginDatas_data.zuobiao" class="" :src="getimg(loginDatas_data.zuobiao)" mode="widthFix"></image>
+							<image v-if="loginDatas_data.tab_color" class="" :src="getimg(loginDatas_data.tab_color)" mode="widthFix"></image>
 							<image v-else class="" :src="getimg('/static/images/zuobiao.png')" mode="widthFix"></image>
 						</view>
 						
-						<image v-if="loginDatas_data.zuobiao" class="zuobiao_icon" :src="getimg(loginDatas_data.zuobiao)" mode="aspectFit"></image>
+						<image v-if="loginDatas_data.tab_color" class="zuobiao_icon" :src="getimg(loginDatas_data.tab_color)" mode="aspectFit"></image>
 						<image v-else class="zuobiao_icon" :src="getimg('/static/images/zuobiao.png')" mode="aspectFit"></image>
 					</view>
 					
 				</view>
 				<view class="msg_li">
 					<view class="msg_tit">组织名称</view>
-					<input class="msg_int" type="text" placeholder="请输入您的组织名称" v-model="loginDatas_data.zz_name">
+					<input class="msg_int" type="text" placeholder="请输入您的组织名称" v-model="loginDatas_data.team">
 				</view>
 				<view class="msg_li">
 					<view class="msg_tit">医疗过敏</view>
-					<input class="msg_int" type="text" placeholder="请输入您的医疗过敏" v-model="loginDatas_data.ylgm">
+					<input class="msg_int" type="text" placeholder="请输入您的医疗过敏" v-model="loginDatas_data.medical_allergy">
 				</view>
 				<view class="msg_li">
 					<view class="msg_tit">紧急联系人1</view>
-					<input class="msg_int" type="text" placeholder="请输入联系人姓名" v-model="loginDatas_data.lxr1_name">
-					<input class="msg_int" type="number" placeholder="请输入联系人电话" v-model="loginDatas_data.lxr1_phone">
+					<input class="msg_int" type="text" placeholder="请输入联系人姓名" v-model="loginDatas_data.linkman_one_name">
+					<input class="msg_int" type="number" placeholder="请输入联系人电话" v-model="loginDatas_data.linkman_one_phone">
 				</view>
 				<view class="msg_li">
 					<view class="msg_tit">紧急联系人2</view>
-					<input class="msg_int" type="text" placeholder="请输入联系人姓名" v-model="loginDatas_data.lxr2_name">
-					<input class="msg_int" type="number" placeholder="请输入联系人电话" v-model="loginDatas_data.lxr2_phone">
+					<input class="msg_int" type="text" placeholder="请输入联系人姓名" v-model="loginDatas_data.linkman_two_name">
+					<input class="msg_int" type="number" placeholder="请输入联系人电话" v-model="loginDatas_data.linkman_two_phone">
 				</view>
 				<view style="padding-bottom: 200upx;"></view>
 			</view>
@@ -162,35 +162,98 @@
 				var tximg = rsp.path; //更新头像方式一
 				// Vue.set(that.loginDatas_data,'avatarurl',tximg)
 				// return
-				Vue.set(that.loginDatas_data,'avatarurl',tximg)
-				return
-				uni.uploadFile({
-					url: service.IPurl + '/upload/streamImg', //仅为示例，非真实的接口地址
-					filePath: tximg,
-					name: 'file',
-					formData: {
-						token: that.loginDatas.userToken
-					},
-					success: (uploadFileRes) => {
-						console.log(uploadFileRes.data);
-						var ndata = JSON.parse(uploadFileRes.data)
-						if (ndata.code == 1) {
-							Vue.set(that.loginDatas_data,'avatarurl',ndata.msg)
-			
+				// Vue.set(that.loginDatas_data,'avatarurl',tximg)
+				service.wx_upload(tximg).then(res => {
+							
+					that.btn_kg = 0
+					console.log(res)
+					if (res.code == 1) {
+						var datas = res.data
+						Vue.set(that.loginDatas_data,'avatar',datas)
+					} else {
+						if (res.msg) {
+							uni.showToast({
+								icon: 'none',
+								title: res.msg
+							})
+						} else {
+							uni.showToast({
+								icon: "none",
+								title: "上传失败"
+							})
 						}
 					}
-				});
-				//rsp.avatar.imgSrc = rsp.path; //更新头像方式二
+				}).catch(e => {
+					that.btn_kg = 0
+					console.log(e)
+					uni.showToast({
+						icon: 'none',
+						title: '操作失败'
+					})
+				})
+				
 			},
 			set_zb(img){
 				Vue.set(that.loginDatas_data,'zuobiao',img)
 				that.tk_show=false
 			},
 			save_fuc(){
-				console.log(that.loginDatas_data)
-				uni.showToast({
-					icon:'none',
-					title:'保存成功'
+				var datas=that.loginDatas_data
+				var jkurl="/minapp/edit/user"
+				// uni.showToast({
+				// 	icon:'none',
+				// 	title:'提交成功'
+				// })
+				// return
+				if(that.btn_kg==1){
+					return
+				}
+				that.btn_kg=1
+				uni.showLoading({
+					mask:true,
+					title:'正在提交'
+				})
+				service.P_post(jkurl, datas).then(res => {
+					that.btn_kg = 0
+					console.log(res)
+					if (res.code == 1) {
+						var datas = res.data
+						console.log(typeof datas)
+				
+						if (typeof datas == 'string') {
+							datas = JSON.parse(datas)
+						}
+				
+						uni.showToast({
+							icon:'none',
+							title:'提交成功'
+						})
+						setTimeout(()=>{
+							uni.navigateBack({
+								delta:1
+							})
+						},1000)
+				
+					} else {
+						if (res.msg) {
+							uni.showToast({
+								icon: 'none',
+								title: res.msg
+							})
+						} else {
+							uni.showToast({
+								icon: 'none',
+								title: '操作失败'
+							})
+						}
+					}
+				}).catch(e => {
+					that.btn_kg = 0
+					console.log(e)
+					uni.showToast({
+						icon: 'none',
+						title: '操作失败'
+					})
 				})
 			},
 			jump(e) {

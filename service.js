@@ -8,7 +8,7 @@ const STATE_KEY = 'STATE_KEY';
 // const imgurl = 'https://datixcx.com.aa.800123456.top/';
 // const imgurl = 'http://192.168.129.246/';
 const map_key="7FEBZ-WLWK2-PMGUE-C4BFT-EKXB6-BFFNR"
-const imgurl="https://wanuzn.com.aa.800123456.top/"
+const imgurl="http://192.168.133.158/"
 const IPurl=imgurl+'api/'
 // const IPurl='http://192.168.129.246/api/'
 // const adminurl='https://datixcx.com.aa.800123456.top/admin/';
@@ -213,7 +213,7 @@ const call=  function (e){
 		});
 	}
 }
-
+// 微信登录
 const wxlogin=function (num){
 	var that =this
 	// 获取用户信息
@@ -376,7 +376,66 @@ const wxlogin=function (num){
 	  }
 	})
 }
+// 手机号登录
+const login_tel = function(num) {
+	var datas
+	var tel
+	var password
+	if(uni.getStorageSync('tel')){
+		tel= uni.getStorageSync('tel')
+		password= uni.getStorageSync('password')
+		datas = {
+			username: tel,
+			password: password
+		}
+	}else{
+		return
+	}
+	
+	var jkurl = '/minapp/login'
+	P_post(jkurl, datas).then(res => {
+		console.log(res)
+		if (res.code == 1) {
+			var datas = res.data
+			console.log(typeof datas)
 
+			if (typeof datas == 'string') {
+				datas = JSON.parse(datas)
+			}
+			console.log('登录成功')
+			uni.setStorageSync('tel', tel)
+			uni.setStorageSync('password', password)
+			uni.setStorageSync('token', datas.token)
+			uni.setStorageSync('loginmsg', datas)
+			store.commit('logindata', datas)
+			store.commit('login', datas.username)
+			// setTimeout(() => {
+			// 	uni.navigateBack({
+			// 		delta: 1
+			// 	})
+			// }, 1000)
+
+		} else {
+			if (res.msg) {
+				uni.showToast({
+					icon: 'none',
+					title: res.msg
+				})
+			} else {
+				uni.showToast({
+					icon: 'none',
+					title: '操作失败'
+				})
+			}
+		}
+	}).catch(e => {
+		console.log(e)
+		uni.showToast({
+			icon: 'none',
+			title: '操作失败'
+		})
+	})
+}
 const setUsermsg=function(data){
 	var jkurl='/user/amendInfo'
 	
@@ -422,15 +481,16 @@ const setUsermsg=function(data){
 	)
 }
 
-
-const wx_upload=function(tximg){
-	return new Promise((resolve,reject)=>{
+// 上传图片
+const wx_upload = function(tximg) {
+	return new Promise((resolve, reject) => {
 		uni.showLoading({
-			mask:true,
-			title:'正在上传'
+			mask: true,
+			title: '正在上传'
 		})
+		// #ifndef H5
 		uni.uploadFile({
-			url: IPurl + 'user/upload_img', 
+			url: IPurl + 'minapp/upload-img',
 			filePath: tximg,
 			name: 'img',
 			formData: {
@@ -441,42 +501,105 @@ const wx_upload=function(tximg){
 			// 	var ndata = JSON.parse(uploadFileRes.data)
 			// 	resolve(uploadFileRes)
 			// },
-			complete:(res)=>{
-			    uni.hideLoading();
-			    uni.stopPullDownRefresh();//慎用hideLoading,会关闭wx.showToast弹窗
-			    // console.log(`耗时${Date.now() - timeStart}`);
-					console.log(res)
-			    if(res.statusCode ==200){//请求成功
-						var ndata = JSON.parse(res.data)
-						if(ndata.code==-1){
-							store.commit('logout')
-							uni.navigateTo({
-								url:'/pages/login/login'
+			complete: (res) => {
+				uni.hideLoading();
+				uni.stopPullDownRefresh(); //慎用hideLoading,会关闭wx.showToast弹窗
+				// console.log(`耗时${Date.now() - timeStart}`);
+				console.log(res)
+				if (res.statusCode == 200) { //请求成功
+					var ndata = JSON.parse(res.data)
+					if (ndata.code == -1) {
+						store.commit('logout')
+						uni.navigateTo({
+							url: '/pages/login/login'
+						})
+						return
+					} else if (ndata.code == 0) {
+						if (ndata.msg) {
+
+							uni.showToast({
+								icon: 'none',
+								title: ndata.msg
 							})
-							return
-						}else if(ndata.code==0){
-							if(ndata.msg){
-								
-								uni.showToast({
-									icon:'none',
-									title:ndata.msg
-								})
-							}else{
-								
-								uni.showToast({
-									icon:'none',
-									title:'操作失败'
-								})
-							}
+						} else {
+
+							uni.showToast({
+								icon: 'none',
+								title: '操作失败'
+							})
 						}
-			      resolve(ndata)
-			    }else{
-			      reject(res);
-			    }
+					}
+					resolve(ndata)
+				} else {
+					reject(res);
+				}
 			}
 		});
+		// #endif
+		// #ifdef H5
+		uni.request({
+				url: tximg,
+				method: 'GET',
+				responseType: 'arraybuffer',
+				success: (res) => {
+						let base64 = wx.arrayBufferToBase64(res.data); //把arraybuffer转成base64
+						console.log('base64')
+						// console.log(base64)
+						base64 = 'data:image/jpeg;base64,' + base64; //不加上这串字符，在页面无法显示
+						// return base64
+						var datas={
+							file:base64,
+							type:1,
+						}
+						var jkurl=IPurl + 'minapp/upload-img'
+						console.log('h5 upload')
+						uni.request({
+							url: jkurl,
+							data: datas,
+							method: 'POST',
+							header: header,
+							complete: (res) => {
+								uni.hideLoading();
+								uni.stopPullDownRefresh(); //慎用hideLoading,会关闭wx.showToast弹窗
+								console.log(res)
+								if (res.statusCode == 200) { //请求成功
+									console.log(res)
+									if (res.data.code == 0) {
+										if (res.data.msg) {
+						
+											uni.showToast({
+												icon: 'none',
+												title: res.data.msg
+											})
+										} else {
+						
+											uni.showToast({
+												icon: 'none',
+												title: '操作失败'
+											})
+										}
+									}
+									resolve(res.data)
+								} else {
+									reject(res);
+								}
+							}
+						})
+						// 单个请求
+						// P_post(jkurl, datas).then(res => {
+						// 	resolve(ndata)
+						// }).catch(e => {
+						// 	reject(res);
+						// })
+				},
+				fail: (err) => {
+					console.log(err)
+				}
+		});
+		
+		// #endif
 	})
-	
+
 }
 
 
@@ -609,7 +732,7 @@ const P_delete = (url, param = {}) => {
 //   console.log(e)
 // })
 const getimg=function (img){
-	return img
+	// return img
 	
 	
 	
@@ -726,6 +849,7 @@ export default {
 	jump,
 	call,
 	wxlogin,
+	login_tel,
 	setUsermsg,
 	P_get,
 	P_post,

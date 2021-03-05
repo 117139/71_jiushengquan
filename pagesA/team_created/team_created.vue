@@ -1,33 +1,30 @@
 <template>
 	<view class="minh100">
-		<view v-if="htmlReset==1" class="zanwu" @tap='onRetry'>请求失败，请点击重试</view>
-		<view v-if="htmlReset==-1" class="loading_def">
-			<image class="loading_def_img" src="../../static/images/loading.gif" mode=""></image>
-		</view>
-		<view v-if="htmlReset==0" style="position: relative;z-index: 100;">
+	<htmlLoading ref="htmlLoading" @Retry='onRetry' :bj_show="false">
+		<view style="position: relative;z-index: 100;">
 			<view class="bg_t"></view>
 			<swiper class="card-swiper" :indicator-dots="false" :circular="false" :autoplay="false" interval="5000" duration="500"
 			 @change="cardSwiper" indicator-color="#8799a3" indicator-active-color="#0081ff">
 				<swiper-item v-for="(item,index) in swiperList" :key="item.id" :class="cardCur==index?'cur':''">
 					<view class="swiper-item">
-						<image :src="getimg(item.url)" mode="aspectFill" v-if="item.type=='image'"></image>
+						<image :src="getimg(item.background)" mode="aspectFill" v-if="item.type=='image'"></image>
 						<!-- <video :src="getimg(item.url)" autoplay loop muted :show-play-btn="false" :controls="false" objectFit="cover"
 						 v-if="item.type=='video'"></video> -->
-						<view v-if="cardCur==index" class="lv_tip">团队隐私</view>
+						<view v-if="cardCur==index" class="lv_tip">{{item.title}}}</view>
 						<view v-if="cardCur==index" class="lv_tip1">
-							团队可以是公开的也可以是私有的。隐私权仅允许团队成员查看您团队的数据，并且默认情况下所有团队都设置为私有。
+							{{item.content}}
 						</view>
 					</view>
 				</swiper-item>
 			</swiper>
 			<view style="width: 100%;height: 10upx;background: #F1F1F1;"></view>
 			<view class="dj_box">
-				<image class="dj_box_tit" :src="getimg('/static/images/dingjia.png')" mode="aspectFit"></image>
+				<image class="dj_box_tit" src="/static/images/dingjia.png" mode="aspectFit"></image>
 				<view class="dj_list">
 					<view class="dj_list_box">
 						<view class="dj_li">
 							<view class="dj_li_box">
-								<image class="dj_li_box_img" :src="getimg('/static/images/pay_img_07.jpg')" mode="aspectFill"></image>
+								<image class="dj_li_box_img" src="/static/images/pay_img_07.jpg" mode="aspectFill"></image>
 								<view class="dj_text">
 									<text style="font-size: 24upx;color: #333;">￥</text>
 									<text style="font-size: 68upx;color: #333;">99</text>
@@ -37,7 +34,7 @@
 						</view>
 						<view class="dj_li">
 							<view class="dj_li_box">
-								<image class="dj_li_box_img" :src="getimg('/static/images/pay_img_09.jpg')" mode="aspectFill"></image>
+								<image class="dj_li_box_img" src="/static/images/pay_img_09.jpg" mode="aspectFill"></image>
 								<view class="dj_text">
 									<text style="font-size: 24upx;color: #333;">￥</text>
 									<text style="font-size: 68upx;color: #333;">225</text>
@@ -77,6 +74,7 @@
 			</view>
 			<view class="set_btn"  @tap="pay">立即创建</view>
 		</view>
+		</htmlLoading>
 	</view>
 </template>
 
@@ -107,39 +105,7 @@
 				no_id:'', 
 				
 				zfxy:'',
-				swiperList: [
-					{
-						id: 1,
-						type: 'image',
-						url: '/static/images/pay_img_03.jpg',
-						qy: '/static/images/pay_img_03.jpg',
-						yq: '注册即成青铜会员，消费返红包'
-					}, {
-						id: 2,
-						type: 'image',
-						url: '/static/images/pay_img_03.jpg',
-						qy: '/static/images/pay_img_03.jpg',
-						yq: '直推会员消费后，成为黄金会员，消费返现金红包，并享受直推会员和间推会员（粉丝）的消费返现全红包。'
-					}, {
-						id: 3,
-						type: 'image',
-						url: '/static/images/pay_img_03.jpg',
-						qy: '/static/images/pay_img_03.jpg',
-						yq: '钻石会员：直推会员100名以上，间推会员（粉丝）10000名以上，团队月销售10万以上（含自己）。除享受黄金会员所有福利外，并享受公司每个月2000——8000元的分红奖励，业绩达标，每个月按500——1000元递增，不达标则递减，每个月最高奖励为人民币8000元。连续5个月业绩不达标，降为黄金会员待遇'
-					}, {
-						id: 4,
-						type: 'image',
-						url: '/static/images/pay_img_03.jpg',
-						qy: '/static/images/pay_img_03.jpg',
-						yq: '代理：钻石会员连续拿公司最高奖励3个月以上，有稳定的团队，有开拓精神。代理除享受下级会员消费红包返利外，并享受团队销售利润的百分之十分成，享受公司每个月扶持奖励8000——80000元人民币。业绩达标每个月按5000——10000元递增，不达标就递减，每个月最高扶持奖励为人民币8万元。连续5个月不达标，降回钻石会员。'
-					}, {
-						id: 5,
-						type: 'image',
-						url: '/static/images/pay_img_03.jpg',
-						qy: '/static/images/pay_img_03.jpg',
-						yq: '区域经理：连续3个月拿公司最高扶持奖励的代理。可申请 为区域经理，要求有办公场所，除享受代理所有福利外， 每个月最低不少于8万元人民币的扶持奖励，最高50万。 并享受公司百分之五的股份分红。（其他的福利面详）'
-					},
-				],
+				swiperList: [],
 
 			}
 		},
@@ -149,7 +115,7 @@
 		},
 		onLoad(option) {
 			that = this
-			that.htmlReset = 0
+			that.onRetry()
 			// that.myvip=that.loginDatas.user_grade_id
 			this.TowerSwiper('swiperList');
 			// 初始化towerSwiper 传已有的数组名即可
@@ -182,6 +148,53 @@
 		},
 		methods: {
 			...mapMutations(['login', 'logindata', 'logout', 'setplatform']),
+			onRetry(){
+				var data = {
+					token:that.$store.state.loginDatas.token
+				}
+				 			
+				 //selectSaraylDetailByUserCard
+				 var jkurl = '/minapp/team-privacy'
+				
+				service.P_get(jkurl, data).then(res => {
+				 	that.btn_kg = 0
+					that.$refs.htmlLoading.htmlReset_fuc(0)
+				 	console.log(res)
+				 	if (res.code == 1) {
+				 		var datas = res.data
+				 		console.log(typeof datas)
+				 			
+				 		if (typeof datas == 'string') {
+				 			datas = JSON.parse(datas)
+				 		}
+				 			
+						that.swiperList=datas
+				 		console.log(datas)
+				 			
+				 			
+				 	} else {
+				 		if (res.msg) {
+				 			uni.showToast({
+				 				icon: 'none',
+				 				title: res.msg
+				 			})
+				 		} else {
+				 			uni.showToast({
+				 				icon: 'none',
+				 				title: '获取失败'
+				 			})
+				 		}
+				 	}
+				}).catch(e => {
+				 	that.btn_kg = 0
+					that.$refs.htmlLoading.htmlReset_fuc(1)
+				 	console.log(e)
+				 	uni.showToast({
+				 		icon: 'none',
+				 		title: '获取数据失败'
+				 	})
+				})
+			},
 			getpay() {
 				var that = this
 				var data = {
@@ -555,16 +568,19 @@
 		background: #3C77F1;
 		width: 100%;
 		height: 200upx;
+		z-index: 1;
 	}
 
 	.card-swiper {
-
+		position: relative;
+		z-index: 10;
 		height: 370upx !important;
 	}
 
 	.swiper-item {
 		transition: all .2s;
 		box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+		background: #fff;
 	}
 
 	.lv_tip {

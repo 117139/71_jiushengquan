@@ -1,6 +1,6 @@
 <template>
 	<view class="minh100">
-		<image class="lxwm_bg" :src="getimg('/static/images/lxwm_02.png')" mode=""></image>
+		<image class="lxwm_bg" src="/static/images/lxwm_02.png" mode=""></image>
 		<view class="lxwm_box">
 			
 			<view class="lxwm_form">
@@ -91,18 +91,26 @@
 				}
 				var datas={
 					name:that.name,
-					tel:that.tel,
+					phone:that.tel,
 					email:that.email,
 					team:that.team,
-					content:that.content
+					news:that.content
 				}
-				var jkurl=""
-				uni.showToast({
-					icon:'none',
-					title:'提交成功'
+				var jkurl="/minapp/store/contact"
+				// uni.showToast({
+				// 	icon:'none',
+				// 	title:'提交成功'
+				// })
+				// return
+				if(that.btn_kg==1){
+					return
+				}
+				that.btn_kg=1
+				uni.showLoading({
+					mask:true,
+					title:'正在提交'
 				})
-				return
-				service.P_get(jkurl, data).then(res => {
+				service.P_post(jkurl, datas).then(res => {
 					that.btn_kg = 0
 					console.log(res)
 					if (res.code == 1) {
@@ -113,9 +121,15 @@
 							datas = JSON.parse(datas)
 						}
 				
-						that.banner = datas
-						console.log(datas)
-				
+						uni.showToast({
+							icon:'none',
+							title:'提交成功'
+						})
+						setTimeout(()=>{
+							uni.navigateBack({
+								delta:1
+							})
+						},1000)
 				
 					} else {
 						if (res.msg) {

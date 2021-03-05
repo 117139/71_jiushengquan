@@ -12,26 +12,26 @@
 					</view>
 				</block>
 		</cu-custom>
-		<view v-if="htmlReset==1" class="zanwu" @tap='onRetry'>请求失败，请点击重试</view>
-		<view v-if="htmlReset==-1"  class="loading_def">
-				<image class="loading_def_img" src="../../static/images/loading.gif" mode=""></image>
-		</view>
-		<view v-if="htmlReset==0" class="team_list">
-			<view v-for="(item,index) in datas" class="team_li" @tap="jump" :data-url="'/pagesA/team_user_li/team_user_li?id='+item.id">
-				<image class="team_li_img" :src="getimg('/static/images/team_icon.png')" mode="aspectFit"></image>
-				<view class="flex_1 team_li_msg">
-					<view class="text-cut">{{item.name}}</view>
+		<htmlLoading ref="htmlLoading" @Retry='onRetry' :bj_show="true">
+			<view class="team_list">
+				<view v-for="(item,index) in datas" class="team_li" @tap="jump" :data-url="'/pagesA/team_user_li/team_user_li?id='+item.initiator_id">
+					<image class="team_li_img" :src="getimg(item.cover)" mode="aspectFit"></image>
+					<view class="flex_1 team_li_msg">
+						<view class="text-cut">{{item.title}}</view>
+					</view>
+					<text class="team_li_next iconfont iconnext-m"></text>
 				</view>
-				<text class="team_li_next iconfont iconnext-m"></text>
+				<view v-if="datas.length==0" class="zanwu">暂无数据</view>
+				<view v-if="data_last" class="data_last">我可是有底线的哟~</view>
 			</view>
-		</view>
-		<view class="team_cz">
-			<!-- team_created -->
-			<view @tap="jump" data-url="/pagesA/team_created/team_created">创建团队</view>
-			<!-- <view @tap="jump" data-url="/pagesA/team_user_add/team_user_add">创建团队</view> -->
-			<view @tap="jump" data-url="/pagesA/team_join/team_join">加入团队</view>
-		</view>
-		<bao-jing></bao-jing>
+			<view class="team_cz">
+				<!-- team_created -->
+				<view @tap="jump" data-url="/pagesA/team_created/team_created">创建团队</view>
+				<!-- <view @tap="jump" data-url="/pagesA/team_user_add/team_user_add">创建团队</view> -->
+				<view @tap="jump" data-url="/pagesA/team_join/team_join">加入团队</view>
+			</view>
+			<!-- <bao-jing></bao-jing> -->
+		</htmlLoading>
 	</view>
 </template>
 
@@ -47,30 +47,106 @@
 		data() {
 			return {
 				htmlReset:-1,
-				datas:[
-					{
-						name:'救生圈组织团队1'
-					},
-					{
-						name:'救生圈组织团队1'
-					},
-					{
-						name:'救生圈组织团队1'
-					},
-					{
-						name:'救生圈组织团队1'
-					},
-					
-				]
+				datas:[],
+				page: 1,
+				size: 15,
+				data_last:false,
+				triggered: true, //设置当前下拉刷新状态
 			}
 		},
 		onLoad() {
 			that=this
+			that.onRetry()
 		},
 		onShow() {
 			that.htmlReset=0
 		},
+		onPullDownRefresh() {
+			that.onRetry()
+		},
 		methods: {
+			onRetry(){
+				
+				that.datas=[]
+				that.data_last=false
+				that.page=1
+				
+				that.getdata()
+			},
+			getdata() {
+				
+				///api/info/list
+				// var that = this
+				var data = {
+					token:that.$store.state.loginDatas.token,
+					page:that.page,
+					size:that.size
+				}
+				if(that.btn_kg==1){
+					return
+				}
+				that.btn_kg=1
+				//selectSaraylDetailByUserCard
+				var jkurl = '/minapp/my-team'
+				uni.showLoading({
+					title: '正在获取数据'
+				})
+				// setTimeout(()=>{
+				// 	uni.hideLoading()
+				// },1000)
+				// return
+				var page_now=that.page
+				service.P_get(jkurl, data).then(res => {
+					that.btn_kg = 0
+					that.htmlReset=0
+					that.$refs.htmlLoading.htmlReset_fuc(0)
+					console.log(res)
+					if (res.code == 1) {
+						var datas = res.data
+						console.log(typeof datas)
+			
+						if (typeof datas == 'string') {
+							datas = JSON.parse(datas)
+						}
+						if(page_now==1){
+				
+							that.datas = datas
+						} else {
+							if (datas.length == 0) {
+								that.data_last = true
+								return
+							}
+							that.data_last = false
+							that.datas = that.datas.concat(datas)
+						}
+						that.page++
+						console.log(datas)
+			
+			
+					} else {
+						if (res.msg) {
+							uni.showToast({
+								icon: 'none',
+								title: res.msg
+							})
+						} else {
+							uni.showToast({
+								icon: 'none',
+								title: '操作失败'
+							})
+						}
+					}
+				}).catch(e => {
+					that.btn_kg = 0
+					that.$refs.htmlLoading.htmlReset_fuc(1)
+					console.log(e)
+					uni.showToast({
+						icon: 'none',
+						title: '获取数据失败'
+					})
+				})
+			},
+			
 			jump(e) {
 				var that = this
 			

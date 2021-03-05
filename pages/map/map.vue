@@ -26,7 +26,7 @@
 			</view>
 			<view class="map_btn_li">
 				<image class="map_btn_li_image" :src="getimg('/static/images/index_btn3.png')" mode="aspectFit"></image>
-				<text>天气</text>
+				<text>天气1s</text>
 			</view>
 			<view class="map_btn_li">
 				<image class="map_btn_li_image" :src="getimg('/static/images/index_btn4.png')" mode="aspectFit"></image>

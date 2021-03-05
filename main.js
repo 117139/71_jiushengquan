@@ -8,6 +8,8 @@ import cuCustom from './colorui/components/cu-custom.vue'
 Vue.component('cu-custom',cuCustom)
 import baoJing from './components/baojing/baojing.vue'
 Vue.component('bao-jing',baoJing)
+import htmlLoading from '@/components/html_loading/html_loading.vue'
+Vue.component('htmlLoading', htmlLoading)
 
 Vue.config.productionTip = false
 

@@ -10,7 +10,8 @@
 		<map class="index_map" id="map" name="map" :show-compass="false" :style="{height: mapHeight+'px'}" :enable-rotate="false"
 		 :latitude="latitude" :longitude="longitude" :markers="markersArr" @markertap="markertap" :controls="mapControls"
 		 @regionchange='mapChange'>
-			<!-- 警报组件
+		 <!-- <baojing></baojing> -->
+			<!-- 警报组件 -->
 			<view class="bj_box">
 				<image @click="baojing_fuc" class="bj_box_img" src="../../static/images/baojing1.png" mode="aspectFit"></image>
 				<view v-if="baojing" @click="baojing_del" class="bj_main">
@@ -23,7 +24,7 @@
 					<text class="bj_tip" style="color: #fff;">10秒钟内触摸屏幕取消</text>
 				</view>
 			</view>
-			<!-- 警报组件 -->
+			<!-- 警报组件
 
 			<!-- 标记弹框 -->
 			<view v-if="tk_show" class="tk_popop" @touchmove.stop.prevent='test'>
@@ -73,19 +74,19 @@
 		<view class="map_btn_list">
 		
 			<view class="map_btn_li" @click="shuaxin">
-				<image class="map_btn_li_image" :src="getimg('/static/images/index_btn1.png')" mode="aspectFit"></image>
+				<image class="map_btn_li_image" src="/static/images/index_btn1.png" mode="aspectFit"></image>
 				<text class="map_btn_li_text">刷新</text>
 			</view>
 			<view class="map_btn_li" @click="tk_show=true">
-				<image class="map_btn_li_image" :src="getimg('/static/images/index_btn2.png')" mode="aspectFit"></image>
+				<image class="map_btn_li_image" src="/static/images/index_btn2.png" mode="aspectFit"></image>
 				<text class="map_btn_li_text">标记</text>
 			</view>
 			<view class="map_btn_li">
-				<image class="map_btn_li_image" :src="getimg('/static/images/index_btn3.png')" mode="aspectFit"></image>
+				<image class="map_btn_li_image" src="/static/images/index_btn3.png" mode="aspectFit"></image>
 				<text class="map_btn_li_text">天气</text>
 			</view>
 			<view class="map_btn_li" @click="tk_show_sx=true">
-				<image class="map_btn_li_image" :src="getimg('/static/images/index_btn4.png')" mode="aspectFit"></image>
+				<image class="map_btn_li_image" src="/static/images/index_btn4.png" mode="aspectFit"></image>
 				<text class="map_btn_li_text">筛选</text>
 			</view>
 		</view>
@@ -358,8 +359,10 @@
 	} from 'vuex'
 	var that, mapContext, mapEndloading;
 	var djs_fuc
+	var djs_fuc1
 	var that
-
+	
+	import torch from "@/common/dc-torch/torch.js"
 	const domModule = weex.requireModule('dom');
 	domModule.addRule('fontFace', {
 		'fontFamily': "iconfont",
@@ -442,7 +445,9 @@
 				time1:'',
 				array:[
 					1,1,1,1,2
-				]
+				],
+				AUDIO: uni.createInnerAudioContext(),
+				torch_type:false
 			}
 		},
 		computed: {
@@ -455,7 +460,56 @@
 			this.getLocation();
 			// #endif
 
-
+			this.AUDIO.src = '/static/music/jingbao_kong.mp3';
+			this.AUDIO.loop=true
+			//音频进入可以播放状态，但不保证后面可以流畅播放
+			this.AUDIO.onCanplay((res) => {
+				console.log('音频进入可以播放状态，但不保证后面可以流畅播放')
+				
+			});
+			//音频播放
+			this.AUDIO.onPlay((res) => {
+				console.log('音频播放')
+				uni.vibrateLong({
+				    success: function () {
+				        console.log('success');
+				    }
+				});
+				torch.on();
+				that.torch_type=true
+				djs_fuc=setInterval(function () {
+					
+				  if(that.torch_type==true){
+						torch.off();
+						that.torch_type=false
+					}else{
+						torch.on();
+						that.torch_type=true
+					}
+					
+				  // console.log(that.djs())
+				}, 100);
+				djs_fuc1=setInterval(function () {
+					uni.vibrateLong({
+					    success: function () {
+					        console.log('success');
+					    }
+					});
+				}, 1000);
+			});
+			//音频停止
+			this.AUDIO.onStop((res) => {
+				console.log('音频停止')
+				clearInterval(djs_fuc)
+				clearInterval(djs_fuc1)
+				torch.off();
+				that.torch_type=true
+			});
+			//语音自然播放结束
+			this.AUDIO.onEnded((res) => {
+				console.log('语音自然播放结束')
+				this.playMsgid = null;
+			});
 
 			/*const innerAudioContext = uni.createInnerAudioContext();
 			innerAudioContext.autoplay = true;
@@ -467,6 +521,12 @@
 			  console.log(res.errMsg);
 			  console.log(res.errCode);
 			});*/
+		},
+		onHide() {
+			clearInterval(djs_fuc)
+			clearInterval(djs_fuc1)
+			torch.off();
+			that.torch_type=true
 		},
 		mounted() {
 			that.mapWidth = 750
@@ -510,6 +570,38 @@
 		},
 		methods: {
 			...mapMutations(['setAddress', 'setHeight']),
+			// 播放语音
+			playVoice(msg) {
+					this.AUDIO.play();
+			},
+			baojing_fuc(){
+				var that=this
+				this.baojing=true
+				that.bj_time=3
+				djs_fuc=setInterval(function () {
+				  if(that.bj_time==0){
+						// uni.showToast({
+						// 	icon:'none',
+						// 	title:'警报操作'
+						// })
+						console.log(0)
+						
+						clearInterval(djs_fuc)
+						that.bj_time='!'
+						that.playVoice()
+					}else{
+						that.bj_time--
+					}
+				  // console.log(that.djs())
+				}, 1000);
+			},
+			baojing_del(){
+				var that=this
+				clearInterval(djs_fuc)
+				this.bj_time=10
+				this.baojing=false
+				this.AUDIO.stop();
+			},
 			pickTime(type){
 				plus.nativeUI.pickTime(function(e){
 					var d=e.date;
@@ -597,31 +689,6 @@
 					that.tk_show_sx = false
 					uni.hideLoading()
 				}, 1000)
-			},
-			baojing_fuc() {
-				var that = this
-				this.baojing = true
-				that.bj_time = 10
-				djs_fuc = setInterval(function() {
-					if (that.bj_time == 0) {
-						// uni.showToast({
-						// 	icon:'none',
-						// 	title:'警报操作'
-						// })
-						console.log(0)
-						clearInterval(djs_fuc)
-						that.bj_time = '!'
-					} else {
-						that.bj_time--
-					}
-					// console.log(that.djs())
-				}, 1000);
-			},
-			baojing_del() {
-				var that = this
-				clearInterval(djs_fuc)
-				this.bj_time = 10
-				this.baojing = false
 			},
 			shuaxin() {
 				uni.showToast({
@@ -893,9 +960,9 @@
 		bottom: 100upx;
 		/* #endif */
 		height: 246upx;
-		background: #FFFFFF;
+		background-color: #FFFFFF;
 		box-shadow: 0px -3px 10px 0px rgba(0, 0, 0, 0.06);
-		border-radius: 15upx 15upx 0 0;
+		border-radius: 15upx;
 		/*  #ifndef APP-PLUS-NVUE  */
 		display: flex;
 		/*  #endif  */
@@ -927,21 +994,22 @@
 	}
 	.bj_box {
 		position: fixed;
-		top: 130upx;
+		top: 200px;
+		/* bottom: 730px; */
 		right: 30upx;
 		z-index: 999998;
 		width: 114upx;
 		height: 114upx;
-		background: #FFFFFF;
+		background-color: #FFFFFF;
 		box-shadow: 0px 0px 21upx 0px rgba(0, 0, 0, 0.16);
 		border-radius: 50%;
 	}
-
+	
 	.bj_box_img {
 		width: 114upx;
 		height: 114upx;
 	}
-
+	
 	.bj_main {
 		position: fixed;
 		top: 0;
@@ -949,30 +1017,35 @@
 		bottom: 0;
 		width: 750px;
 		/* height: 100vh; */
-		background: rgba(0, 0, 0, .8);
+		background-color: rgba(0, 0, 0, .8);
 		z-index: 999999;
 		/*  #ifndef APP-PLUS-NVUE  */
+		/*  #ifndef APP-PLUS-NVUE  */
 		display: flex;
+		/*  #endif  */
 		/*  #endif  */
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
 	}
-
+	
 	.bj_cnum {
 		width: 508upx;
 		height: 508upx;
-		background: #FF0000;
+		background-color: #FF0000;
 		border-radius: 508upx;
 		padding: 36upx;
 		margin-bottom: 50upx;
 	}
-
+	
 	.bj_cnum_1 {
 		width: 436px;
 		height: 436px;
-		background: #FF0000;
-		border: 4upx solid #FFFFFF;
+		background-color: #FF0000;
+		/* border: 4upx solid #FFFFFF; */
+		border-color:  #FFFFFF;
+		border-style: solid;
+		border-width: 4px;
 		border-radius: 436px;
 		/*  #ifndef APP-PLUS-NVUE  */
 		display: flex;
@@ -980,14 +1053,14 @@
 		align-items: center;
 		justify-content: center;
 	}
-
+	
 	.bj_cnum_num {
 		font-size: 300rpx;
 		font-family: DIN;
 		font-weight: 500;
 		color: #FFFFFF;
 	}
-
+	
 	.bj_tip {
 		font-size: 30upx;
 		color: #fff;
@@ -1001,7 +1074,7 @@
 		right: 0;
 		bottom: 0;
 		z-index: 9999999999;
-		background: rgba(0, 0, 0, .5);
+		background-color: rgba(0, 0, 0, .5);
 		/*  #ifndef APP-PLUS-NVUE  */
 		display: flex;
 		/*  #endif  */
@@ -1016,7 +1089,7 @@
 		/* min-height: 494upx; */
 		/* max-height: 80%; */
 		/* overflow-y: scroll; */
-		background: #FFFFFF;
+		background-color: #FFFFFF;
 		border-radius: 10upx;
 		padding: 30upx 40upx;
 		/*  
@@ -1030,7 +1103,7 @@
 		/* min-height: 494upx; */
 		/* max-height: 80%; */
 		/* overflow-y: scroll; */
-		background: #FFFFFF;
+		background-color: #FFFFFF;
 		border-radius: 10upx;
 		margin-bottom: 30upx;
 	}
@@ -1052,7 +1125,7 @@
 	.add_bj_text {
 		width: 60upx;
 		height: 1px;
-		background: #D8D8D8;
+		background-color: #D8D8D8;
 		margin: 0 10upx;
 	}
 	.add_bj_wz{
@@ -1070,7 +1143,7 @@
 		/* width: 100%; */
 		width: 405px;
 		height: 72upx;
-		background: #E8E8E8;
+		background-color: #E8E8E8;
 		box-shadow: 1px 3px 10upx 0px rgba(0, 0, 0, 0.1);
 		border-radius: 36upx;
 		/*  #ifndef APP-PLUS-NVUE  */
@@ -1084,12 +1157,12 @@
 	}
 
 	.bj_type_li_cur {
-		background: #3C77F1;
+		background-color: #3C77F1;
 		color: #fff;
 	}
 
 	.bj_type_li_cur1 {
-		background: #FF7575;
+		background-color: #FF7575;
 		color: #fff;
 	}
 
@@ -1129,7 +1202,9 @@
 		/* width: 100%; */
 		width: 425px;
 		height: 60upx;
-		border-bottom: 1px solid #DDDDDD;
+		/* border-bottom: 1px solid #DDDDDD; */
+		border-bottom-width: 1px;
+		border-bottom-color: #ddd;
 	}
 
 	.bj_list_box {
@@ -1156,8 +1231,8 @@
 	.bj_list_box_li {
 		width: 124px;
 		height: 124px;
-
-		border: 1px solid #fff;
+		border-width: 1px;
+		border-color: #fff;
 		border-radius: 4upx;
 		/*  #ifndef APP-PLUS-NVUE  */
 		display: flex;
@@ -1170,8 +1245,9 @@
 	}
 
 	.bj_list_box_li_cur {
-		background: #EFF4FF;
-		border: 1px solid #3C77F1;
+		background-color: #EFF4FF;
+		border-color:#3C77F1;
+		border-width: 1px
 	}
 
 	.bj_list_box_li_w_ml {
@@ -1226,7 +1302,7 @@
 		justify-content: center;
 		width: 409upx;
 		height: 72upx;
-		background: #3C77F1;
+		background-color: #3C77F1;
 		box-shadow: 1px 3px 10upx 0px rgba(0, 0, 0, 0.1);
 		border-radius: 36upx;
 	}
@@ -1245,7 +1321,8 @@
 		height: 150px;
 		padding: 30upx 40upx;
 		align-items: center;
-		border-bottom: 1px solid #eee;
+		border-bottom-color: #eee;
+		border-bottom-width: 1px;
 	}
 
 	.bj_user_tx {
@@ -1334,9 +1411,9 @@
 	.search_mbox {
 		width: 420px;
 		height: 420px;
-		/* background-size: 100% 100%;
-		background-image: url(/static/images/search_bg_03.png);
-		background-repeat: no-repeat; */
+		/* background-color-size: 100% 100%;
+		background-color-image: url(/static/images/search_bg_03.png);
+		background-color-repeat: no-repeat; */
 		margin-top: -10px;
 		margin-bottom: 20px;
 		position: relative;
@@ -1366,7 +1443,9 @@
 	.search_mbox_d2_int {
 		width: 71px;
 		height: 41px;
-		border: 1px solid #D5D5D5;
+		border-color:  #D5D5D5;
+		border-style: solid;
+		border-width: 1px;
 		font-size: 26upx;
 		text-align: center;
 		align-items: center;
@@ -1376,7 +1455,7 @@
 	.search_mbox_d2_text {
 		width: 19px;
 		height: 1px;
-		background: #D5D5D5;
+		background-color: #D5D5D5;
 		margin: 0 5px;
 	}
 
@@ -1390,7 +1469,9 @@
 	.search_mbox_d3_int {
 		width: 130px;
 		height: 41px;
-		border: 1px solid #D5D5D5;
+		border-color:  #D5D5D5;
+		border-style: solid;
+		border-width: 1px;
 		font-size: 26upx;
 		text-align: center;
 	}
@@ -1398,7 +1479,7 @@
 	.search_mbox_d3_text {
 		width: 90px;
 		height: 90px;
-		background: #FFFFFF;
+		background-color: #FFFFFF;
 		border-radius: 50%;
 		margin: 0 20px;
 	}
@@ -1413,7 +1494,10 @@
 	.search_mbox_d4_int {
 		width: 155px;
 		height: 41px;
-		border: 1px solid #D5D5D5;
+		/* border: 1px solid #D5D5D5; */
+		border-color:  #D5D5D5;
+		border-style: solid;
+		border-width: 1px;
 		font-size: 26upx;
 		text-align: center;
 	}

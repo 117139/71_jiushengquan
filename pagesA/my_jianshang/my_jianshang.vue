@@ -1,10 +1,6 @@
 <template>
 	<view class="minh100">
-		<view v-if="htmlReset==1" class="zanwu" @tap='onRetry'>请求失败，请点击重试</view>
-		<view v-if="htmlReset==-1" class="loading_def">
-			<image class="loading_def_img" src="../../static/images/loading.gif" mode=""></image>
-		</view>
-		<block v-if="htmlReset==0">
+		<!-- <htmlLoading ref="htmlLoading" @Retry='onRetry' :bj_show="true"> -->
 			<view class="js_box">
 				<view class="num_li">
 					<view class="num_li_name">轻伤</view>
@@ -44,7 +40,7 @@
 				</view>
 				<view class="sub_li">
 					<view class="sub_name">分享</view>
-					<image class="share_btn" @tap="getShare" :src="getimg('/static/images/tk_share_icon1.png')" mode="aspectFit"></image>
+					<image class="share_btn" @tap="getShare" src="/static/images/tk_share_icon1.png" mode="aspectFit"></image>
 					<!-- <image class="share_btn" @tap="duanxin" :src="getimg('/static/images/tk_share_icon2.png')" mode="aspectFit"></image> -->
 					<view class="flex_1"></view>
 					
@@ -55,6 +51,7 @@
 			<view class="add_user">
 				<view class="add_user_btn" @tap="save_fuc">提交</view>
 			</view>
+		<!-- </htmlLoading> -->
 
 			<bao-jing></bao-jing>
 			<!-- /*<view v-if="tk_show" class="tk_popop"  @touchmove.stop.prevent='test'>
@@ -71,7 +68,7 @@
 				</view>
 				<text @tap="tk_show=false" class="iconfont iconguanbi" style="font-size: 50upx;color: #fff;"></text>
 			</view>*/ -->
-		</block>
+		<!-- </htmlLoading> -->
 	</view>
 </template>
 
@@ -96,10 +93,10 @@
 		},
 		onLoad() {
 			that = this
+			that.onRetry()
 		},
 		onShow() {
 			that.htmlReset = 0
-			
 		},
 		onPullDownRefresh() {
 			uni.stopPullDownRefresh()
@@ -119,12 +116,67 @@
 			test(){},
 			onRetry(){
 				
+				// that.$refs.htmlLoading.htmlReset_fuc(0)
 			},
 			save_fuc(){
-				uni.showToast({
-					icon:'none',
-					title:'提交成功'
+				var data = {
+					token:that.$store.state.loginDatas.token,
+					minor_wound:that.num_1,
+					moderate_wound:that.num_2,
+					serious_injuries:that.num_3,
+					death:that.num_4,
+				}
+				if(that.btn_kg==1){
+					return
+				}
+				that.btn_kg=1
+				//selectSaraylDetailByUserCard
+				var jkurl = '/minapp/store-triage'
+				uni.showLoading({
+					title: '正在提交'
 				})
+				
+				service.P_post(jkurl, data).then(res => {
+					that.btn_kg = 0
+					that.htmlReset=0
+					// that.$refs.htmlLoading.htmlReset_fuc(0)
+					console.log(res)
+					if (res.code == 1) {
+						var datas = res.data
+						console.log(typeof datas)
+							
+						if (typeof datas == 'string') {
+							datas = JSON.parse(datas)
+						}
+						uni.showToast({
+							icon:'none',
+							title:'提交成功'
+						})
+							
+							
+					} else {
+						if (res.msg) {
+							uni.showToast({
+								icon: 'none',
+								title: res.msg
+							})
+						} else {
+							uni.showToast({
+								icon: 'none',
+								title: '操作失败'
+							})
+						}
+					}
+				}).catch(e => {
+					that.btn_kg = 0
+					// that.$refs.htmlLoading.htmlReset_fuc(1)
+					console.log(e)
+					uni.showToast({
+						icon: 'none',
+						title: '获取数据失败'
+					})
+				})
+				
 			},
 			reset_all(){
 				that.num_1=0
@@ -169,7 +221,8 @@
 				}
 			},
 			getShare(){
-				var strr='轻伤:'+that.num_1+'中度伤:'+that.num_2+'重伤:'+that.num_3+'死亡:'+that.num_4
+				var strr='轻伤:'+that.num_1+';中度伤:'+that.num_2+';重伤:'+that.num_3+';死亡:'+that.num_4+';'
+				// #ifdef APP-PLUS
 				uni.shareWithSystem({
 					type:'text',
 				  href: 'https://uniapp.dcloud.io',
@@ -181,6 +234,12 @@
 				    // 分享失败
 				  }
 				})
+				// #endif
+				// #ifdef H5
+				// uni.showModal({
+				// 	title:strr
+				// })
+				// #endif
 				// _app.getShare(false, false, 2, '', '', '', that.camera_img, false, false);
 			},
 			duanxin(){

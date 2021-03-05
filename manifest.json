@@ -20,7 +20,8 @@
         "modules" : {
             "Maps" : {},
             "Geolocation" : {},
-            "iBeacon" : {}
+            "iBeacon" : {},
+            "Share" : {}
         },
         /* 应用发布信息 */
         "distribute" : {

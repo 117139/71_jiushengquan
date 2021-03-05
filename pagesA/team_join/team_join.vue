@@ -10,28 +10,33 @@
 				</view>
 			</block>
 		</cu-custom>
-		<view class="ss_box">
-			<view class="sr_k">
-				<text class="iconfont iconsousuo sr_icon"></text>
-				<input type="text" placeholder="请输入搜索内容" class="flex_1 sr_int" v-model="ss_key" @input="sousuo_ing" confirm-type='搜索'
-				 @confirm="onRetry" />
-			</view>
-			<view class="sr_btn" @tap="onRetry">搜索</view>
-		</view>
-		<view class="team_list">
-			<view class="list_tit">搜索结果</view>
-			<block v-if="ss_key">
-				<view v-for="(item,index) in datas" class="team_li">
-					<image class="team_li_img" :src="getimg('/static/images/team_icon.png')" mode="aspectFit"></image>
-					<view class=" team_li_msg">
-						<view class="text-cut">{{item.name}}{{ss_key}}</view>
-					</view>
-					<view class="join_btn" @tap="join_fuc(item)">申请加入</view>
+		
+		<htmlLoading ref="htmlLoading" @Retry='onRetry' :bj_show="true">
+			<view class="ss_box">
+				<view class="sr_k">
+					<text class="iconfont iconsousuo sr_icon"></text>
+					<input type="text" placeholder="请输入搜索内容" class="flex_1 sr_int" v-model="ss_key" @input="sousuo_ing" confirm-type='搜索'
+					 @confirm="onRetry" />
 				</view>
-			</block>
-			<view v-else class="zanwu">暂无数据</view>
-		</view>
-		<bao-jing></bao-jing>
+				<view class="sr_btn" @tap="onRetry">搜索</view>
+			</view>
+			<view class="team_list">
+				<view class="list_tit">搜索结果</view>
+				<block>
+					<view v-for="(item,index) in datas" class="team_li">
+						<image class="team_li_img" :src="getimg(item.cover)" mode="aspectFit"></image>
+						<view class=" team_li_msg">
+							<view class="text-cut">{{item.title}}</view>
+						</view>
+						<view class="join_btn" @tap="join_fuc(item)">申请加入</view>
+					</view>
+				</block>
+				
+				<view v-if="datas.length==0" class="zanwu">暂无数据</view>
+				<view v-if="data_last" class="data_last">我可是有底线的哟~</view>
+			</view>
+			<!-- <bao-jing></bao-jing> -->
+		</htmlLoading>
 	</view>
 </template>
 
@@ -48,21 +53,17 @@
 		data() {
 			return {
 				ss_key: '',
-				datas: [{
-						name: '救生圈组织团队1'
-					},
-					{
-						name: '救生圈组织团队1'
-					},
-					{
-						name: '救生圈组织团队1'
-					},
-					{
-						name: '救生圈组织团队1'
-					},
-
-				]
+				
+				datas:[],
+				page: 1,
+				size: 15,
+				data_last:false,
+				triggered: true, //设置当前下拉刷新状态
 			}
+		},
+		onLoad() {
+			that=this
+			that.onRetry()
 		},
 		methods: {
 			sousuo_ing() {
@@ -80,14 +81,145 @@
 					}
 				}, 1000)
 			},
-			onRetry() {
-
+			onRetry(){
+				
+				that.datas=[]
+				that.data_last=false
+				that.page=1
+				
+				that.getdata()
 			},
-			join_fuc(item) {
-				uni.showToast({
-					icon: 'none',
-					title: '申请已提交'
+			getdata() {
+				
+				///api/info/list
+				// var that = this
+				var data = {
+					token:that.$store.state.loginDatas.token,
+					page:that.page,
+					size:that.size,
+					teamName:that.ss_key
+				}
+				if(that.btn_kg==1){
+					return
+				}
+				that.btn_kg=1
+				//selectSaraylDetailByUserCard
+				var jkurl = '/minapp/team'
+				uni.showLoading({
+					title: '正在获取数据'
 				})
+				// setTimeout(()=>{
+				// 	uni.hideLoading()
+				// },1000)
+				// return
+				var page_now=that.page
+				service.P_get(jkurl, data).then(res => {
+					that.btn_kg = 0
+					that.htmlReset=0
+					that.$refs.htmlLoading.htmlReset_fuc(0)
+					console.log(res)
+					if (res.code == 1) {
+						var datas = res.data
+						console.log(typeof datas)
+			
+						if (typeof datas == 'string') {
+							datas = JSON.parse(datas)
+						}
+						if(page_now==1){
+				
+							that.datas = datas
+						} else {
+							if (datas.length == 0) {
+								that.data_last = true
+								return
+							}
+							that.data_last = false
+							that.datas = that.datas.concat(datas)
+						}
+						that.page++
+						console.log(datas)
+			
+			
+					} else {
+						if (res.msg) {
+							uni.showToast({
+								icon: 'none',
+								title: res.msg
+							})
+						} else {
+							uni.showToast({
+								icon: 'none',
+								title: '操作失败'
+							})
+						}
+					}
+				}).catch(e => {
+					that.btn_kg = 0
+					that.$refs.htmlLoading.htmlReset_fuc(1)
+					console.log(e)
+					uni.showToast({
+						icon: 'none',
+						title: '获取数据失败'
+					})
+				})
+			},
+			
+			join_fuc(item) {
+				var data = {
+					token:that.$store.state.loginDatas.token,
+					team_id:item.initiator_id
+				}
+				if(that.btn_kg==1){
+					return
+				}
+				that.btn_kg=1
+				//selectSaraylDetailByUserCard
+				var jkurl = '/minapp/join-team'
+				uni.showLoading({
+					title: '正在提交申请'
+				})
+				
+				service.P_post(jkurl, data).then(res => {
+					that.btn_kg = 0
+					that.htmlReset=0
+					that.$refs.htmlLoading.htmlReset_fuc(0)
+					console.log(res)
+					if (res.code == 1) {
+						var datas = res.data
+						console.log(typeof datas)
+							
+						if (typeof datas == 'string') {
+							datas = JSON.parse(datas)
+						}
+						uni.showToast({
+							icon:'none',
+							title:'申请已提交'
+						})
+							
+							
+					} else {
+						if (res.msg) {
+							uni.showToast({
+								icon: 'none',
+								title: res.msg
+							})
+						} else {
+							uni.showToast({
+								icon: 'none',
+								title: '操作失败'
+							})
+						}
+					}
+				}).catch(e => {
+					that.btn_kg = 0
+					that.$refs.htmlLoading.htmlReset_fuc(1)
+					console.log(e)
+					uni.showToast({
+						icon: 'none',
+						title: '获取数据失败'
+					})
+				})
+				
 			},
 			jump(e) {
 				var that = this

@@ -27,7 +27,7 @@
 					<view class="login_icon">
 						<text class="iconfont iconmima"></text>
 					</view>
-					<input class="login_input" type="password" placeholder="请输入验证号" v-model="code">
+					<input class="login_input" type="text" placeholder="请输入验证号" v-model="code">
 					<view v-if="yzm_type==0" class="getyzm" @tap="getCode">获取验证码</view>
 					<view v-if="yzm_type==1" class="getyzm">{{yztime}}s</view>
 				</view>
@@ -184,8 +184,7 @@
 								icon: 'none',
 								title: '发送成功'
 							})
-							console.log(res)
-							that.verification_key = res.data.data.key
+							console.log(res) 
 							that.codetime()
 
 						} else {
@@ -274,26 +273,78 @@
 					return;
 				}
 
-				const data = {
-					phone: that.tel,
-					code: that.code,
-					password: that.pwd,
-					password1: that.pwd1,
-					device_id: that.uuid ? that.uuid : 'h5'
+				var data = {}
+				var jkurl=""
+				
+				//忘记密码
+				if(that.login_type==-1){
+					data = {
+						username: that.tel,
+						pcode: that.code,
+						password: that.pwd,
+						rpassword: that.pwd1
+					}
+					jkurl="/minapp/register"
+				}
+				//注册
+				if(that.login_type==0){
+					data = {
+						username: that.tel,
+						pcode: that.code,
+						password: that.pwd,
+						rpassword: that.pwd1
+					}
+					jkurl="/minapp/register"
 				}
 				console.log(data)
-				if (that.login_type == 0) {
+				service.P_post(jkurl, data).then(res => {
+					that.btn_kg = 0
+					console.log(res)
+					if (res.code == 1) {
+						var datas = res.data
+						console.log(typeof datas)
+				
+						if (typeof datas == 'string') {
+							datas = JSON.parse(datas)
+						}
+				
+						if (that.login_type == 0) {
+							uni.showToast({
+								icon: 'none',
+								title: '注册成功'
+							});
+						}
+						if (that.login_type == -1) {
+							uni.showToast({
+								icon: 'none',
+								title: '修改成功'
+							});
+						}
+						setTimeout(()=>{
+							that.login_type=1
+						},1000)
+					} else {
+						if (res.msg) {
+							uni.showToast({
+								icon: 'none',
+								title: res.msg
+							})
+						} else {
+							uni.showToast({
+								icon: 'none',
+								title: '操作失败'
+							})
+						}
+					}
+				}).catch(e => {
+					that.btn_kg = 0
+					console.log(e)
 					uni.showToast({
 						icon: 'none',
-						title: '注册成功'
-					});
-				}
-				if (that.login_type == -1) {
-					uni.showToast({
-						icon: 'none',
-						title: '修改成功'
-					});
-				}
+						title: '获取数据失败'
+					})
+				})
+				
 			},
 			login_fuc() {
 				if (that.tel == '' || !(/^1\d{10}$/.test(that.tel))) {
@@ -313,23 +364,62 @@
 				}
 
 				const data = {
-					phone: that.tel,
-					password: that.pwd,
-					device_id: that.uuid ? that.uuid : 'h5'
+					username: that.tel,
+					password: that.pwd
 				}
 				console.log(data)
-				uni.showToast({
-					icon: 'none',
-					title: '登录成功'
-				});
-
-				that.logindata(data)
-				that.login('问心')
-				setTimeout(()=>{
-					uni.navigateBack({
-						delta:1
+				var jkurl='/minapp/login'
+				uni.showLoading({
+					mask:true,
+					title:'正在登录'
+				})
+				service.P_post(jkurl, data).then(res => {
+					that.btn_kg = 0
+					console.log(res)
+					if (res.code == 1) {
+						var datas = res.data
+						console.log(typeof datas)
+				
+						if (typeof datas == 'string') {
+							datas = JSON.parse(datas)
+						}
+						uni.showToast({
+							icon: 'none',
+							title: '登录成功'
+						});
+						uni.setStorageSync('tel', that.tel)
+						uni.setStorageSync('password', that.pwd)
+						uni.setStorageSync('token', datas.token)
+						uni.setStorageSync('loginmsg', datas)
+						that.logindata(datas)
+						that.login(datas.name)
+						setTimeout(()=>{
+							uni.navigateBack({
+								delta:1
+							})
+						},1000)
+					} else {
+						if (res.msg) {
+							uni.showToast({
+								icon: 'none',
+								title: res.msg
+							})
+						} else {
+							uni.showToast({
+								icon: 'none',
+								title: '操作失败'
+							})
+						}
+					}
+				}).catch(e => {
+					that.btn_kg = 0
+					console.log(e)
+					uni.showToast({
+						icon: 'none',
+						title: '获取数据失败'
 					})
-				},1000)
+				})
+				
 			},
 			getbanner() {
 

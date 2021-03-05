@@ -21,6 +21,9 @@
 			// #ifdef MP-WEIXIN
 			service.wxlogin()
 			// #endif
+			// #ifndef MP-WEIXIN
+			service.login_tel()
+			// #endif
 			uni.getSystemInfo({
 				success: function(e) {
 					console.log(e);

@@ -31,7 +31,9 @@
 						<view class="join_btn" @tap="join_fuc(item)">踢除</view>
 					</view>
 				</block>
-				<view v-else class="zanwu">暂无数据</view>
+				
+				<view v-if="datas.length==0" class="zanwu">暂无数据</view>
+				<view v-if="data_last" class="data_last">我可是有底线的哟~</view>
 			</view>
 		</block>
 		<view class="add_user">
@@ -101,8 +103,85 @@
 				}, 1000)
 			},
 			onRetry() {
-
+				that.datas=[]
+				that.data_last=false
+				that.page=1
+				
+				that.getdata()
 			},
+			getdata() {
+				
+				///api/info/list
+				// var that = this
+				var data = {
+					page:that.page,
+					size:that.size
+				}
+				if(that.btn_kg==1){
+					return
+				}
+				that.btn_kg=1
+				//selectSaraylDetailByUserCard
+				var jkurl = '/minapp/team'
+				uni.showLoading({
+					title: '正在获取数据'
+				})
+				// setTimeout(()=>{
+				// 	uni.hideLoading()
+				// },1000)
+				// return
+				var page_now=that.page
+				service.P_get(jkurl, data).then(res => {
+					that.btn_kg = 0
+					that.htmlReset=0
+					that.$refs.htmlLoading.htmlReset_fuc(0)
+					console.log(res)
+					if (res.code == 1) {
+						var datas = res.data
+						console.log(typeof datas)
+			
+						if (typeof datas == 'string') {
+							datas = JSON.parse(datas)
+						}
+						if(page_now==1){
+				
+							that.datas = datas
+						} else {
+							if (datas.length == 0) {
+								that.data_last = true
+								return
+							}
+							that.data_last = false
+							that.datas = that.datas.concat(datas)
+						}
+						that.page++
+						console.log(datas)
+			
+			
+					} else {
+						if (res.msg) {
+							uni.showToast({
+								icon: 'none',
+								title: res.msg
+							})
+						} else {
+							uni.showToast({
+								icon: 'none',
+								title: '操作失败'
+							})
+						}
+					}
+				}).catch(e => {
+					that.btn_kg = 0
+					that.$refs.htmlLoading.htmlReset_fuc(1)
+					console.log(e)
+					uni.showToast({
+						icon: 'none',
+						title: '获取数据失败'
+					})
+				})
+			},
+			
 			join_fuc(item) {
 				uni.showToast({
 					icon: 'none',

@@ -1,10 +1,10 @@
 <template>
 	<view class="minh100">
-		<image class="my_bg" :src="getimg('/static/images/mybg_01.png')" mode=""></image>
+		<image class="my_bg" src="/static/images/mybg_01.png" mode=""></image>
 		<view class="my_box ">
 			<view class="head_box1" :style="style"></view>
 			<view class="head_box" :class="{'cur_H':PageScroll>10}" :style="style">
-				<image class="head_box_img" :src="getimg('/static/images/mybg_01.png')" mode="aspectFill"></image>
+				<image class="head_box_img" src="/static/images/mybg_01.png" mode="aspectFill"></image>
 				<view class="my_tit_box" :style="style1">
 					个人中心
 					<!-- 万屋智能 -->
@@ -14,10 +14,10 @@
 			<view class="my_top">
 				
 				<view v-if="hasLogin" class="my_msg dis_flex ">
-					<image class="my_tx" :src="getimg('/static/images/tx_m2.jpg')" mode="aspectFill"></image>
+					<image class="my_tx" :src="getimg(loginDatas.avatar)" mode="aspectFill"></image>
 					<view class="flex_1 dis_flex_c ju_b" style="height: 110upx;">
-						<view class="my_name">救生圈员工</view>
-						<view class="my_yx">2560015822@qq.com</view>
+						<view class="my_name">{{loginDatas.username}}</view>
+						<view class="my_yx" v-if="loginDatas.email">{{loginDatas.email}}</view>
 					</view>
 					
 				</view>
@@ -29,35 +29,35 @@
 				<view class="my_yw_tit">我的业务</view>
 				<view class="my_yw_list">
 					<view class="my_yw_li"  @tap="jump" data-url="/pagesA/my_cankao/my_cankao">
-						<image class="my_yw_img" :src="getimg('/static/images/mybtn1.png')" mode="aspectFill"></image>
+						<image class="my_yw_img" src="/static/images/mybtn1.png" mode="aspectFill"></image>
 						<text class="my_yw_text">参考</text>
 					</view>
 					<view class="my_yw_li" @tap="jump" data-url="/pagesA/my_camera/my_camera">
-						<image class="my_yw_img" :src="getimg('/static/images/mybtn2.png')" mode="aspectFill"></image>
+						<image class="my_yw_img" src="/static/images/mybtn2.png" mode="aspectFill"></image>
 						<text class="my_yw_text">照相机</text>
 					</view>
 					<view class="my_yw_li" @tap="jump" data-url="/pagesA/my_jianshang/my_jianshang">
-						<image class="my_yw_img" :src="getimg('/static/images/mybtn3.png')" mode="aspectFill"></image>
+						<image class="my_yw_img" src="/static/images/mybtn3.png" mode="aspectFill"></image>
 						<text class="my_yw_text">检伤分类</text>
 					</view>
 					<view class="my_yw_li"  @tap="jump" data-url="/pagesA/my_notepad/my_notepad">
-						<image class="my_yw_img" :src="getimg('/static/images/mybtn4.png')" mode="aspectFill"></image>
+						<image class="my_yw_img" src="/static/images/mybtn4.png" mode="aspectFill"></image>
 						<text class="my_yw_text">记事本</text>
 					</view>
 					<view class="my_yw_li" @tap="jump" data-url="/pagesA/my_set/my_set">
-						<image class="my_yw_img" :src="getimg('/static/images/mybtn5.png')" mode="aspectFill"></image>
+						<image class="my_yw_img" src="/static/images/mybtn5.png" mode="aspectFill"></image>
 						<text class="my_yw_text">编辑资料</text>
 					</view>
 					<view class="my_yw_li" @tap="jump" data-url="/pagesA/team_list/team_list">
-						<image class="my_yw_img" :src="getimg('/static/images/mybtn6.png')" mode="aspectFill"></image>
+						<image class="my_yw_img" src="/static/images/mybtn6.png" mode="aspectFill"></image>
 						<text class="my_yw_text">团队</text>
 					</view>
 					<view class="my_yw_li"  @tap="jump" data-url="/pagesA/my_zn/my_zn">
-						<image class="my_yw_img" :src="getimg('/static/images/mybtn7.png')" mode="aspectFill"></image>
+						<image class="my_yw_img" src="/static/images/mybtn7.png" mode="aspectFill"></image>
 						<text class="my_yw_text">用户指南</text>
 					</view>
 					<view class="my_yw_li" @tap="jump" data-url="/pagesA/lxwm/lxwm">
-						<image class="my_yw_img" :src="getimg('/static/images/mybtn8.png')" mode="aspectFill"></image>
+						<image class="my_yw_img" src="/static/images/mybtn8.png" mode="aspectFill"></image>
 						<text class="my_yw_text">联系我们</text>
 					</view>
 				</view>

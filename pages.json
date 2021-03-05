@@ -3,7 +3,6 @@
 		{
 			"path": "pages/map/map",
 			"style": {
-				// "navigationBarTitleText": "乐哉",
 				"navigationStyle": "custom", // 取消本页面的导航栏
 				"disableScroll": true, // 禁止原生页面滚动, 解决Android小程序下拉卡顿的问题
 				"app-plus": {
@@ -15,7 +14,7 @@
 		}, {
 			"path": "pages/index/index",
 			"style": {
-				"navigationBarTitleText": "uni-app"
+				"navigationBarTitleText": "首页"
 			}
 		}, {
 			"path": "pages/my/my",
@@ -64,7 +63,7 @@
 			"style": {
 				"navigationStyle": "custom", // 取消本页面的导航栏
 				"navigationBarTitleText": "团队",
-				"enablePullDownRefresh": false
+				"enablePullDownRefresh": true
 			}
 
 		}, {
