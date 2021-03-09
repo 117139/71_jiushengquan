@@ -80,15 +80,8 @@
 		
 		<view v-if="tk_show" class="tk_popop"  @touchmove.stop.prevent='test'>
 			<view class="tk_main">
-				<image @tap="set_zb('/static/images/zuobiao.png')" :src="getimg('/static/images/zuobiao.png')" mode="aspectFit"></image>
-				<image @tap="set_zb('/static/images/zuobiao1.png')" :src="getimg('/static/images/zuobiao1.png')" mode="aspectFit"></image>
-				<image @tap="set_zb('/static/images/zuobiao2.png')" :src="getimg('/static/images/zuobiao2.png')" mode="aspectFit"></image>
-				<image @tap="set_zb('/static/images/zuobiao3.png')" :src="getimg('/static/images/zuobiao3.png')" mode="aspectFit"></image>
-				<image @tap="set_zb('/static/images/zuobiao4.png')" :src="getimg('/static/images/zuobiao4.png')" mode="aspectFit"></image>
-				<image @tap="set_zb('/static/images/zuobiao5.png')" :src="getimg('/static/images/zuobiao5.png')" mode="aspectFit"></image>
-				<image @tap="set_zb('/static/images/zuobiao6.png')" :src="getimg('/static/images/zuobiao6.png')" mode="aspectFit"></image>
-				<image @tap="set_zb('/static/images/zuobiao7.png')" :src="getimg('/static/images/zuobiao7.png')" mode="aspectFit"></image>
-				<image @tap="set_zb('/static/images/zuobiao8.png')" :src="getimg('/static/images/zuobiao8.png')" mode="aspectFit"></image>
+				<image v-for="(item,index) in zb_list" @tap="set_zb(item.img_url)" :src="getimg(item.img_url)" mode="aspectFit"></image>
+				
 				
 			</view>
 			<text @tap="tk_show=false" class="iconfont iconguanbi" style="font-size: 50upx;color: #fff;"></text>
@@ -112,7 +105,8 @@
 				CustomBar: this.CustomBar,
 				PageScroll: 0,
 				loginDatas_data:'',
-				tk_show:false
+				tk_show:false,
+				zb_list:[]
 			}
 		},
 		
@@ -139,6 +133,7 @@
 		
 		onLoad() {
 			that =this
+			that.getdata()
 			that.loginDatas_data=JSON.parse(JSON.stringify(that.loginDatas))
 		},
 		onPageScroll(e) {
@@ -155,6 +150,53 @@
 			back(){
 				uni.navigateBack({
 					delta:1
+				})
+			},
+			getdata() {
+			
+				///api/info/list
+				var that = this
+				var data = {}
+			
+				//selectSaraylDetailByUserCard
+				var jkurl = '/minapp/tab-color'
+				uni.showLoading({
+					title: '正在获取数据'
+				})
+				service.P_get(jkurl, data).then(res => {
+					that.btn_kg = 0
+					console.log(res)
+					if (res.code == 1) {
+						var datas = res.data
+						console.log(typeof datas)
+			
+						if (typeof datas == 'string') {
+							datas = JSON.parse(datas)
+						}
+			
+						that.zb_list = datas
+			
+			
+					} else {
+						if (res.msg) {
+							uni.showToast({
+								icon: 'none',
+								title: res.msg
+							})
+						} else {
+							uni.showToast({
+								icon: 'none',
+								title: '获取数据失败'
+							})
+						}
+					}
+				}).catch(e => {
+					that.btn_kg = 0
+					console.log(e)
+					uni.showToast({
+						icon: 'none',
+						title: '获取数据失败'
+					})
 				})
 			},
 			myUpload(rsp) {
@@ -194,7 +236,7 @@
 				
 			},
 			set_zb(img){
-				Vue.set(that.loginDatas_data,'zuobiao',img)
+				Vue.set(that.loginDatas_data,'tab_color',img)
 				that.tk_show=false
 			},
 			save_fuc(){
@@ -223,7 +265,7 @@
 						if (typeof datas == 'string') {
 							datas = JSON.parse(datas)
 						}
-				
+						service.login_tel()
 						uni.showToast({
 							icon:'none',
 							title:'提交成功'

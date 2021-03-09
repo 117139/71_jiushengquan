@@ -10,7 +10,7 @@
 						<image :src="getimg(item.background)" mode="aspectFill" v-if="item.type=='image'"></image>
 						<!-- <video :src="getimg(item.url)" autoplay loop muted :show-play-btn="false" :controls="false" objectFit="cover"
 						 v-if="item.type=='video'"></video> -->
-						<view v-if="cardCur==index" class="lv_tip">{{item.title}}}</view>
+						<view v-if="cardCur==index" class="lv_tip">{{item.title}}</view>
 						<view v-if="cardCur==index" class="lv_tip1">
 							{{item.content}}
 						</view>
@@ -22,7 +22,7 @@
 				<image class="dj_box_tit" src="/static/images/dingjia.png" mode="aspectFit"></image>
 				<view class="dj_list">
 					<view class="dj_list_box">
-						<view class="dj_li">
+						<view class="dj_li" @tap="openType_fuc(1)" :class="openType==1?'cur':''">
 							<view class="dj_li_box">
 								<image class="dj_li_box_img" src="/static/images/pay_img_07.jpg" mode="aspectFill"></image>
 								<view class="dj_text">
@@ -32,7 +32,7 @@
 								</view>
 							</view>
 						</view>
-						<view class="dj_li">
+						<view class="dj_li"  @tap="openType_fuc(2)" :class="openType==2?'cur':''">
 							<view class="dj_li_box">
 								<image class="dj_li_box_img" src="/static/images/pay_img_09.jpg" mode="aspectFill"></image>
 								<view class="dj_text">
@@ -94,6 +94,7 @@
 				htmlReset: -1,
 				myvip: 0,
 				cardCur: 0,
+				openType:1,
 				pay_type:1,
 				read_type:false,
 				
@@ -115,6 +116,11 @@
 		},
 		onLoad(option) {
 			that = this
+			if(that.platform =='ios'){
+				that.pay_type==3
+			}else{
+				that.pay_type==1
+			}
 			that.onRetry()
 			// that.myvip=that.loginDatas.user_grade_id
 			this.TowerSwiper('swiperList');
@@ -148,6 +154,9 @@
 		},
 		methods: {
 			...mapMutations(['login', 'logindata', 'logout', 'setplatform']),
+			openType_fuc(num){
+				that.openType=num
+			},
 			onRetry(){
 				var data = {
 					token:that.$store.state.loginDatas.token
@@ -266,31 +275,129 @@
 					that.btnkg = 0
 					return
 				}
-				uni.navigateTo({
-					url:'/pagesA/team_user_add/team_user_add'
-				})
-				return
+				// uni.navigateTo({
+				// 	url:'/pagesA/team_user_add/team_user_add'
+				// })
+				// return
 				/*if(that.pay_type==3){
 				
 					that.requestPayment_ios()
 					return
 				}*/
+				if(that.platform =='ios'){
+					// that.requestPayment_ios()
+					// return
+				}
 				var data = {
 					type: that.pay_type,
-					id: that.datas.vip[0].id,
-					token: that.token
+					duration:that.openType,
+					// id: that.datas.vip[0].id,
+					// token: that.$store.state.loginDatas.token
+					token:""
 				}
-			
+				console.log(data)
 				//selectSaraylDetailByUserCard
-				var jkurl = '/api/order/createOrder'
+				var jkurl = 'minapp/pay/member'
 				uni.showLoading({
 					title: '正在发起支付',
 					mask: true
 				})
 			
+				service.P_post(jkurl, data).then(res => {
+					that.btnkg = 0
+					console.log(res)
+					if (res.code == 1) {
+						var datas = res.data
+						console.log(typeof datas)
+							
+						if (typeof datas == 'string') {
+							datas = JSON.parse(datas)
+						}
+						if (that.pay_type == 3) {
+							console.log(datas.no)
+							that.no_id=datas.no
+							that.requestPayment_ios()
+						}
+						// 支付宝
+						if (that.pay_type == 2) {
+							uni.requestPayment({
+								provider: 'alipay',
+								orderInfo: datas, //微信、支付宝订单数据
+								success: function(res) {
+									console.log('success:' + JSON.stringify(res));
+									wx.showToast({
+										title: '支付成功',
+										icon: 'none',
+										duration: 1000
+									});
+									setTimeout(function() {
+										that.btnkg = 0
+										that.bindLogin()
+									}, 1000)
+								},
+								fail: function(err) {
+									that.btnkg = 0
+									console.log('fail:' + JSON.stringify(err));
+									uni.showModal({
+										content: "支付失败",
+										showCancel: false
+									})
+								}
+							});
+						}
+						//微信
+						if (that.pay_type == 1) {
+							uni.requestPayment({
+								provider: 'wxpay',
+								orderInfo: datas, //微信、支付宝订单数据
+								success: function(res) {
+									console.log('success:' + JSON.stringify(res));
+									wx.showToast({
+										title: '支付成功',
+										icon: 'none',
+										duration: 1000
+									});
+									setTimeout(function() {
+										that.btnkg = 0
+										that.bindLogin()
+									}, 1000)
+								},
+								fail: function(err) {
+									that.btnkg = 0
+									console.log('fail:' + JSON.stringify(err));
+									uni.showModal({
+										content: "支付失败",
+										showCancel: false
+									})
+								}
+							});
+						}
+									
+						
+							
+					} else {
+						if (res.msg) {
+							uni.showToast({
+								icon: 'none',
+								title: res.msg
+							})
+						} else {
+							uni.showToast({
+								icon: 'none',
+								title: '操作失败'
+							})
+						}
+					}
+				}).catch(e => {
+					console.log(e)
+					uni.showToast({
+						icon: 'none',
+						title: '获取数据失败'
+					})
+				})
 				service.post(jkurl, data,
 					function(res) {
-			
+						that.btnkg =0
 						if (res.data.code == 1) {
 							var datas = res.data.data
 							console.log(typeof datas)
@@ -638,15 +745,19 @@
 		height: 178upx;
 		padding: 15upx;
 	}
-
 	.dj_li_box {
 		width: 100%;
 		height: 100%;
 		position: relative;
 		box-shadow: 0px 0px 6upx 0px rgba(0, 0, 0, 0.2);
 		border-radius: 4upx;
+		/* border: 2px solid rgba(0,0,0,0); */
 	}
 
+	.dj_li.cur .dj_li_box{
+		
+		border: 2px solid #EFB78B;
+	}
 	.dj_li_box_img {
 		position: absolute;
 		top: 0;
@@ -721,8 +832,7 @@
 		position: absolute;
 		top: 50%;
 		left: 50%;
-		margin-top: -11upx;
-		margin-left: -11upx;
+		transform: translate(-50%, -50%);
 	}
 	.pay_xz_li{
 		width: 100%;

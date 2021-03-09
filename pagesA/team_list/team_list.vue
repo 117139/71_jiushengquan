@@ -6,15 +6,13 @@
 				</block>
 		    <block slot="content">团队</block>
 				<block slot="right">
-					<view class="top_r" @tap="jump" data-url="/pagesA/team_msgs/team_msgs">
-						<text class="tip_box">1</text>
-						<text class="iconfont icontongzhi"></text>
-					</view>
+					
+					<top_msg></top_msg>
 				</block>
 		</cu-custom>
 		<htmlLoading ref="htmlLoading" @Retry='onRetry' :bj_show="true">
 			<view class="team_list">
-				<view v-for="(item,index) in datas" class="team_li" @tap="jump" :data-url="'/pagesA/team_user_li/team_user_li?id='+item.initiator_id">
+				<view v-for="(item,index) in datas" class="team_li" @tap="jump" :data-url="'/pagesA/team_user_li/team_user_li?team_id='+item.id">
 					<image class="team_li_img" :src="getimg(item.cover)" mode="aspectFit"></image>
 					<view class="flex_1 team_li_msg">
 						<view class="text-cut">{{item.title}}</view>
@@ -26,7 +24,7 @@
 			</view>
 			<view class="team_cz">
 				<!-- team_created -->
-				<view @tap="jump" data-url="/pagesA/team_created/team_created">创建团队</view>
+				<view v-if="datas.length==0" @tap="jump" data-url="/pagesA/team_created/team_created">创建团队</view>
 				<!-- <view @tap="jump" data-url="/pagesA/team_user_add/team_user_add">创建团队</view> -->
 				<view @tap="jump" data-url="/pagesA/team_join/team_join">加入团队</view>
 			</view>
@@ -169,25 +167,7 @@
 </script>
 
 <style scoped>
-	.top_r{
-		font-size: 40upx;
-		color: #333;
-		position: relative;
-	}
-	.tip_box{
-		position: absolute;
-		top: -5upx;
-		right: -5upx;
-		width: 23upx;
-		height: 23upx;
-		background: #FF4F11;
-		border-radius: 50%;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		font-size: 14upx;
-		color: #fff;
-	}
+	
 	.team_list{
 		width: 100%;
 		padding: 0 30upx 200upx;

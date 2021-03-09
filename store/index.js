@@ -39,10 +39,13 @@ const store = new Vuex.Store({
 		address:{},//当前坐标
 		
 		
-		wheight:''
-		
+		wheight:'',
+		NCount:0
 	},
 	mutations: {
+		setCount(state, NCount) { //未读消息数量
+			state.NCount = NCount||0;
+		},
 		setAddress(state, provider) { //当前坐标
 			state.address = provider;
 		},
@@ -118,6 +121,9 @@ const store = new Vuex.Store({
 		logout(state) {
 			state.userName = "游客";
 			state.hasLogin = false;
+			uni.clearStorageSync()
+			
+			
 		},
 		
 		// ****************************************

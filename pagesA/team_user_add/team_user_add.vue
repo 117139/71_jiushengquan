@@ -10,6 +10,8 @@
 				</view> -->
 			</block>
 		</cu-custom>
+		
+		<htmlLoading ref="htmlLoading" @Retry='onRetry' :bj_show="true">
 		<view class="ss_box" :style="style">
 			<view class="sr_k">
 				<text class="iconfont iconsousuo sr_icon"></text>
@@ -19,30 +21,28 @@
 			<view class="sr_btn" @tap="onRetry">搜索</view>
 		</view>
 		<view class="ss_box" style="position: relative;opacity: 0;z-index: 1;"></view>
-		<view v-if="htmlReset==1" class="zanwu" @tap='onRetry'>请求失败，请点击重试</view>
-		<view v-if="htmlReset==-1" class="loading_def">
-			<image class="loading_def_img" src="../../static/images/loading.gif" mode=""></image>
-		</view>
 		<view class="team_tit">成员</view>
-		<view v-if="htmlReset==0" class="team_list">
+		<view class="team_list">
 			<!-- <block v-if="ss_key"> -->
 			<block>
 				<view v-for="(item,index) in datas" class="team_li" @tap="set_user(item,$event)">
 					<view v-if="xuan_type(item)" class="user_btn cur"></view>
 					<view v-else class="user_btn"></view>
-					<image class="team_li_img" :src="getimg('/static/images/tx_m2.jpg')" mode="aspectFit"></image>
+					<image class="team_li_img" :src="getimg(item.avatar)" mode="aspectFit"></image>
 					<view class=" team_li_msg">
-						<view class="text-cut">{{item.name}}{{ss_key}}</view>
+						<view class="text-cut">{{item.username}}</view>
 					</view>
 				</view>
 			</block>
+			<view v-if="datas.length==0" class="zanwu">暂无数据</view>
+			<view v-if="data_last" class="data_last">我可是有底线的哟~</view>
 			<!-- <view v-else class="zanwu">暂无数据</view> -->
 		</view>
 
 		<view class="add_user">
 			<view class="add_user_btn" @tap="user_add" :data-url="'/pagesA/team_user_add/team_user_add?id='+id">邀请新成员</view>
 		</view>
-		<bao-jing></bao-jing>
+		</htmlLoading>
 	</view>
 </template>
 
@@ -58,42 +58,23 @@
 	export default {
 		data() {
 			return {
-				id: '',
+				team_id: '',
 				ids: [],
 				htmlReset: -1,
 				ss_key: '',
+				
+				datas:[],
+				page: 1,
+				size: 15,
+				data_last:false,
 				StatusBar: this.StatusBar,
 				CustomBar: this.CustomBar,
-				datas: [{
-						id: 1,
-						name: '救生圈组织团队1'
-					},
-					{
-						id: 2,
-						name: '救生圈组织团队2'
-					},
-					{
-						id: 3,
-						name: '救生圈组织团队3'
-					},
-					{
-						id: 4,
-						name: '救生圈组织团队4'
-					},
-					{
-						id: 5,
-						name: '救生圈组织团队5'
-					},
-					{
-						id: 6,
-						name: '救生圈组织团队6'
-					},
-
-				]
 			}
 		},
-		onLoad() {
+		onLoad(option) {
 			that = this
+			that.team_id=option.team_id
+			that.onRetry()
 		},
 		onShow() {
 			that.htmlReset = 0
@@ -148,9 +129,90 @@
 					}
 				}, 1000)
 			},
-			onRetry() {
-
+			onRetry(){
+				
+				that.datas=[]
+				that.data_last=false
+				that.page=1
+				
+				that.getdata()
 			},
+			getdata() {
+				
+				///api/info/list
+				// var that = this
+				var data = {
+					token:that.$store.state.loginDatas.token,
+					page:that.page,
+					size:that.size,
+					// team_id:that.team_id,
+					userName:that.ss_key
+				}
+				if(that.btn_kg==1){
+					return
+				}
+				that.btn_kg=1
+				//selectSaraylDetailByUserCard
+				var jkurl = '/minapp/member-list'
+				uni.showLoading({
+					title: '正在获取数据'
+				})
+				// setTimeout(()=>{
+				// 	uni.hideLoading()
+				// },1000)
+				// return
+				var page_now=that.page
+				service.P_get(jkurl, data).then(res => {
+					that.btn_kg = 0
+					that.htmlReset=0
+					that.$refs.htmlLoading.htmlReset_fuc(0)
+					console.log(res)
+					if (res.code == 1) {
+						var datas = res.data
+						console.log(typeof datas)
+			
+						if (typeof datas == 'string') {
+							datas = JSON.parse(datas)
+						}
+						if(page_now==1){
+				
+							that.datas = datas
+						} else {
+							if (datas.length == 0) {
+								that.data_last = true
+								return
+							}
+							that.data_last = false
+							that.datas = that.datas.concat(datas)
+						}
+						that.page++
+						console.log(datas)
+			
+			
+					} else {
+						if (res.msg) {
+							uni.showToast({
+								icon: 'none',
+								title: res.msg
+							})
+						} else {
+							uni.showToast({
+								icon: 'none',
+								title: '操作失败'
+							})
+						}
+					}
+				}).catch(e => {
+					that.btn_kg = 0
+					that.$refs.htmlLoading.htmlReset_fuc(1)
+					console.log(e)
+					uni.showToast({
+						icon: 'none',
+						title: '获取数据失败'
+					})
+				})
+			},
+			
 			user_add() {
 				var arr=this.ids
 				if(arr.length==0){
@@ -161,9 +223,62 @@
 					return
 				}
 				arr=arr.join(',')
-				uni.showToast({
-					icon: 'none',
-					title: '邀请已发送'
+				// uni.showToast({
+				// 	icon: 'none',
+				// 	title: '邀请已发送'
+				// })
+				var jkurl='/minapp/invite-member'
+				var data={
+					token:that.$store.state.loginDatas.token,
+					member_id:arr
+				}
+				if(that.btn_kg==1){
+					return
+				}
+				that.btn_kg=1
+				uni.showLoading({
+					title: '正在发送邀请'
+				})
+				
+				service.P_post(jkurl, data).then(res => {
+					that.btn_kg = 0
+					that.htmlReset=0
+					// that.$refs.htmlLoading.htmlReset_fuc(0)
+					console.log(res)
+					if (res.code == 1) {
+						var datas = res.data
+						console.log(typeof datas)
+							
+						if (typeof datas == 'string') {
+							datas = JSON.parse(datas)
+						}
+						uni.showToast({
+							icon:'none',
+							title:'邀请已发送'
+						})
+							
+							
+					} else {
+						if (res.msg) {
+							uni.showToast({
+								icon: 'none',
+								title: res.msg
+							})
+						} else {
+							uni.showToast({
+								icon: 'none',
+								title: '操作失败'
+							})
+						}
+					}
+				}).catch(e => {
+					that.btn_kg = 0
+					// that.$refs.htmlLoading.htmlReset_fuc(1)
+					console.log(e)
+					uni.showToast({
+						icon: 'none',
+						title: '操作异常'
+					})
 				})
 			},
 			getimg(img) {

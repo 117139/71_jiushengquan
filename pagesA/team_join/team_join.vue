@@ -4,10 +4,7 @@
 			<block slot="backText"></block>
 			<block slot="content">加入团队</block>
 			<block slot="right">
-				<view class="top_r"  @tap="jump" data-url="/pagesA/team_msgs/team_msgs">
-					<text class="tip_box">1</text>
-					<text class="iconfont icontongzhi"></text>
-				</view>
+				<top_msg></top_msg>
 			</block>
 		</cu-custom>
 		
@@ -167,7 +164,7 @@
 			join_fuc(item) {
 				var data = {
 					token:that.$store.state.loginDatas.token,
-					team_id:item.initiator_id
+					team_id:item.id
 				}
 				if(that.btn_kg==1){
 					return

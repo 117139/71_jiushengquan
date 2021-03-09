@@ -1,58 +1,31 @@
 <template>
 	<view class="minh100">
-		<view v-if="htmlReset==1" class="zanwu" @tap='onRetry'>请求失败，请点击重试</view>
-		<view v-if="htmlReset==-1" class="loading_def">
-			<image class="loading_def_img" src="../../static/images/loading.gif" mode=""></image>
-		</view>
-		<block v-if="htmlReset==0">
+		<htmlLoading ref="htmlLoading" @Retry='onRetry' :bj_show="true">
 			<view class="team_list">
-
-				<view v-if="htmlReset==1" class="zanwu" @tap='onRetry'>请求失败，请点击重试</view>
-				<view v-if="htmlReset==-1" class="loading_def">
-					<image class="loading_def_img" src="../../static/images/loading.gif" mode=""></image>
+				<view v-for="(item,index) in datas1" class="team_li">
+					<image class="team_li_img" :src="getimg(item.apply_user_info.avatar)" mode="aspectFit"></image>
+					<view class=" team_li_msg dis_flex_c flex_1">
+						<view class="text-cut">{{item.apply_user_info.username}}</view>
+						<view class="text-cut" style="font-size: 24upx;color: #999;">{{item.msg_content}}</view>
+					</view>
+					<view>
+						<view class="join_btn join_btn1" @tap="join_fuc(item,2)">拒绝</view>
+						<view class="join_btn" @tap="join_fuc(item,1)">同意</view>
+					</view>
 				</view>
-				<block v-if="htmlReset==0">
-					<view v-for="(item,index) in datas" class="team_li">
-						<image class="team_li_img" :src="getimg('/static/images/tx_m2.jpg')" mode="aspectFit"></image>
-						<view class=" team_li_msg dis_flex_c flex_1">
-							<view class="text-cut">{{item.name}}{{ss_key}}</view>
-							<view class="text-cut" style="font-size: 24upx;color: #999;">申请加入救生圈团队1</view>
-						</view>
-						<view>
-							<view class="join_btn join_btn1" @tap="join_fuc(item,1)">拒绝</view>
-							<view class="join_btn" @tap="join_fuc(item,2)">同意</view>
-						</view>
+				<view v-for="(item,index) in datas" class="team_li">
+					<image class="team_li_img" :src="getimg('/static/images/xxtz_03.png')" mode="aspectFit"></image>
+					<view class=" team_li_msg dis_flex_c flex_1">
+						<view class="text-cut">消息通知</view>
+						<view class="text-cut" style="font-size: 24upx;color: #999;">{{item.content}}</view>
 					</view>
-					<view class="team_li">
-						<image class="team_li_img" :src="getimg('/static/images/tx_m2.jpg')" mode="aspectFit"></image>
-						<view class=" team_li_msg dis_flex_c flex_1">
-							<view class="text-cut">野外求生专家</view>
-							<view class="text-cut" style="font-size: 24upx;color: #999;">野外求生专家成功加入团队野外求生专家成功加入团队野外求生专家成功加入团队野外求生专家成功加入团队</view>
-						</view>
-					</view>
-					<view class="team_li">
-						<image class="team_li_img" :src="getimg('/static/images/tx_m2.jpg')" mode="aspectFit"></image>
-						<view class=" team_li_msg dis_flex_c flex_1">
-							<view class="text-cut">野外求生专家</view>
-							<view class="text-cut" style="font-size: 24upx;color: #999;">野外求生专家成功加入团队野外求生专家成功加入团队野外求生专家成功加入团队野外求生专家成功加入团队</view>
-						</view>
-					</view>
-					<view class="team_li">
-						<image class="team_li_img" :src="getimg('/static/images/tx_m2.jpg')" mode="aspectFit"></image>
-						<view class=" team_li_msg dis_flex_c flex_1">
-							<view class="text-cut">野外求生专家</view>
-							<view class="text-cut" style="font-size: 24upx;color: #999;">野外求生专家成功加入团队野外求生专家成功加入团队野外求生专家成功加入团队野外求生专家成功加入团队</view>
-						</view>
-					</view>
-				</block>
-				<view v-else class="zanwu">暂无数据</view>
+				</view>
 			</view>
-		</block>
-		<!-- <view class="add_user">
-			<view class="add_user_btn" @tap="jump" :data-url="'/pagesA/team_user_add/team_user_add?id='+id">邀请新成员</view>
-		</view> -->
-
-		<bao-jing></bao-jing>
+			
+			<view v-if="datas1.length==0&&datas.length==0" class="zanwu">暂无数据</view>
+			<view v-if="data_last" class="data_last">我可是有底线的哟~</view>
+		</htmlLoading>
+		
 	</view>
 </template>
 
@@ -70,33 +43,25 @@
 				id:'',
 				htmlReset: -1,
 				ss_key: '',
-				datas: [{
-						name: '野外求生专家1'
-					},
-					{
-						name: '野外求生专家1'
-					},
-					{
-						name: '野外求生专家1'
-					},
-					{
-						name: '野外求生专家1'
-					},
-					{
-						name: '野外求生专家1'
-					},
-					{
-						name: '野外求生专家1'
-					},
-
-				]
+				
+				datas1:[],
+				datas:[],
+				page: 1,
+				size: 15,
+				data_last:false,
+				triggered: true, //设置当前下拉刷新状态
 			}
 		},
 		onLoad() {
 			that = this
+			that.onRetry()
 		},
 		onShow() {
 			that.htmlReset = 0
+		},
+		onPullDownRefresh() {
+			
+			that.onRetry()
 		},
 		methods: {
 			sousuo_ing() {
@@ -114,19 +79,149 @@
 					}
 				}, 1000)
 			},
-			onRetry() {
-
+			onRetry(){
+				
+				that.datas=[]
+				that.data_last=false
+				that.page=1
+				
+				that.getdata()
 			},
+			getdata() {
+				
+				///api/info/list
+				// var that = this
+				var data = {
+					token:that.$store.state.loginDatas.token,
+					page:that.page,
+					size:that.size
+				}
+				if(that.btn_kg==1){
+					return
+				}
+				that.btn_kg=1
+				var jkurl = '/minapp/msg-notice'
+				uni.showLoading({
+					title: '正在获取数据'
+				})
+				var page_now=that.page
+				service.P_get(jkurl, data).then(res => {
+					that.btn_kg = 0
+					that.htmlReset=0
+					that.$refs.htmlLoading.htmlReset_fuc(0)
+					console.log(res)
+					if (res.code == 1) {
+						var datas = res.data
+						console.log(typeof datas)
+			
+						if (typeof datas == 'string') {
+							datas = JSON.parse(datas)
+						}
+						if(page_now==1){
+				
+							that.datas1 = datas.list1
+							that.datas = datas.list2
+						} else {
+							if (datas.list2.length == 0) {
+								that.data_last = true
+								return
+							}
+							that.data_last = false
+							that.datas = that.datas.concat(datas.list2)
+						}
+						that.page++
+						console.log(datas)
+			
+			
+					} else {
+						if (res.msg) {
+							uni.showToast({
+								icon: 'none',
+								title: res.msg
+							})
+						} else {
+							uni.showToast({
+								icon: 'none',
+								title: '操作失败'
+							})
+						}
+					}
+				}).catch(e => {
+					that.btn_kg = 0
+					that.$refs.htmlLoading.htmlReset_fuc(1)
+					console.log(e)
+					uni.showToast({
+						icon: 'none',
+						title: '获取数据失败'
+					})
+				})
+			},
+			
 			join_fuc(item,num) {
 				var text_s=''
-				if(num==1){
+				if(num==2){
 					text_s='拒绝'
 				}else{
 					text_s='同意'
 				}
-				uni.showToast({
-					icon: 'none',
-					title: text_s+'操作'
+				// uni.showToast({
+				// 	icon: 'none',
+				// 	title: text_s+'操作'
+				// })
+				var jkurl='/minapp/consent'
+				var data={
+					token:that.$store.state.loginDatas.token,
+					id:item.id,
+					state:num
+				}
+				if(that.btn_kg==1){
+					return
+				}
+				that.btn_kg=1
+				// uni.showLoading({
+				// 	title: '正在发送邀请'
+				// })
+				
+				service.P_post(jkurl, data).then(res => {
+					that.btn_kg = 0
+					// that.$refs.htmlLoading.htmlReset_fuc(0)
+					console.log(res)
+					if (res.code == 1) {
+						var datas = res.data
+						console.log(typeof datas)
+							
+						if (typeof datas == 'string') {
+							datas = JSON.parse(datas)
+						}
+						uni.showToast({
+							icon:'none',
+							title:'操作成功'
+						})
+						setTimeout(()=>{
+							that.onRetry()
+						},1000)	
+							
+					} else {
+						if (res.msg) {
+							uni.showToast({
+								icon: 'none',
+								title: res.msg
+							})
+						} else {
+							uni.showToast({
+								icon: 'none',
+								title: '操作失败'
+							})
+						}
+					}
+				}).catch(e => {
+					that.btn_kg = 0
+					// that.$refs.htmlLoading.htmlReset_fuc(1)
+					console.log(e)
+					uni.showToast({
+						icon: 'none',
+						title: '操作异常'
+					})
 				})
 			},
 			getimg(img) {

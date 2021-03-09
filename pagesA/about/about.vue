@@ -1,7 +1,8 @@
 <template>
 	<view class="minh100">
-	
-		<view v-if="datas" class="xieyi_main xmfwb_box" v-html="datas"></view>
+		<htmlLoading ref="htmlLoading" @Retry='getdata' :bj_show="false">
+			<view v-if="datas" class="xieyi_main xmfwb_box" v-html="datas"></view>
+		</htmlLoading>
 		<!-- <view>{{datas}}</view> -->
 	</view>
 </template>
@@ -17,7 +18,7 @@
 			return {
 				title:'隐私协议',
 				type:0,
-				datas:'服务声明服务声明服务声明服务声明服务声明服务声明服务声明服务声明服务声明服务声明'
+				datas:''
 			}
 		},
 		onLoad(Option) {
@@ -31,7 +32,7 @@
 				uni.setNavigationBarTitle({
 					title:'服务声明'
 				})
-				// this.getdata('ysxy')
+				this.getdata('state')
 			}
 			if(Option.type=='yszc'){
 				that.type=Option.type
@@ -66,16 +67,17 @@
 				///api/info/list
 				var that =this
 				var data = {
-					keyword:keyword
+					type:keyword
 				}
 				
 				//selectSaraylDetailByUserCard
-				var jkurl = '/getClause'
+				var jkurl = '/minapp/agreement'
 				uni.showLoading({
 					title: '正在获取数据'
 				})
 				service.P_get(jkurl, data).then(res => {
 					that.btn_kg = 0
+					that.$refs.htmlLoading.htmlReset_fuc(0)
 					console.log(res)
 					if (res.code == 1) {
 						var datas = res.data
@@ -85,7 +87,7 @@
 							datas = JSON.parse(datas)
 						}
 						
-						that.datas = datas[0].content
+						that.datas = datas.content
 						console.log(datas)
 							
 							
@@ -104,6 +106,7 @@
 					}
 				}).catch(e => {
 					that.btn_kg = 0
+					that.$refs.htmlLoading.htmlReset_fuc(1)
 					console.log(e)
 					uni.showToast({
 						icon: 'none',

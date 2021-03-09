@@ -1,46 +1,37 @@
 <template>
 	<view class="minh100">
 		<view v-if="htmlReset==1" class="zanwu" @tap='onRetry'>请求失败，请点击重试</view>
-		<view v-if="htmlReset==-1" class="loading_def">
-			<image class="loading_def_img" src="../../static/images/loading.gif" mode=""></image>
-		</view>
-		<block v-if="htmlReset==0">
+		<htmlLoading ref="htmlLoading" @Retry='onRetry' :bj_show="true">
 			<view class="team_tit">创建人</view>
 			<view class="team_list" style="padding-bottom: 0;">
-				<view class="team_li">
-					<image class="team_li_img" :src="getimg('/static/images/team_icon.png')" mode="aspectFit"></image>
+				<view v-if="datas.length>0" class="team_li">
+					<image class="team_li_img" :src="getimg(datas[0].user_info.avatar)" mode="aspectFit"></image>
 					<view class="team_li_msg">
-						<view class="text-cut">{{'野外求生专家'}}</view>
+						<view class="text-cut">{{datas[0].user_info.username}}</view>
 					</view>
-					<view class="join_btn1">我</view>
+					<view v-if="loginDatas.id==datas[0].user_info.id" class="join_btn1">我</view>
+					<view v-else class="join_btn1">创建人</view>
 				</view>
 			</view>
 			<view class="team_tit">组织团队成员</view>
 			<view class="team_list">
-
-				<view v-if="htmlReset==1" class="zanwu" @tap='onRetry'>请求失败，请点击重试</view>
-				<view v-if="htmlReset==-1" class="loading_def">
-					<image class="loading_def_img" src="../../static/images/loading.gif" mode=""></image>
-				</view>
-				<block v-if="htmlReset==0">
-					<view v-for="(item,index) in datas" class="team_li">
-						<image class="team_li_img" :src="getimg('/static/images/tx_m2.jpg')" mode="aspectFit"></image>
-						<view class=" team_li_msg">
-							<view class="text-cut">{{item.name}}{{ss_key}}</view>
-						</view>
-						<view class="join_btn" @tap="join_fuc(item)">踢除</view>
+				<view v-for="(item,index) in datas" class="team_li" v-if="item.is_initiator!=2">
+					<image class="team_li_img" :src="getimg(item.user_info.avatar)" mode="aspectFit"></image>
+					<view class=" team_li_msg">
+						<view class="text-cut">{{item.user_info.username}}</view>
 					</view>
-				</block>
-				
+					<view v-if="loginDatas.is_initiator==2" class="join_btn" @tap="join_fuc(item)">踢除</view>
+					<view v-else class="flex_1" ></view>
+				</view>
 				<view v-if="datas.length==0" class="zanwu">暂无数据</view>
 				<view v-if="data_last" class="data_last">我可是有底线的哟~</view>
 			</view>
-		</block>
+		
 		<view class="add_user">
-			<view class="add_user_btn" @tap="jump" :data-url="'/pagesA/team_user_add/team_user_add?id='+id">邀请新成员</view>
+			<view v-if="loginDatas.is_initiator==2" class="add_user_btn" @tap="jump" :data-url="'/pagesA/team_user_add/team_user_add?team_id='+team_id">邀请新成员</view>
 		</view>
 
-		<bao-jing></bao-jing>
+		</htmlLoading>
 	</view>
 </template>
 
@@ -57,31 +48,21 @@
 			return {
 				id:'',
 				htmlReset: -1,
+				team_id:'',
 				ss_key: '',
-				datas: [{
-						name: '野外求生专家1'
-					},
-					{
-						name: '野外求生专家1'
-					},
-					{
-						name: '野外求生专家1'
-					},
-					{
-						name: '野外求生专家1'
-					},
-					{
-						name: '野外求生专家1'
-					},
-					{
-						name: '野外求生专家1'
-					},
-
-				]
+				datas:[],
+				page: 1,
+				size: 15,
+				data_last:false,
 			}
 		},
-		onLoad() {
+		computed: {
+			...mapState(['hasLogin', 'forcedLogin', 'userName', 'loginDatas']),
+		},
+		onLoad(option) {
 			that = this
+			that.team_id=option.team_id
+			that.onRetry()
 		},
 		onShow() {
 			that.htmlReset = 0
@@ -102,7 +83,8 @@
 					}
 				}, 1000)
 			},
-			onRetry() {
+			onRetry(){
+				
 				that.datas=[]
 				that.data_last=false
 				that.page=1
@@ -114,15 +96,17 @@
 				///api/info/list
 				// var that = this
 				var data = {
+					token:that.$store.state.loginDatas.token,
 					page:that.page,
-					size:that.size
+					size:that.size,
+					team_id:that.team_id
 				}
 				if(that.btn_kg==1){
 					return
 				}
 				that.btn_kg=1
 				//selectSaraylDetailByUserCard
-				var jkurl = '/minapp/team'
+				var jkurl = '/minapp/my-team'
 				uni.showLoading({
 					title: '正在获取数据'
 				})

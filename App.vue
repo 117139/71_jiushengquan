@@ -71,7 +71,56 @@
 			
 		},
 		methods: {
-				...mapMutations(['login','logindata','logout','setplatform','setuuid']),
+				...mapMutations(['login','logindata','logout','setplatform','setCount']),
+				getCount(){
+					var that =this
+					var jkurl='/minapp/notice-count'
+					var data={
+						token:that.$store.state.loginDatas.token,
+						// member_id:arr
+					}
+					if(that.btn_kg==1){
+						return
+					}
+					that.btn_kg=1
+					service.P_get(jkurl, data).then(res => {
+						that.btn_kg = 0
+						that.htmlReset=0
+						// that.$refs.htmlLoading.htmlReset_fuc(0)
+						console.log(res)
+						if (res.code == 1) {
+							var datas = res.data
+							console.log(typeof datas)
+								
+							// if (typeof datas == 'string') {
+							// 	datas = JSON.parse(datas)
+							// }
+							that.setCount(datas)
+								
+								
+						} else {
+							if (res.msg) {
+								uni.showToast({
+									icon: 'none',
+									title: res.msg
+								})
+							} else {
+								uni.showToast({
+									icon: 'none',
+									title: '操作失败'
+								})
+							}
+						}
+					}).catch(e => {
+						that.btn_kg = 0
+						// that.$refs.htmlLoading.htmlReset_fuc(1)
+						console.log(e)
+						uni.showToast({
+							icon: 'none',
+							title: '操作异常'
+						})
+					})
+				},
 		}
 	}
 </script>

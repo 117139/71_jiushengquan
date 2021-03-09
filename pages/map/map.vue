@@ -28,7 +28,7 @@
 				<image class="map_btn_li_image" :src="getimg('/static/images/index_btn3.png')" mode="aspectFit"></image>
 				<text>天气1s</text>
 			</view>
-			<view class="map_btn_li">
+			<view class="map_btn_li" @tap="getList">
 				<image class="map_btn_li_image" :src="getimg('/static/images/index_btn4.png')" mode="aspectFit"></image>
 				<text>筛选</text>
 			</view>
@@ -122,7 +122,7 @@
 		mapState,
 		mapMutations
 	} from 'vuex'
-	var that, mapContext, mapEndloading;
+	var that, mapContext, mapEndloading=false;
 	var djs_fuc
 	var that
 	export default {
@@ -181,9 +181,11 @@
 		onLoad() {
 			// return
 			that = this
+			this.getLocation();
 			// #ifdef APP-PLUS
 			this.getLocation();
 			// #endif
+			mapContext = uni.createMapContext('map', this);
 			/*const innerAudioContext = uni.createInnerAudioContext();
 			innerAudioContext.autoplay = true;
 			innerAudioContext.src = 'https://vkceyugu.cdn.bspapp.com/VKCEYUGU-hello-uniapp/2cc220e0-c27a-11ea-9dfb-6da8e309e0d8.mp3';
@@ -281,7 +283,8 @@
 			//移动地图结束
 			mapChange(e) {
 				console.log(e)
-				if (e) {
+				// console.log(mapEndloading)
+				if (!e) {
 					return
 				}
 
@@ -289,13 +292,17 @@
 					return;
 				}
 				mapEndloading = true;
+				console.log((e.detail.type == 'end' || e.type == 'end'))
 				setTimeout(() => { //防抖
 					mapEndloading = false;
 				}, 500);
+				
 				if (e.detail.type == 'end' || e.type == 'end') {
 					//中心区域左边
+					console.log('中心区域左边')
 					mapContext.getCenterLocation({
 						success(res) {
+							console.log(res)
 							that.mapEnd(res);
 						},
 						fail(err) {
@@ -362,7 +369,78 @@
 
 
 			},
-			getList() {},
+			getList() {
+				var data = {
+					token:that.$store.state.loginDatas.token,
+					longitude:that.longitude,
+					latitude:that.latitude
+				}
+				if(that.btn_kg==1){
+					return
+				}
+				that.btn_kg=1
+				//selectSaraylDetailByUserCard
+				var jkurl = '/minapp/position-list'
+				uni.showLoading({
+					title: '正在获取数据'
+				})
+				
+				service.P_get(jkurl, data).then(res => {
+					that.btn_kg = 0
+					console.log(res)
+					if (res.code == 1) {
+						var datas = res.data
+						console.log(typeof datas)
+							
+						if (typeof datas == 'string') {
+							datas = JSON.parse(datas)
+						}
+						// datas=[
+						// 	{
+						// 		id:1,
+						// 		// latitude: 39.909,
+						// 		// longitude: 116.39742,
+						// 		latitude: 39.95933,
+						// 		longitude: 116.29845,
+
+						// 		type_name: "水灾",
+						// 		iconPath: '/static/images/chehuo.png'
+						// 	}
+						// ]
+						var newdata=datas
+						for(var i=0;i<newdata.length;i++){
+							var new_latitude=newdata[i].latitude
+							var new_longitude=newdata[i].longitude
+							var new_iconPath=that.getimg(newdata[i].iconPath)
+							Vue.set(newdata,'latitude',new_latitude)
+							Vue.set(newdata,'longitude',new_longitude)
+							Vue.set(newdata,'iconPath',new_iconPath)
+						}
+						that.markersArr=newdata
+							
+							
+					} else {
+						if (res.msg) {
+							uni.showToast({
+								icon: 'none',
+								title: res.msg
+							})
+						} else {
+							uni.showToast({
+								icon: 'none',
+								title: '获取失败'
+							})
+						}
+					}
+				}).catch(e => {
+					that.btn_kg = 0
+					console.log(e)
+					uni.showToast({
+						icon: 'none',
+						title: '获取数据失败'
+					})
+				})
+			},
 			//地图移动
 			mapEnd(res) {
 				console.log('加载数据')
@@ -382,12 +460,17 @@
 
 			},
 			getLocation(type) {
+				console.log('getLocation')
 				uni.getLocation({
 					// type: 'wgs84',
 					type: 'gcj02',
 					success: function(res) {
 						that.longitude = res.longitude;
 						that.latitude = res.latitude;
+						console.log('longitude')
+						console.log(longitude)
+						console.log('latitude')
+						console.log(latitude)
 						that.pageIndex = 1;
 						// if (type != 'back') {
 

@@ -54,7 +54,7 @@
 						<view class="add_bj_text"></view>
 					</view>
 					<view class="bj_type">
-						<view class="bj_type_li" :class="tk_show_sx_cur==0?'bj_type_li_cur':''" @click="shai_tk(0)">
+						<view class="bj_type_li" :class="tk_show_sx_cur==0?'bj_type_li_cur':datas.search_state" @click="shai_tk(0)">
 							<text class="bj_type_li_text" :class="tk_show_sx_cur==0?'bj_type_li_text_cur':''">所有</text>
 						</view>
 						<view class="bj_type_li" :class="tk_show_sx_cur==1?'bj_type_li_cur':''" @click="shai_tk(1)">
@@ -102,45 +102,45 @@
 				<text v-if="tk_show1_num==4" class="notetk_tit">选择建筑破坏等级</text>
 				<text v-if="tk_show1_num==5" class="notetk_tit">补充搜索信息</text>
 				<text class="notetk_time">{{note_time_t}}</text>
-				<input v-if="tk_show1_num!=5" class="bz_int_tk" type="text" value="" placeholder="备注" />
+				<input v-if="tk_show1_num!=5" class="bz_int_tk" type="text" value="" placeholder="备注" v-model="zb_bz" />
 				<view v-if="tk_show1_num==1" class="bj_list_box">
 					<view class="bj_list_box_li_w">
-						<view class="bj_list_box_li" :class="tk_show1_cur==0?'bj_list_box_li_cur':''" @click="tk_show1_cur=0">
+						<view class="bj_list_box_li" :class="tk_show1_cur==0?'bj_list_box_li_cur':''" @click="set_pos_fuc(0,'/static/images/huozai.png','火灾')">
 							<image class="bj_icon " src="../../static/images/huozai.png" mode="aspectFit"></image>
 							<text class="bj_icon_text">火灾</text>
 						</view>
 						<image class="xz_ok" :class="tk_show1_cur==0?'xz_ok_cur':''" src="../../static/images/xz_ok.png" mode=""></image>
 					</view>
 					<view class="bj_list_box_li_w">
-						<view class="bj_list_box_li" :class="tk_show1_cur==1?'bj_list_box_li_cur':''" @click="tk_show1_cur=1">
+						<view class="bj_list_box_li" :class="tk_show1_cur==1?'bj_list_box_li_cur':''" @click="set_pos_fuc(1,'/static/images/dianli.png','电力')">
 							<image class="bj_icon" src="../../static/images/dianli.png" mode="aspectFit"></image>
 							<text class="bj_icon_text">电力</text>
 						</view>
 						<image class="xz_ok" :class="tk_show1_cur==1?'xz_ok_cur':''" src="../../static/images/xz_ok.png" mode=""></image>
 					</view>
 					<view class="bj_list_box_li_w">
-						<view class="bj_list_box_li" :class="tk_show1_cur==2?'bj_list_box_li_cur':''" @click="tk_show1_cur=2">
+						<view class="bj_list_box_li" :class="tk_show1_cur==2?'bj_list_box_li_cur':''" @click="set_pos_fuc(2,'/static/images/luzhang.png','路障')">
 							<image class="bj_icon" src="../../static/images/luzhang.png" mode="aspectFit"></image>
 							<text class="bj_icon_text">路障</text>
 						</view>
 						<image class="xz_ok" :class="tk_show1_cur==2?'xz_ok_cur':''" src="../../static/images/xz_ok.png" mode=""></image>
 					</view>
 					<view class="bj_list_box_li_w">
-						<view class="bj_list_box_li" :class="tk_show1_cur==3?'bj_list_box_li_cur':''" @click="tk_show1_cur=3">
+						<view class="bj_list_box_li" :class="tk_show1_cur==3?'bj_list_box_li_cur':''" @click="set_pos_fuc(3,'/static/images/chehuo.png','车祸')">
 							<image class="bj_icon" src="../../static/images/chehuo.png" mode="aspectFit"></image>
 							<text class="bj_icon_text">车祸</text>
 						</view>
 						<image class="xz_ok" :class="tk_show1_cur==3?'xz_ok_cur':''" src="../../static/images/xz_ok.png" mode=""></image>
 					</view>
 					<view class="bj_list_box_li_w">
-						<view class="bj_list_box_li" :class="tk_show1_cur==4?'bj_list_box_li_cur':''" @click="tk_show1_cur=4">
+						<view class="bj_list_box_li" :class="tk_show1_cur==4?'bj_list_box_li_cur':''" @click="set_pos_fuc(4,'/static/images/weixianwu.png','危化品')">
 							<image class="bj_icon" src="../../static/images/weixianwu.png" mode="aspectFit"></image>
 							<text class="bj_icon_text">危化品</text>
 						</view>
 						<image class="xz_ok" :class="tk_show1_cur==4?'xz_ok_cur':''" src="../../static/images/xz_ok.png" mode=""></image>
 					</view>
 					<view class="bj_list_box_li_w">
-						<view class="bj_list_box_li" :class="tk_show1_cur==5?'bj_list_box_li_cur':''" @click="tk_show1_cur=5">
+						<view class="bj_list_box_li" :class="tk_show1_cur==5?'bj_list_box_li_cur':''" @click="set_pos_fuc(5,'/static/images/shuizai.png','水灾')">
 							<image class="bj_icon" src="../../static/images/shuizai.png" mode="aspectFit"></image>
 							<text class="bj_icon_text">水灾</text>
 						</view>
@@ -150,28 +150,28 @@
 				</view>
 				<view v-if="tk_show1_num==2" class="bj_list_box">
 					<view class="bj_list_box_li_w bj_list_box_li_w_ml">
-						<view class="bj_list_box_li bj_list_box_li_ml" :class="tk_show1_cur==0?'bj_list_box_li_cur':''" @click="tk_show1_cur=0">
+						<view class="bj_list_box_li bj_list_box_li_ml" :class="tk_show1_cur==0?'bj_list_box_li_cur':''" @click="set_pos_fuc(0,'/static/images/ml_zhihui.png','指挥')">
 							<image class="bj_icon " src="../../static/images/ml_zhihui.png" mode="aspectFit"></image>
 							<text class="bj_icon_text">指挥</text>
 						</view>
 						<image class="xz_ok" :class="tk_show1_cur==0?'xz_ok_cur':''" src="../../static/images/xz_ok.png" mode=""></image>
 					</view>
 					<view class="bj_list_box_li_w bj_list_box_li_w_ml">
-						<view class="bj_list_box_li bj_list_box_li_ml" :class="tk_show1_cur==1?'bj_list_box_li_cur':''" @click="tk_show1_cur=1">
+						<view class="bj_list_box_li bj_list_box_li_ml" :class="tk_show1_cur==1?'bj_list_box_li_cur':''" @click="set_pos_fuc(1,'/static/images/ml_jihe.png','集结')">
 							<image class="bj_icon" src="../../static/images/ml_jihe.png" mode="aspectFit"></image>
 							<text class="bj_icon_text">集结</text>
 						</view>
 						<image class="xz_ok" :class="tk_show1_cur==1?'xz_ok_cur':''" src="../../static/images/xz_ok.png" mode=""></image>
 					</view>
 					<view class="bj_list_box_li_w bj_list_box_li_w_ml">
-						<view class="bj_list_box_li bj_list_box_li_ml" :class="tk_show1_cur==2?'bj_list_box_li_cur':''" @click="tk_show1_cur=2">
+						<view class="bj_list_box_li bj_list_box_li_ml" :class="tk_show1_cur==2?'bj_list_box_li_cur':''" @click="set_pos_fuc(2,'/static/images/ml_yiliao.png','医疗')">
 							<image class="bj_icon" src="../../static/images/ml_yiliao.png" mode="aspectFit"></image>
 							<text class="bj_icon_text">医疗</text>
 						</view>
 						<image class="xz_ok" :class="tk_show1_cur==2?'xz_ok_cur':''" src="../../static/images/xz_ok.png" mode=""></image>
 					</view>
 					<view class="bj_list_box_li_w bj_list_box_li_w_ml">
-						<view class="bj_list_box_li bj_list_box_li_ml" :class="tk_show1_cur==3?'bj_list_box_li_cur':''" @click="tk_show1_cur=3">
+						<view class="bj_list_box_li bj_list_box_li_ml" :class="tk_show1_cur==3?'bj_list_box_li_cur':''" @click="set_pos_fuc(3,'/static/images/ml_tingche.png','停车')">
 							<image class="bj_icon" src="../../static/images/ml_tingche.png" mode="aspectFit"></image>
 							<text class="bj_icon_text">停车</text>
 						</view>
@@ -181,42 +181,42 @@
 				</view>
 				<view v-if="tk_show1_num==3" class="bj_list_box">
 					<view class="bj_list_box_li_w bj_list_box_li_w_sk">
-						<view class="bj_list_box_li bj_list_box_li_sk" :class="tk_show1_cur==0?'bj_list_box_li_cur':''" @click="tk_show1_cur=0">
+						<view class="bj_list_box_li bj_list_box_li_sk" :class="tk_show1_cur==0?'bj_list_box_li_cur':''" @click="set_pos_fuc(0,'/static/images/sk_1.png','停车')">
 							<image class="bj_icon " src="../../static/images/sk_1.png" mode="aspectFit"></image>
 							<text class="bj_icon_text">潜在的受困者</text>
 						</view>
 						<image class="xz_ok" :class="tk_show1_cur==0?'xz_ok_cur':''" src="../../static/images/xz_ok.png" mode=""></image>
 					</view>
 					<view class="bj_list_box_li_w bj_list_box_li_w_sk">
-						<view class="bj_list_box_li bj_list_box_li_sk" :class="tk_show1_cur==1?'bj_list_box_li_cur':''" @click="tk_show1_cur=1">
+						<view class="bj_list_box_li bj_list_box_li_sk" :class="tk_show1_cur==1?'bj_list_box_li_cur':''" @click="set_pos_fuc(1,'/static/images/sk_2.png','确认生还者')">
 							<image class="bj_icon" src="../../static/images/sk_2.png" mode="aspectFit"></image>
 							<text class="bj_icon_text">确认生还者</text>
 						</view>
 						<image class="xz_ok" :class="tk_show1_cur==1?'xz_ok_cur':''" src="../../static/images/xz_ok.png" mode=""></image>
 					</view>
 					<view class="bj_list_box_li_w bj_list_box_li_w_sk">
-						<view class="bj_list_box_li bj_list_box_li_sk" :class="tk_show1_cur==2?'bj_list_box_li_cur':''" @click="tk_show1_cur=2">
+						<view class="bj_list_box_li bj_list_box_li_sk" :class="tk_show1_cur==2?'bj_list_box_li_cur':''" @click="set_pos_fuc(2,'/static/images/sk_3.png','确认遇难者')">
 							<image class="bj_icon" src="../../static/images/sk_3.png" mode="aspectFit"></image>
 							<text class="bj_icon_text">确认遇难者</text>
 						</view>
 						<image class="xz_ok" :class="tk_show1_cur==2?'xz_ok_cur':''" src="../../static/images/xz_ok.png" mode=""></image>
 					</view>
 					<view class="bj_list_box_li_w bj_list_box_li_w_sk">
-						<view class="bj_list_box_li bj_list_box_li_sk" :class="tk_show1_cur==3?'bj_list_box_li_cur':''" @click="tk_show1_cur=3">
+						<view class="bj_list_box_li bj_list_box_li_sk" :class="tk_show1_cur==3?'bj_list_box_li_cur':''" @click="set_pos_fuc(3,'/static/images/sk_4.png','移除生还者')">
 							<image class="bj_icon" src="../../static/images/sk_4.png" mode="aspectFit"></image>
 							<text class="bj_icon_text">移除生还者</text>
 						</view>
 						<image class="xz_ok" :class="tk_show1_cur==3?'xz_ok_cur':''" src="../../static/images/xz_ok.png" mode=""></image>
 					</view>
 					<view class="bj_list_box_li_w bj_list_box_li_w_sk">
-						<view class="bj_list_box_li bj_list_box_li_sk" :class="tk_show1_cur==4?'bj_list_box_li_cur':''" @click="tk_show1_cur=4">
+						<view class="bj_list_box_li bj_list_box_li_sk" :class="tk_show1_cur==4?'bj_list_box_li_cur':''" @click="set_pos_fuc(4,'/static/images/sk_5.png','移除遇难者')">
 							<image class="bj_icon" src="../../static/images/sk_5.png" mode="aspectFit"></image>
 							<text class="bj_icon_text">移除遇难者</text>
 						</view>
 						<image class="xz_ok" :class="tk_show1_cur==4?'xz_ok_cur':''" src="../../static/images/xz_ok.png" mode=""></image>
 					</view>
 					<view class="bj_list_box_li_w bj_list_box_li_w_sk">
-						<view class="bj_list_box_li bj_list_box_li_sk" :class="tk_show1_cur==5?'bj_list_box_li_cur':''" @click="tk_show1_cur=5">
+						<view class="bj_list_box_li bj_list_box_li_sk" :class="tk_show1_cur==5?'bj_list_box_li_cur':''" @click="set_pos_fuc(5,'/static/images/sk_6.png','最后一次看到')">
 							<image class="bj_icon" src="../../static/images/sk_6.png" mode="aspectFit"></image>
 							<text class="bj_icon_text">最后一次看到</text>
 						</view>
@@ -226,21 +226,21 @@
 				</view>
 				<view v-if="tk_show1_num==4" class="bj_list_box">
 					<view class="bj_list_box_li_w">
-						<view class="bj_list_box_li" :class="tk_show1_cur==0?'bj_list_box_li_cur':''" @click="tk_show1_cur=0">
+						<view class="bj_list_box_li" :class="tk_show1_cur==0?'bj_list_box_li_cur':''" @click="set_pos_fuc(0,'/static/images/ph_1.png','低风险')">
 							<image class="bj_icon " src="../../static/images/ph_1.png" mode="aspectFit"></image>
 							<text class="bj_icon_text">低风险</text>
 						</view>
 						<image class="xz_ok" :class="tk_show1_cur==0?'xz_ok_cur':''" src="../../static/images/xz_ok.png" mode=""></image>
 					</view>
 					<view class="bj_list_box_li_w">
-						<view class="bj_list_box_li" :class="tk_show1_cur==1?'bj_list_box_li_cur':''" @click="tk_show1_cur=1">
+						<view class="bj_list_box_li" :class="tk_show1_cur==1?'bj_list_box_li_cur':''" @click="set_pos_fuc(1,'/static/images/ph_2.png','中风险')">
 							<image class="bj_icon" src="../../static/images/ph_2.png" mode="aspectFit"></image>
 							<text class="bj_icon_text">中风险</text>
 						</view>
 						<image class="xz_ok" :class="tk_show1_cur==1?'xz_ok_cur':''" src="../../static/images/xz_ok.png" mode=""></image>
 					</view>
 					<view class="bj_list_box_li_w">
-						<view class="bj_list_box_li" :class="tk_show1_cur==2?'bj_list_box_li_cur':''" @click="tk_show1_cur=2">
+						<view class="bj_list_box_li" :class="tk_show1_cur==2?'bj_list_box_li_cur':''" @click="set_pos_fuc(2,'/static/images/ph_3.png','高风险')">
 							<image class="bj_icon" src="../../static/images/ph_3.png" mode="aspectFit"></image>
 							<text class="bj_icon_text">高风险</text>
 						</view>
@@ -272,26 +272,26 @@
 							<!-- </picker> -->
 						</view>
 						<view class="search_mbox_d3">
-							<input class="search_mbox_d3_int" type="text" value="" placeholder="团队名称" />
-							<image v-if="search_type==1" @click="search_type=2" class="search_mbox_d3_text" :src="getimg('/static/images/search_type_062.png')"
+							<input class="search_mbox_d3_int" type="text" value="" v-model="team_name" placeholder="团队名称" />
+							<image v-if="search_type==1" @click="search_type_fuc(2,'/static/images/search_type_032.png')" class="search_mbox_d3_text" :src="getimg('/static/images/search_type_062.png')"
 							 mode="aspectFit"></image>
-							<image v-if="search_type==2" @click="search_type=3" class="search_mbox_d3_text" :src="getimg('/static/images/search_type_032.png')"
+							<image v-if="search_type==2" @click="search_type_fuc(3,'/static/images/search_type_092.png')" class="search_mbox_d3_text" :src="getimg('/static/images/search_type_032.png')"
 							 mode="aspectFit"></image>
-							<image v-if="search_type==3" @click="search_type=1" class="search_mbox_d3_text" :src="getimg('/static/images/search_type_092.png')"
+							<image v-if="search_type==3" @click="search_type_fuc(1,'/static/images/search_type_062.png')" class="search_mbox_d3_text" :src="getimg('/static/images/search_type_092.png')"
 							 mode="aspectFit"></image>
-							<input class="search_mbox_d3_int" type="text" value="" placeholder="危险类型" />
+							<input class="search_mbox_d3_int" type="text" value="" v-model="danger_name" placeholder="危险类型" />
 						</view>
 						<view class="search_mbox_d4">
-							<input class="search_mbox_d4_int" type="text" value="" placeholder="生还者数量" />
+							<input class="search_mbox_d4_int" type="text" value=""  v-model="be_num" placeholder="生还者数量" />
 						</view>
 						<view class="search_mbox_d4">
-							<input class="search_mbox_d4_int" type="text" value="" placeholder="遇难者数量" />
+							<input class="search_mbox_d4_int" type="text" value=""  v-model="not_be_num" placeholder="遇难者数量" />
 						</view>
 					</view>
 					
-					 <picker mode="time" :value="time" start="09:01" end="21:01" @change="bindTimeChange">
+					 <!-- <picker mode="time" :value="time" start="09:01" end="21:01" @change="bindTimeChange">
 							时间选择<view class="uni-input">{{time}}</view>
-					</picker>
+					</picker> -->
 					<view class="search_type_tip">
 						<text class="search_type_tip_text">注：</text>
 						<image class="search_type_tip_img" :src="getimg('/static/images/search_type_06.png')" mode="aspectFit"></image>
@@ -316,30 +316,97 @@
 
 		<!-- 标记详情 -->
 		<view v-if="tk_show_bjxq" class="tk_popop" @touchmove.stop.prevent='test'>
-			<view class="tk_main1" style="padding: 0!important;">
+			<view v-if="bj_data.type_name!='搜索'" class="tk_main1" style="padding: 0!important;">
 				<view class="bj_user_msg">
-					<image class="bj_user_tx" src="../../static/images/tx_m2.jpg" mode="aspectFill"></image>
+					<image class="bj_user_tx" :src="getimg(bj_data.user_info.avatar)" mode="aspectFill"></image>
 					<view class="flex_1 bj_user_lxmsg">
-						<text class="bj_user_name">张若昀</text>
-						<text class="bj_user_tel">17869523520</text>
+						<text class="bj_user_name">{{bj_data.user_info.name}}</text>
+						<text class="bj_user_tel">{{bj_data.user_info.username}}</text>
 					</view>
 				</view>
 				<view class="bjxq_xq">
 					<view class="bj_d1">
-						<image class="bj_d1_icon" :src="getimg('/static/images/huozai.png')" mode="aspectFit"></image>
-						<text class="bj_d1_name">海淀火灾点</text>
+						<image class="bj_d1_icon" :src="getimg(bj_data.iconPath)" mode="aspectFit"></image>
+						<text class="bj_d1_name">{{bj_data.type_name}}</text>
 					</view>
 					<view class="bj_d2">
 						<view class="bj_d2_l">
-							<text class="bj_d2_text">时间：2020-04-12 19:23</text>
-							<text class="bj_d2_text">经度：39.85412513215</text>
-							<text class="bj_d2_text">纬度：39.85412513215</text>
+							<text class="bj_d2_text">时间：{{bj_data.created_at}}</text>
+							<text class="bj_d2_text">经度：{{bj_data.longitude}}</text>
+							<text class="bj_d2_text">纬度：{{bj_data.latitude}}</text>
 						</view>
 						<image @click="getShare" class="bj_d2_share" :src="getimg('/static/images/tk_share.png')" mode="aspectFit"></image>
 					</view>
-					<input class="bz_int_tk" type="text" style="margin-bottom: 35px;" value="" placeholder="备注" />
+					<input class="bz_int_tk" type="text" style="margin-bottom: 35px;" value="" placeholder="备注" v-model="bj_data.comment" />
 					<view class="bj_type_li bj_type_li_cur" style="width: 425px;" @click="update_bj(1)"><text style="color: #fff;">更新</text></view>
 					<view class="bj_type_li bj_type_li_cur1" style="width: 425px;" @click="update_bj(2)"><text style="color: #fff;">删除</text></view>
+				</view>
+			</view>
+			<view v-else class="tk_main">
+				<image class="add_bj_icon" :src="getimg('/static/images/add_bj_icon.png')" mode="aspectFit"></image>
+				<text v-if="tk_show1_num==5" class="notetk_tit">补充搜索信息</text>
+				<text class="notetk_time">{{note_time_t}}</text>
+				<view class="bj_list_box">
+			
+					<view class="search_mbox">
+						<image class="search_mbox_img" src="../../static/images/search_bg_03.png" mode="aspectFit"></image>
+						<view class="search_mbox_d1">时间/日期</view>
+						<view class="search_mbox_d2">
+							<!-- <input class="search_mbox_d2_int" type="text" value="" placeholder="进入"/> -->
+							<!-- <picker mode="time" value="12:00" @change="bindTimeChange" data-type="1"> -->
+								<view @click="pickTime(1)" class="search_mbox_d2_int aic ju_c">
+									<text class=" search_mbox_d2_inttext ">{{time?time:'进入'}}</text>
+								</view>
+							<!-- </picker> -->
+							<text class="search_mbox_d2_text"></text>
+							<!-- <input class="search_mbox_d2_int" type="text" value="" placeholder="撤出"/> -->
+			
+							<!-- <picker mode="time" value="12:00" @change="bindTimeChange" data-type="2"> -->
+								<view @click="pickTime(2)" class="search_mbox_d2_int aic ju_c">
+									
+										<text class=" search_mbox_d2_inttext">{{time1?time1:'撤出'}}</text>
+								</view>
+							<!-- </picker> -->
+						</view>
+						<view class="search_mbox_d3">
+							<input class="search_mbox_d3_int" type="text" value="" v-model="team_name" placeholder="团队名称" />
+							<image v-if="search_type==1" @click="search_type_fuc(2,'/static/images/search_type_032.png')" class="search_mbox_d3_text" :src="getimg('/static/images/search_type_062.png')"
+							 mode="aspectFit"></image>
+							<image v-if="search_type==2" @click="search_type_fuc(3,'/static/images/search_type_092.png')" class="search_mbox_d3_text" :src="getimg('/static/images/search_type_032.png')"
+							 mode="aspectFit"></image>
+							<image v-if="search_type==3" @click="search_type_fuc(1,'/static/images/search_type_062.png')" class="search_mbox_d3_text" :src="getimg('/static/images/search_type_092.png')"
+							 mode="aspectFit"></image>
+							<input class="search_mbox_d3_int" type="text" value="" v-model="danger_name" placeholder="危险类型" />
+						</view>
+						<view class="search_mbox_d4">
+							<input class="search_mbox_d4_int" type="text" value=""  v-model="be_num" placeholder="生还者数量" />
+						</view>
+						<view class="search_mbox_d4">
+							<input class="search_mbox_d4_int" type="text" value=""  v-model="not_be_num" placeholder="遇难者数量" />
+						</view>
+					</view>
+					
+					 <!-- <picker mode="time" :value="time" start="09:01" end="21:01" @change="bindTimeChange">
+							时间选择<view class="uni-input">{{time}}</view>
+					</picker> -->
+					<view class="search_type_tip">
+						<text class="search_type_tip_text">注：</text>
+						<image class="search_type_tip_img" :src="getimg('/static/images/search_type_06.png')" mode="aspectFit"></image>
+						<text class="search_type_tip_text">未搜索</text>
+						<image class="search_type_tip_img" style="margin-left: 15px;" :src="getimg('/static/images/search_type_03.png')"
+						 mode="aspectFit"></image>
+						<text class="search_type_tip_text">正在搜索</text>
+						<image class="search_type_tip_img" style="margin-left: 15px;" :src="getimg('/static/images/search_type_09.png')"
+						 mode="aspectFit"></image>
+						<text class="search_type_tip_text">搜索完成</text>
+					</view>
+				</view>
+			
+				<view class="tkset_btn"  @tap="update_search(1)" >
+					<text style="font-size: 28px;color: #fff;">修改信息</text>
+				</view>
+				<view class="tkset_btn" @tap="update_search(2)">
+					<text style="font-size: 28px;color: #fff;" >删除</text>
 				</view>
 			</view>
 			<!-- <text @click="tk_show=false" class="iconfont iconguanbi" style="font-size: 50upx;color: #fff;"></text> -->
@@ -361,7 +428,7 @@
 	var djs_fuc
 	var djs_fuc1
 	var that
-	
+	var query
 	import torch from "@/common/dc-torch/torch.js"
 	const domModule = weex.requireModule('dom');
 	domModule.addRule('fontFace', {
@@ -378,37 +445,7 @@
 				centerTop: 0, //中心图片坐标
 				centerLeft: 0, //中心图片坐标
 				translateY: 165,
-				markersArr: [{
-					id: 1,
-					latitude: 39.909,
-					longitude: 116.39742,
-					iconPath: '/static/images/huozai.png'
-				}, {
-					id: 12,
-					latitude: 39.919,
-					longitude: 116.39742,
-					iconPath: '/static/images/huozai.png'
-				}, {
-					id: 3,
-					"latitude": 39.975643747304986,
-					"longitude": 116.314328,
-					"iconPath": "/static/images/shuizai.png"
-				}, {
-					id: 4,
-					"latitude": 39.94254855057598,
-					"longitude": 116.314328,
-					"iconPath": "/static/images/chehuo.png"
-				}, {
-					id: 5,
-					"latitude": 39.95254855057598,
-					"longitude": 116.314328,
-					"iconPath": "/static/images/luzhang.png"
-				}, {
-					id: 6,
-					"latitude": 39.95554855057598,
-					"longitude": 116.324328,
-					"iconPath": "/static/images/dianli.png"
-				}], //覆盖物
+				markersArr: [], //覆盖物
 				mapControls: [],
 				mapControls1: [{
 					id: "1",
@@ -432,13 +469,23 @@
 				tk_show1_num: 0, //标记1级分类
 				note_time_t: '',
 				tk_show1_cur: -1, //标记2级分类
-
+				_navHeight:'',
+				zb_img:'',
+				zb_bz:'',
+				zb_title:'',
+				
+				team_name:'',
+				danger_name:'',
+				be_num:'',
+				not_be_num:'',
+				
+				
 				tk_show_sx: false, //筛选
 				tk_show_sx_cur: 0, //筛选分类
-
-				tk_show_bjxq: false, //标记详情
+				
+				tk_show_bjxq: false, //标记详情开关
 				bj_id: -1, //标记id
-
+				bj_data:'',//标记详情
 
 				search_type: 1, // 搜索状态  1未搜索  2正在搜索 3搜索完成
 				time:'',
@@ -447,7 +494,8 @@
 					1,1,1,1,2
 				],
 				AUDIO: uni.createInnerAudioContext(),
-				torch_type:false
+				torch_type:false,
+				show_count:0
 			}
 		},
 		computed: {
@@ -510,7 +558,7 @@
 				console.log('语音自然播放结束')
 				this.playMsgid = null;
 			});
-
+			mapContext = uni.createMapContext('map', this);
 			/*const innerAudioContext = uni.createInnerAudioContext();
 			innerAudioContext.autoplay = true;
 			innerAudioContext.src = 'https://vkceyugu.cdn.bspapp.com/VKCEYUGU-hello-uniapp/2cc220e0-c27a-11ea-9dfb-6da8e309e0d8.mp3';
@@ -523,6 +571,7 @@
 			});*/
 		},
 		onHide() {
+			that.show_count++
 			clearInterval(djs_fuc)
 			clearInterval(djs_fuc1)
 			torch.off();
@@ -533,17 +582,16 @@
 			that.sHeight = uni.getSystemInfoSync().statusBarHeight;
 			// that.mapHeight = (uni.getSystemInfoSync().windowHeight  - uni.getSystemInfoSync().statusBarHeight) - 246;
 			that.mapHeight = uni.getSystemInfoSync().windowHeight * 2 - 396;
-			console.log(that.mapHeight)
-			console.log(uni.getSystemInfoSync().screenHeight)
-			const query = uni.createSelectorQuery().in(this);
+			query = uni.createSelectorQuery().in(this);
 			query.select('#map').boundingClientRect(data => {
+				console.log(data)
 				var _navHeight = data.height;
 				console.log('_navHeight------------------------------------>')
 				console.log(_navHeight)
 				// _navHeight=_navHeight+uni.getSystemInfoSync().statusBarHeight
 				_navHeight = _navHeight / 2
 				_navHeight = _navHeight.toFixed(0)
-
+				that._navHeight=_navHeight
 				console.log(typeof _navHeight)
 				console.log(typeof 710)
 				var sss = [{
@@ -555,17 +603,23 @@
 						width: 55,
 						height: 68
 					},
-					iconPath: "/static/images/huozai.png",
+					iconPath: that.zb_img,
 					clickable: false
 				}]
 				that.setHeight(sss)
+				that.tk_show1 = false
+				// uni.navigateTo({
+				// 	// url: '/pages/map_dw/map_dw?zb_title=' + that.zb_title + '&tk_show1_num=' + that.tk_show1_num+'&zb_img=' + that.zb_img+'&zb_bz=' + that.zb_bz
+				// 	url: '/pages/map_dw/map_dw?zb_title=' + that.zb_title+'&zb_img=' + that.zb_img+'&zb_bz=' + that.zb_bz
+				// })
 				// Vue.set(that.mapControls[0].position,'top',sss)
 				console.log(that.mapControls)
 			}).exec();
-
 		},
 		onShow() {
-
+			if(that.show_count>0){
+				that.getList()
+			}
 
 		},
 		methods: {
@@ -602,6 +656,20 @@
 				this.baojing=false
 				this.AUDIO.stop();
 			},
+			
+			//设置坐标2级
+			set_pos_fuc(num,img,title){
+				that.tk_show1_cur=num
+				that.zb_img=img
+				that.zb_title=title
+			},
+			//设置搜索状态
+			search_type_fuc(num,img){
+				that.search_type=num
+				that.zb_img=img
+				that.zb_title='搜索'
+			},
+			
 			pickTime(type){
 				plus.nativeUI.pickTime(function(e){
 					var d=e.date;
@@ -626,20 +694,196 @@
 				this.time = e.target.value
 			},
 			update_bj(type) {
+				
+				var data = {}
 				if (type == 1) {
-					uni.showToast({
-						icon: 'none',
-						title: '更新成功'
-					})
+					// uni.showToast({
+					// 	icon: 'none',
+					// 	title: '更新成功'
+					// })
+					data = {
+						token:that.$store.state.loginDatas.token,
+						type: 'update',
+						position_id:that.bj_id,
+						comment:that.bj_data.comment
+					}
 				}
 				if (type == 2) {
+					// uni.showToast({
+					// 	icon: 'none',
+					// 	title: '删除成功'
+					// })
+					data = {
+						token:that.$store.state.loginDatas.token,
+						type: 'del',
+						position_id:that.bj_id
+					}
+				}
+				console.log(data)
+				if(that.btn_kg==1){
+					return
+				}
+				that.btn_kg=1
+				//selectSaraylDetailByUserCard
+				var jkurl = '/minapp/position'
+				uni.showLoading({
+					title: '正在获取数据',
+					mask:true
+				})				
+				service.P_post(jkurl, data).then(res => {
+					that.btn_kg = 0
+					console.log(res)
+					if (res.code == 1) {
+						var datas = res.data
+						console.log(typeof datas)
+							
+						if (typeof datas == 'string') {
+							datas = JSON.parse(datas)
+						}
+						if (type == 1) {
+							uni.showToast({
+								icon: 'none',
+								title: '更新成功'
+							})
+						}
+						if (type == 2) {
+							uni.showToast({
+								icon: 'none',
+								title: '删除成功'
+							})
+						}
+						that.tk_show_bjxq = false
+						that.getList()
+					} else {
+						if (res.msg) {
+							uni.showToast({
+								icon: 'none',
+								title: res.msg
+							})
+						} else {
+							uni.showToast({
+								icon: 'none',
+								title: '操作失败'
+							})
+						}
+					}
+				}).catch(e => {
+					that.btn_kg = 0
+					console.log(e)
 					uni.showToast({
 						icon: 'none',
-						title: '删除成功'
+						title: '操作失败'
 					})
-				}
-				that.tk_show_bjxq = false
+				})
+				
 			},
+			
+			update_search(type) {
+				if (!that.time ||!that.time1) {
+					uni.showToast({
+						icon: 'none',
+						title: '请选择时间'
+					})
+					return
+				}
+				if (!that.team_name) {
+					uni.showToast({
+						icon: 'none',
+						title: '请填写团队名称'
+					})
+					return
+				}
+				var data = {}
+				if (type == 1) {
+					// uni.showToast({
+					// 	icon: 'none',
+					// 	title: '更新成功'
+					// })
+					data = {
+						token:that.$store.state.loginDatas.token,
+						type: 'update',
+						position_id:that.bj_id,
+						iconPath:that.zb_img,
+						enter_time:that.time,    //时间
+						evacuate_time:that.time1,   //时间1
+						team_name:that.team_name,  //团队名
+						
+						hazard_type:that.danger_name,  //危险类型
+						survivor:that.be_num,      //生存数
+						victim:that.not_be_num,   //遇难数
+						search_state:that.search_type, //搜索状态
+					}
+				}
+				if (type == 2) {
+					// uni.showToast({
+					// 	icon: 'none',
+					// 	title: '删除成功'
+					// })
+					data = {
+						token:that.$store.state.loginDatas.token,
+						type: 'del',
+						position_id:that.bj_id
+					}
+				}
+				console.log(data)
+				if(that.btn_kg==1){
+					return
+				}
+				that.btn_kg=1
+				//selectSaraylDetailByUserCard
+				var jkurl = '/minapp/position'
+				uni.showLoading({
+					title: '正在获取数据',
+					mask:true
+				})				
+				service.P_post(jkurl, data).then(res => {
+					that.btn_kg = 0
+					console.log(res)
+					if (res.code == 1) {
+						var datas = res.data
+						console.log(typeof datas)
+							
+						if (typeof datas == 'string') {
+							datas = JSON.parse(datas)
+						}
+						if (type == 1) {
+							uni.showToast({
+								icon: 'none',
+								title: '更新成功'
+							})
+						}
+						if (type == 2) {
+							uni.showToast({
+								icon: 'none',
+								title: '删除成功'
+							})
+						}
+						that.tk_show_bjxq = false
+						that.getList()
+					} else {
+						if (res.msg) {
+							uni.showToast({
+								icon: 'none',
+								title: res.msg
+							})
+						} else {
+							uni.showToast({
+								icon: 'none',
+								title: '操作失败'
+							})
+						}
+					}
+				}).catch(e => {
+					that.btn_kg = 0
+					console.log(e)
+					uni.showToast({
+						icon: 'none',
+						title: '操作失败'
+					})
+				})
+				
+			},
+			
 			getShare() {
 				uni.shareWithSystem({
 					type: 'text',
@@ -678,9 +922,15 @@
 					minute = '0' + minute * 1
 				}
 				that.note_time_t = now_year + '-' + now_month + '-' + now_date + ' ' + hour + ':' + minute
+				if(that.tk_show1_num==5){
+					that.zb_img='/static/images/search_type_062.png'
+					that.zb_title='搜索'
+				}
 			},
 			shai_tk(num) {
 				that.tk_show_sx_cur = num
+				that.getList()
+				return
 				uni.showLoading({
 					mask: true,
 					title: '正在筛选...'
@@ -691,20 +941,79 @@
 				}, 1000)
 			},
 			shuaxin() {
-				uni.showToast({
-					icon: 'none',
-					title: '正在刷新'
-				})
+				that.getList()
 			},
 			//地图点击事件
 			markertap(e) {
 				var _id = e.detail.markerId,
 					_index;
 
-				that.tk_show_bjxq = true
+				
 				that.bj_id = _id
+				that.bj_data=''
+				that.time=''
+				that.time1=''
+				that.team_name=''
+				that.danger_name=''
+				that.be_num=''
+				that.not_be_num=''
 				console.log('_id-------------------------------------->')
 				console.log(_id)
+				
+				var data = {
+					token:that.$store.state.loginDatas.token,
+					position_id: _id,
+				}
+				console.log(data)
+				if(that.btn_kg==1){
+					return
+				}
+				that.btn_kg=1
+				//selectSaraylDetailByUserCard
+				var jkurl = '/minapp/position-list'
+				uni.showLoading({
+					title: '正在获取数据'
+				})				
+				service.P_get(jkurl, data).then(res => {
+					that.btn_kg = 0
+					console.log(res)
+					if (res.code == 1) {
+						var datas = res.data
+						console.log(typeof datas)
+							
+						if (typeof datas == 'string') {
+							datas = JSON.parse(datas)
+						}
+						that.bj_data=datas
+						that.time=datas.enter_time
+						that.time1=datas.evacuate_time
+						that.team_name=datas.team_name
+						that.danger_name=datas.hazard_type
+						that.be_num=datas.survivor||''
+						that.not_be_num=datas.victim||''
+						that.search_type=datas.search_state||1
+						that.tk_show_bjxq = true
+					} else {
+						if (res.msg) {
+							uni.showToast({
+								icon: 'none',
+								title: res.msg
+							})
+						} else {
+							uni.showToast({
+								icon: 'none',
+								title: '获取失败'
+							})
+						}
+					}
+				}).catch(e => {
+					that.btn_kg = 0
+					console.log(e)
+					uni.showToast({
+						icon: 'none',
+						title: '获取数据失败'
+					})
+				})
 				return
 				var _list = that.markersArr;
 				for (var i = 0; i < _list.length; i++) {
@@ -718,8 +1027,9 @@
 			},
 			//移动地图结束
 			mapChange(e) {
+				console.log('e--------------------------->')
 				console.log(e)
-				if (e) {
+				if (!e) {
 					return
 				}
 
@@ -730,7 +1040,7 @@
 				setTimeout(() => { //防抖
 					mapEndloading = false;
 				}, 500);
-				if (e.detail.type == 'end' || e.type == 'end') {
+				if (e.detail&&e.detail.type == 'end' || e.type == 'end') {
 					//中心区域左边
 					mapContext.getCenterLocation({
 						success(res) {
@@ -800,7 +1110,68 @@
 
 
 			},
-			getList() {},
+			getList() {
+				var data = {
+					token:that.$store.state.loginDatas.token,
+					longitude:that.longitude,
+					latitude:that.latitude,
+					type:that.tk_show_sx_cur==0?'all':that.tk_show_sx_cur==1?'own':'drop'
+				}
+				if(that.btn_kg==1){
+					return
+				}
+				that.btn_kg=1
+				//selectSaraylDetailByUserCard
+				var jkurl = '/minapp/position-list'
+				uni.showLoading({
+					title: '正在获取数据'
+				})
+				
+				service.P_get(jkurl, data).then(res => {
+					that.btn_kg = 0
+					console.log(res)
+					if (res.code == 1) {
+						var datas = res.data
+						console.log(typeof datas)
+							
+						if (typeof datas == 'string') {
+							datas = JSON.parse(datas)
+						}
+					
+						var newdata=datas
+						for(var i=0;i<newdata.length;i++){
+							var new_latitude=newdata[i].latitude
+							var new_longitude=newdata[i].longitude
+							var new_iconPath=that.getimg(newdata[i].iconPath)
+							Vue.set(newdata,'latitude',new_latitude)
+							Vue.set(newdata,'longitude',new_longitude)
+							Vue.set(newdata,'iconPath',new_iconPath)
+						}
+						that.markersArr=newdata
+							
+						that.tk_show_sx = false	
+					} else {
+						if (res.msg) {
+							uni.showToast({
+								icon: 'none',
+								title: res.msg
+							})
+						} else {
+							uni.showToast({
+								icon: 'none',
+								title: '获取失败'
+							})
+						}
+					}
+				}).catch(e => {
+					that.btn_kg = 0
+					console.log(e)
+					uni.showToast({
+						icon: 'none',
+						title: '获取数据失败'
+					})
+				})
+			},
 			//地图移动
 			mapEnd(res) {
 				console.log('加载数据')
@@ -882,8 +1253,40 @@
 				return service.getimg(img)
 			},
 			jump_fuc(e) {
+				var sss
 				if(that.tk_show1_num==5){
-					
+					if (!that.time ||!that.time1) {
+						uni.showToast({
+							icon: 'none',
+							title: '请选择时间'
+						})
+						return
+					}
+					if (!that.team_name) {
+						uni.showToast({
+							icon: 'none',
+							title: '请填写团队名称'
+						})
+						return
+					}
+					sss = [{
+						id: "1",
+						position: {
+							left: 750 / 2 - 28,
+							// top: _navHeight - 68,
+							top: that._navHeight>200?that._navHeight:300,
+							width: 55,
+							height: 55
+						},
+						iconPath: that.zb_img,
+						clickable: false
+					}]
+					that.setHeight(sss)
+					that.tk_show1 = false
+					uni.navigateTo({
+						// url: '/pages/map_dw/map_dw?zb_title=' + that.zb_title + '&tk_show1_num=' + that.tk_show1_num+'&zb_img=' + that.zb_img+'&zb_bz=' + that.zb_bz
+						url: '/pages/map_dw/map_dw?zb_title=' + that.zb_title+'&zb_img=' + that.zb_img+'&zb_bz=' + that.zb_bz+'&team_name=' +that.team_name+'&time=' +that.time+'&time1=' +that.time1+'&danger_name=' +that.danger_name+'&be_num=' +that.be_num+'&not_be_num=' +that.not_be_num+'&search_type=' +that.search_type
+					})
 				}else{
 					if (that.tk_show1_cur == -1) {
 						uni.showToast({
@@ -892,12 +1295,32 @@
 						})
 						return
 					}
+					sss = [{
+						id: "1",
+						position: {
+							left: 750 / 2 - 28,
+							// top: _navHeight - 68,
+							top: that._navHeight>200?that._navHeight:300,
+							width: 55,
+							height: 68
+						},
+						iconPath: that.zb_img,
+						clickable: false
+					}]
+					that.setHeight(sss)
+					that.tk_show1 = false
+					uni.navigateTo({
+						// url: '/pages/map_dw/map_dw?zb_title=' + that.zb_title + '&tk_show1_num=' + that.tk_show1_num+'&zb_img=' + that.zb_img+'&zb_bz=' + that.zb_bz
+						url: '/pages/map_dw/map_dw?zb_title=' + that.zb_title+'&zb_img=' + that.zb_img+'&zb_bz=' + that.zb_bz
+					})
 				}
+				// console.log(that.mapHeight)
 				
-				that.tk_show1 = false
-				uni.navigateTo({
-					url: '/pages/map_dw/map_dw?tk_show1_cur=' + that.tk_show1_cur + '&tk_show1_num=' + that.tk_show1_num
-				})
+				
+				
+				// Vue.set(that.mapControls[0].position,'top',sss)
+				// console.log(that.mapControls)
+				
 			},
 			jump(e) {
 				var that = this

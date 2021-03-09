@@ -117,7 +117,7 @@
 		onLoad() {
 			that = this
 			var yhxy = uni.getStorageSync('yhxy')
-			// this.getdata()
+			this.getdata()
 			if (yhxy) {
 				this.yhxy = false
 			}
@@ -421,14 +421,16 @@
 				})
 				
 			},
-			getbanner() {
+			getdata() {
 
 				///api/info/list
 				var that = this
-				var data = {}
+				var data = {
+					type:'state'
+				}
 
 				//selectSaraylDetailByUserCard
-				var jkurl = '/entrance'
+				var jkurl = '/minapp/agreement'
 				uni.showLoading({
 					title: '正在获取数据'
 				})
@@ -443,7 +445,7 @@
 							datas = JSON.parse(datas)
 						}
 
-						that.banner = datas
+						that.datas = datas.content
 						console.log(datas)
 
 

@@ -56,7 +56,8 @@
 				centerTop: 0, //中心图片坐标
 				centerLeft: 0, //中心图片坐标
 				translateY: 165,
-				markersArr: [{
+				markersArr1:[],
+				markersArr1: [{
 					"latitude": 39.909,
 					"longitude": 116.39742,
 					"iconPath": "/static/images/huozai.png"
@@ -86,16 +87,39 @@
 				tk_show1_num: 0,
 				note_time_t: '',
 				tk_show1_cur: -1,
-				add_str: ''
+				add_str: '',
+				
+				
+				zb_bz:'',
+				zb_img:'',
+				zb_title:'',
+				
+				team_name:'',  //团队名
+				time:'',    //时间
+				time1:'',   //时间1
+				danger_name:'',  //危险类型
+				be_num:'',      //生存数
+				not_be_num:'',   //遇难数
 			}
 		},
 		computed: {
 			...mapState(['hasLogin', 'forcedLogin', 'userName', 'loginDatas', 'wheight']),
 		},
-		onLoad() {
+		onLoad(option) {
 			that = this
 			console.log('that.wheight--------------------------------------->')
 			console.log(that.wheight)
+			console.log(option)
+			that.zb_bz=option.zb_bz||''    //备注
+			that.zb_img=option.zb_img
+			that.zb_title=option.zb_title
+			that.team_name=option.team_name||''  //团队名
+			that.time=option.time||''      //时间
+			that.time1=option.time1||''    //时间1
+			that.danger_name=option.danger_name||''  //危险类型
+			that.be_num=option.be_num||''       //生存数
+			that.not_be_num=option.not_be_num||''   //遇难数
+			that.search_type=option.search_type||''   //搜索状态
 			/*that.mapControls=[
 					{
 						id: "1",
@@ -139,29 +163,80 @@
 			});
 			console.log(that.mapHeight)
 			console.log(uni.getSystemInfoSync().screenHeight)
-			// that.getSize()
+			that.getSize()
 		},
 		methods: {
 			...mapMutations(['setAddress']),
 			test() {},
 			add_bj() {
-				var new_add = {
+				var data = {
+					token:that.$store.state.loginDatas.token,
 					latitude: that.latitude,
 					longitude: that.longitude,
-					iconPath: '/static/images/huozai.png',
-					callout:{
-						customCallout:'sssssssadasdasd'
-					}
+					iconPath: that.zb_img,
+					comment:that.zb_bz,
+					type_name:that.zb_title,
+					
+					team_name:that.team_name,  //团队名
+					enter_time:that.time,    //时间
+					evacuate_time:that.time1,   //时间1
+					hazard_type:that.danger_name,  //危险类型
+					survivor:that.be_num,      //生存数
+					victim:that.not_be_num,   //遇难数
+					search_state:that.search_type, //搜索状态
 				}
-				uni.showToast({
-					icon: 'none',
-					title: '添加成功'
+				console.log(data)
+				if(that.btn_kg==1){
+					return
+				}
+				that.btn_kg=1
+				//selectSaraylDetailByUserCard
+				var jkurl = '/minapp/store-position'
+				uni.showLoading({
+					title: '正在设置'
 				})
-				setTimeout(()=>{
-					uni.navigateBack({
-						delta:1
+				
+				service.P_post(jkurl, data).then(res => {
+					that.btn_kg = 0
+					console.log(res)
+					if (res.code == 1) {
+						var datas = res.data
+						console.log(typeof datas)
+							
+						if (typeof datas == 'string') {
+							datas = JSON.parse(datas)
+						}
+						uni.showToast({
+							icon: 'none',
+							title: '添加成功'
+						})
+						setTimeout(()=>{
+							uni.navigateBack({
+								delta:1
+							})
+						},1000)
+					} else {
+						if (res.msg) {
+							uni.showToast({
+								icon: 'none',
+								title: res.msg
+							})
+						} else {
+							uni.showToast({
+								icon: 'none',
+								title: '获取失败'
+							})
+						}
+					}
+				}).catch(e => {
+					that.btn_kg = 0
+					console.log(e)
+					uni.showToast({
+						icon: 'none',
+						title: '获取数据失败'
 					})
-				},1000)
+				})
+				
 				return
 				var news_arr = that.markersArr
 				var _marklList = news_arr.filter(item => {
@@ -184,7 +259,7 @@
 					console.log('_navHeight------------------------------------>')
 					console.log(_navHeight)
 					_navHeight = _navHeight / 2
-					var sss = {
+					var sss = [{
 						id: "1",
 						position: {
 							left: 750 / 2 - 28,
@@ -192,10 +267,11 @@
 							width: 55,
 							height: 68
 						},
-						iconPath: "/static/images/huozai.png",
+						// iconPath: "/static/images/huozai.png",
+						iconPath:that.zb_img,
 						clickable: false
-					}
-					that.mapControls.push(sss)
+					}]
+					that.mapControls=sss
 					// Vue.set(that.mapControls[0].position,'top',sss)
 					console.log(that.mapControls)
 				}).exec();

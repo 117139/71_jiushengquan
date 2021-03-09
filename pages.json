@@ -114,7 +114,7 @@
 			"path": "team_msgs/team_msgs",
 			"style": {
 				"navigationBarTitleText": "消息通知",
-				"enablePullDownRefresh": false
+				"enablePullDownRefresh": true
 			}
 
 		}, {

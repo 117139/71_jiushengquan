@@ -10,6 +10,8 @@ import baoJing from './components/baojing/baojing.vue'
 Vue.component('bao-jing',baoJing)
 import htmlLoading from '@/components/html_loading/html_loading.vue'
 Vue.component('htmlLoading', htmlLoading)
+import top_msg from '@/components/top_msg/top_msg.vue'
+Vue.component('top_msg', top_msg)
 
 Vue.config.productionTip = false
 

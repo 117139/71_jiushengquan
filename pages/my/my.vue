@@ -28,37 +28,41 @@
 			<view class="my_main">
 				<view class="my_yw_tit">我的业务</view>
 				<view class="my_yw_list">
-					<view class="my_yw_li"  @tap="jump" data-url="/pagesA/my_cankao/my_cankao">
+					<view class="my_yw_li"  @tap="jump" data-url="/pagesA/my_cankao/my_cankao"  :data-login="true" :data-haslogin="hasLogin">
 						<image class="my_yw_img" src="/static/images/mybtn1.png" mode="aspectFill"></image>
 						<text class="my_yw_text">参考</text>
 					</view>
-					<view class="my_yw_li" @tap="jump" data-url="/pagesA/my_camera/my_camera">
+					<view class="my_yw_li" @tap="jump" data-url="/pagesA/my_camera/my_camera" :data-login="true" :data-haslogin="hasLogin">
 						<image class="my_yw_img" src="/static/images/mybtn2.png" mode="aspectFill"></image>
 						<text class="my_yw_text">照相机</text>
 					</view>
-					<view class="my_yw_li" @tap="jump" data-url="/pagesA/my_jianshang/my_jianshang">
+					<view class="my_yw_li" @tap="jump" data-url="/pagesA/my_jianshang/my_jianshang" :data-login="true" :data-haslogin="hasLogin">
 						<image class="my_yw_img" src="/static/images/mybtn3.png" mode="aspectFill"></image>
 						<text class="my_yw_text">检伤分类</text>
 					</view>
-					<view class="my_yw_li"  @tap="jump" data-url="/pagesA/my_notepad/my_notepad">
+					<view class="my_yw_li"  @tap="jump" data-url="/pagesA/my_notepad/my_notepad" :data-login="true" :data-haslogin="hasLogin">
 						<image class="my_yw_img" src="/static/images/mybtn4.png" mode="aspectFill"></image>
 						<text class="my_yw_text">记事本</text>
 					</view>
-					<view class="my_yw_li" @tap="jump" data-url="/pagesA/my_set/my_set">
+					<view class="my_yw_li" @tap="jump" data-url="/pagesA/my_set/my_set" :data-login="true" :data-haslogin="hasLogin">
 						<image class="my_yw_img" src="/static/images/mybtn5.png" mode="aspectFill"></image>
 						<text class="my_yw_text">编辑资料</text>
 					</view>
-					<view class="my_yw_li" @tap="jump" data-url="/pagesA/team_list/team_list">
+					<view class="my_yw_li" @tap="jump" data-url="/pagesA/team_list/team_list" :data-login="true" :data-haslogin="hasLogin">
 						<image class="my_yw_img" src="/static/images/mybtn6.png" mode="aspectFill"></image>
 						<text class="my_yw_text">团队</text>
 					</view>
-					<view class="my_yw_li"  @tap="jump" data-url="/pagesA/my_zn/my_zn">
+					<view class="my_yw_li"  @tap="jump" data-url="/pagesA/my_zn/my_zn" :data-login="true" :data-haslogin="hasLogin">
 						<image class="my_yw_img" src="/static/images/mybtn7.png" mode="aspectFill"></image>
 						<text class="my_yw_text">用户指南</text>
 					</view>
-					<view class="my_yw_li" @tap="jump" data-url="/pagesA/lxwm/lxwm">
+					<view class="my_yw_li" @tap="jump" data-url="/pagesA/lxwm/lxwm" :data-login="true" :data-haslogin="hasLogin">
 						<image class="my_yw_img" src="/static/images/mybtn8.png" mode="aspectFill"></image>
 						<text class="my_yw_text">联系我们</text>
+					</view>
+					<view v-if="hasLogin" class="my_yw_li" @tap="logout_fuc">
+						<image class="my_yw_img" src="/static/images/logout.png" mode="aspectFill"></image>
+						<text class="my_yw_text">退出登录</text>
 					</view>
 				</view>
 			</view>
@@ -113,7 +117,24 @@
 			// 	})
 			// }
 		},
+		onLoad() {
+			that=this
+		},
 		methods: {
+			...mapMutations(['logout']),
+			logout_fuc(){
+				uni.showModal({
+				    title: '提示',
+				    content: '是否退出登录',
+				    success: function (res) {
+				        if (res.confirm) {
+				            that.logout()
+				        } else if (res.cancel) {
+				            console.log('用户点击取消');
+				        }
+				    }
+				});
+			},
 			getbanner() {
 
 				///api/info/list

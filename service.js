@@ -8,7 +8,7 @@ const STATE_KEY = 'STATE_KEY';
 // const imgurl = 'https://datixcx.com.aa.800123456.top/';
 // const imgurl = 'http://192.168.129.246/';
 const map_key="7FEBZ-WLWK2-PMGUE-C4BFT-EKXB6-BFFNR"
-const imgurl="http://192.168.133.158/"
+const imgurl="http://jiushengquan.com.b.800123456.top/"
 const IPurl=imgurl+'api/'
 // const IPurl='http://192.168.129.246/api/'
 // const adminurl='https://datixcx.com.aa.800123456.top/admin/';
@@ -78,7 +78,7 @@ function request(url, params, method, onSuccess, onFailed) {
 					icon: 'none',
 					title: '请先授权登录'
 				})
-				store.commit('logout')
+				// store.commit('logout')
 				setTimeout(function (){
 					uni.navigateTo({
 						url: './pages/login/login?haslogin=false'
@@ -628,7 +628,7 @@ const http =({url ='',param ={},method='',header={'content-type': 'application/x
           if(res.statusCode ==200){//请求成功
 					console.log(res)
 						if(res.data.code==-1){
-							store.commit('logout')
+							// store.commit('logout')
 							uni.navigateTo({
 								url:'/pages/login/login'
 							})
