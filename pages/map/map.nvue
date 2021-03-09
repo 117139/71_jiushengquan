@@ -402,10 +402,10 @@
 					</view>
 				</view>
 			
-				<view class="tkset_btn"  @tap="update_search(1)" >
+				<view class="tkset_btn"  @click="update_search(1)" >
 					<text style="font-size: 28px;color: #fff;">修改信息</text>
 				</view>
-				<view class="tkset_btn" @tap="update_search(2)">
+				<view class="tkset_btn" @click="update_search(2)">
 					<text style="font-size: 28px;color: #fff;" >删除</text>
 				</view>
 			</view>
@@ -727,7 +727,7 @@
 				//selectSaraylDetailByUserCard
 				var jkurl = '/minapp/position'
 				uni.showLoading({
-					title: '正在获取数据',
+					title: '正在提交数据',
 					mask:true
 				})				
 				service.P_post(jkurl, data).then(res => {
@@ -833,7 +833,7 @@
 				//selectSaraylDetailByUserCard
 				var jkurl = '/minapp/position'
 				uni.showLoading({
-					title: '正在获取数据',
+					title: '正在提交数据',
 					mask:true
 				})				
 				service.P_post(jkurl, data).then(res => {
