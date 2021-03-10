@@ -31,15 +31,13 @@
 			return {
 				bj_time:10,
 				baojing:false,
-				
-				
 				//播放语音相关参数
 				AUDIO: uni.createInnerAudioContext(),
 				playMsgid:'',
 				torch_type:false
 			};
 		},
-		onLoad() {
+		mounted() {
 			that=this
 			this.AUDIO.src = '/static/music/jingbao_kong.mp3';
 			this.AUDIO.loop=true
@@ -53,7 +51,7 @@
 				console.log('音频播放')
 				uni.vibrateLong({
 				    success: function () {
-				        console.log('success');
+				        // console.log('success');
 				    }
 				});
 				torch.on();
@@ -73,7 +71,7 @@
 				djs_fuc1=setInterval(function () {
 					uni.vibrateLong({
 					    success: function () {
-					        console.log('success');
+					        // console.log('success');
 					    }
 					});
 				}, 1000);
@@ -92,6 +90,13 @@
 				this.playMsgid = null;
 			});
 		},
+		onHide() {
+			that.show_count++
+			clearInterval(djs_fuc)
+			clearInterval(djs_fuc1)
+			torch.off();
+			that.torch_type=true
+		},
 		methods: {
 			// 播放语音
 			playVoice(msg) {
@@ -100,7 +105,7 @@
 			baojing_fuc(){
 				var that=this
 				this.baojing=true
-				that.bj_time=3
+				that.bj_time=10
 				djs_fuc=setInterval(function () {
 				  if(that.bj_time==0){
 						// uni.showToast({

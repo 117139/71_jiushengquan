@@ -54,7 +54,7 @@
 						<view class="add_bj_text"></view>
 					</view>
 					<view class="bj_type">
-						<view class="bj_type_li" :class="tk_show_sx_cur==0?'bj_type_li_cur':datas.search_state" @click="shai_tk(0)">
+						<view class="bj_type_li" :class="tk_show_sx_cur==0?'bj_type_li_cur':''" @click="shai_tk(0)">
 							<text class="bj_type_li_text" :class="tk_show_sx_cur==0?'bj_type_li_text_cur':''">所有</text>
 						</view>
 						<view class="bj_type_li" :class="tk_show_sx_cur==1?'bj_type_li_cur':''" @click="shai_tk(1)">
@@ -335,11 +335,11 @@
 							<text class="bj_d2_text">经度：{{bj_data.longitude}}</text>
 							<text class="bj_d2_text">纬度：{{bj_data.latitude}}</text>
 						</view>
-						<image @click="getShare" class="bj_d2_share" :src="getimg('/static/images/tk_share.png')" mode="aspectFit"></image>
+						<image @click="getShare(bj_data.type_name+' \n时间:'+bj_data.created_at+';\n经度:'+bj_data.longitude+';\n纬度:'+bj_data.latitude+';\n备注:'+bj_data.comment+';')" class="bj_d2_share" :src="getimg('/static/images/tk_share.png')" mode="aspectFit"></image>
 					</view>
 					<input class="bz_int_tk" type="text" style="margin-bottom: 35px;" value="" placeholder="备注" v-model="bj_data.comment" />
-					<view class="bj_type_li bj_type_li_cur" style="width: 425px;" @click="update_bj(1)"><text style="color: #fff;">更新</text></view>
-					<view class="bj_type_li bj_type_li_cur1" style="width: 425px;" @click="update_bj(2)"><text style="color: #fff;">删除</text></view>
+					<view class="bj_type_li bj_type_li_cur" style="width: 425px;" @click="update_bj(1)"><text style="font-size: 28px;color: #fff;">更新</text></view>
+					<view class="bj_type_li bj_type_li_cur1" style="width: 425px;" @click="update_search_del(1)"><text style="font-size: 28px;color: #fff;">删除</text></view>
 				</view>
 			</view>
 			<view v-else class="tk_main">
@@ -405,7 +405,7 @@
 				<view class="tkset_btn"  @click="update_search(1)" >
 					<text style="font-size: 28px;color: #fff;">修改信息</text>
 				</view>
-				<view class="tkset_btn" @click="update_search(2)">
+				<view class="tkset_btn" @click="update_search_del(2)" style="margin-top: 10upx;">
 					<text style="font-size: 28px;color: #fff;" >删除</text>
 				</view>
 			</view>
@@ -458,9 +458,7 @@
 					iconPath: "/static/images/zuobiao.png",
 					clickable: false
 				}], //地图中的控件
-				bj_time: 10,
-				baojing: false,
-
+				
 
 
 
@@ -493,7 +491,11 @@
 				array:[
 					1,1,1,1,2
 				],
+				bj_time:10,
+				baojing:false,
+				//播放语音相关参数
 				AUDIO: uni.createInnerAudioContext(),
+				playMsgid:'',
 				torch_type:false,
 				show_count:0
 			}
@@ -631,7 +633,7 @@
 			baojing_fuc(){
 				var that=this
 				this.baojing=true
-				that.bj_time=3
+				that.bj_time=10
 				djs_fuc=setInterval(function () {
 				  if(that.bj_time==0){
 						// uni.showToast({
@@ -777,28 +779,47 @@
 				})
 				
 			},
-			
+			update_search_del(btn_type){
+				uni.showModal({
+				    title: '提示',
+				    content: '是否删除该标记',
+				    success: function (res) {
+				        if (res.confirm) {
+				            console.log('用户点击确定');
+										if(btn_type==1){
+											that.update_bj(2)
+										}
+										if(btn_type==2){
+											that.update_search(2)
+										}
+				        } else if (res.cancel) {
+				            console.log('用户点击取消');
+				        }
+				    }
+				});
+			},
 			update_search(type) {
-				if (!that.time ||!that.time1) {
-					uni.showToast({
-						icon: 'none',
-						title: '请选择时间'
-					})
-					return
-				}
-				if (!that.team_name) {
-					uni.showToast({
-						icon: 'none',
-						title: '请填写团队名称'
-					})
-					return
-				}
+				
 				var data = {}
 				if (type == 1) {
 					// uni.showToast({
 					// 	icon: 'none',
 					// 	title: '更新成功'
 					// })
+					if (!that.time ||!that.time1) {
+						uni.showToast({
+							icon: 'none',
+							title: '请选择时间'
+						})
+						return
+					}
+					if (!that.team_name) {
+						uni.showToast({
+							icon: 'none',
+							title: '请填写团队名称'
+						})
+						return
+					}
 					data = {
 						token:that.$store.state.loginDatas.token,
 						type: 'update',
@@ -881,14 +902,14 @@
 						title: '操作失败'
 					})
 				})
-				
 			},
 			
-			getShare() {
+			getShare(str) {
 				uni.shareWithSystem({
 					type: 'text',
-					href: 'https://uniapp.dcloud.io',
-					summary: '分享内容',
+					// href: 'https://uniapp.dcloud.io',
+					href: '',
+					summary: str,
 					success() {
 						// 分享完成，请注意此时不一定是成功分享
 					},

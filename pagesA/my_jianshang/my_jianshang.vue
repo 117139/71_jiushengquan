@@ -221,11 +221,12 @@
 				}
 			},
 			getShare(){
-				var strr='轻伤:'+that.num_1+';中度伤:'+that.num_2+';重伤:'+that.num_3+';死亡:'+that.num_4+';'
+				var strr='轻伤:'+that.num_1+';\n中度伤:'+that.num_2+';\n重伤:'+that.num_3+';\n死亡:'+that.num_4+';'
 				// #ifdef APP-PLUS
 				uni.shareWithSystem({
 					type:'text',
-				  href: 'https://uniapp.dcloud.io',
+				  // href: 'https://uniapp.dcloud.io',
+					href:'',
 					summary:strr,
 				  success(){
 				    // 分享完成，请注意此时不一定是成功分享

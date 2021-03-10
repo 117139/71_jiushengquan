@@ -181,7 +181,8 @@
 			getShare(){
 				uni.shareWithSystem({
 					type:'image',
-				  href: 'https://uniapp.dcloud.io',
+				  // href: 'https://uniapp.dcloud.io',
+				  href: '',
 					imageUrl:that.camera_img,
 				  success(){
 				    // 分享完成，请注意此时不一定是成功分享

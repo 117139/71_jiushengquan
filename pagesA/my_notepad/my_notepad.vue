@@ -265,7 +265,8 @@
 				// #ifdef APP-PLUS
 				uni.shareWithSystem({
 					type:'text',
-				  href: 'https://uniapp.dcloud.io',
+				  // href: 'https://uniapp.dcloud.io',
+					href:'',
 					summary:that.note_text,
 				  success(){
 				    // 分享完成，请注意此时不一定是成功分享
