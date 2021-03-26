@@ -397,6 +397,9 @@
 							uni.navigateBack({
 								delta:1
 							})
+							// uni.reLaunch({
+							// 	url:'/pages/map/map'
+							// })
 						},1000)
 					} else {
 						if (res.msg) {

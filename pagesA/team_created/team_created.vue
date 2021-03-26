@@ -293,7 +293,7 @@
 					duration:that.openType,
 					// id: that.datas.vip[0].id,
 					// token: that.$store.state.loginDatas.token
-					token:""
+					token:that.$store.state.loginDatas.token,
 				}
 				console.log(data)
 				//selectSaraylDetailByUserCard
@@ -313,6 +313,24 @@
 						if (typeof datas == 'string') {
 							datas = JSON.parse(datas)
 						}
+						wx.showToast({
+							title: '支付成功',
+							icon: 'none',
+							duration: 1000
+						});
+						// #ifdef MP-WEIXIN
+						service.wxlogin()
+						// #endif
+						// #ifndef MP-WEIXIN
+						service.login_tel()
+						// #endif
+						setTimeout(function() {
+							that.btnkg = 0
+							uni.navigateBack({
+								delta:1
+							})
+						}, 1000)
+						return
 						if (that.pay_type == 3) {
 							console.log(datas.no)
 							that.no_id=datas.no
@@ -332,7 +350,12 @@
 									});
 									setTimeout(function() {
 										that.btnkg = 0
-										that.bindLogin()
+										// #ifdef MP-WEIXIN
+										service.wxlogin()
+										// #endif
+										// #ifndef MP-WEIXIN
+										service.login_tel()
+										// #endif
 									}, 1000)
 								},
 								fail: function(err) {
@@ -359,7 +382,12 @@
 									});
 									setTimeout(function() {
 										that.btnkg = 0
-										that.bindLogin()
+										// #ifdef MP-WEIXIN
+										service.wxlogin()
+										// #endif
+										// #ifndef MP-WEIXIN
+										service.login_tel()
+										// #endif
 									}, 1000)
 								},
 								fail: function(err) {
@@ -392,113 +420,10 @@
 					console.log(e)
 					uni.showToast({
 						icon: 'none',
-						title: '获取数据失败'
+						title: '操作异常'
 					})
 				})
-				service.post(jkurl, data,
-					function(res) {
-						that.btnkg =0
-						if (res.data.code == 1) {
-							var datas = res.data.data
-							console.log(typeof datas)
-			
-							// if (typeof datas == 'string') {
-							// 	datas = JSON.parse(datas)
-							// }
-							console.log(datas)
-							if (that.pay_type == 3) {
-								console.log(datas.no)
-								that.no_id=datas.no
-								that.requestPayment_ios()
-							}
-							// 支付宝
-							if (that.pay_type == 2) {
-								uni.requestPayment({
-									provider: 'alipay',
-									orderInfo: datas, //微信、支付宝订单数据
-									success: function(res) {
-										console.log('success:' + JSON.stringify(res));
-										wx.showToast({
-											title: '支付成功',
-											icon: 'none',
-											duration: 1000
-										});
-										setTimeout(function() {
-											that.btnkg = 0
-											that.bindLogin()
-										}, 1000)
-									},
-									fail: function(err) {
-										that.btnkg = 0
-										console.log('fail:' + JSON.stringify(err));
-										uni.showModal({
-											content: "支付失败",
-											showCancel: false
-										})
-									}
-								});
-							}
-							//微信
-							if (that.pay_type == 1) {
-								uni.requestPayment({
-									provider: 'wxpay',
-									orderInfo: datas, //微信、支付宝订单数据
-									success: function(res) {
-										console.log('success:' + JSON.stringify(res));
-										wx.showToast({
-											title: '支付成功',
-											icon: 'none',
-											duration: 1000
-										});
-										setTimeout(function() {
-											that.btnkg = 0
-											that.bindLogin()
-										}, 1000)
-									},
-									fail: function(err) {
-										that.btnkg = 0
-										console.log('fail:' + JSON.stringify(err));
-										uni.showModal({
-											content: "支付失败",
-											showCancel: false
-										})
-									}
-								});
-							}
-			
-						} else {
-							that.btnkg = 0
-							if (res.data.msg) {
-								uni.showToast({
-									icon: 'none',
-									title: res.data.msg
-								})
-							} else {
-								uni.showToast({
-									icon: 'none',
-									title: '操作失败'
-								})
-							}
-						}
-					},
-					function(err) {
-						that.btnkg = 0
-						if (err.data.msg) {
-							uni.showToast({
-								icon: 'none',
-								title: err.data.msg
-							})
-						} else {
-							uni.showToast({
-								icon: 'none',
-								title: '操作失败'
-							})
-						}
-					}
-				)
-				// uni.showToast({
-				// 	title:'支付'
-				// })
+				
 			},
 			
 			iap_fuc(paymsg) {

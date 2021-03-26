@@ -10,7 +10,7 @@
 			<view class="map_search_btn" @click="add_bj"><text style="font-size: 30px;color: #fff;">保存标记</text></view>
 
 			<!-- 警报组件 -->
-			<view class="bj_box">
+			<view v-if="hasLogin" class="bj_box">
 				<image @click="baojing_fuc" class="bj_box_img" src="../../static/images/baojing1.png" mode="aspectFit"></image>
 				<view v-if="baojing" @click="baojing_del" class="bj_main">
 
@@ -214,6 +214,7 @@
 			mapContext = uni.createMapContext('map', this);
 		},
 		onHide() {
+			that.btn_kg=0
 			that.show_count++
 			clearInterval(djs_fuc)
 			clearInterval(djs_fuc1)
@@ -245,7 +246,7 @@
 			baojing_fuc(){
 				var that=this
 				this.baojing=true
-				that.bj_time=3
+				that.bj_time=10
 				djs_fuc=setInterval(function () {
 				  if(that.bj_time==0){
 						// uni.showToast({

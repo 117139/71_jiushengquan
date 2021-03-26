@@ -50,6 +50,7 @@
 				size: 15,
 				data_last:false,
 				triggered: true, //设置当前下拉刷新状态
+				show_num:0
 			}
 		},
 		onLoad() {
@@ -58,6 +59,12 @@
 		},
 		onShow() {
 			that.htmlReset=0
+			if(that.show_num>0){
+				that.onRetry()
+			}
+		},
+		onHide() {
+			that.show_num++
 		},
 		onPullDownRefresh() {
 			that.onRetry()

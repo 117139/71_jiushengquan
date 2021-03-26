@@ -68,7 +68,7 @@
 			</view>
 		</view>
 		<!-- 警报组件 -->
-		<bao-jing></bao-jing>
+		<bao-jing  v-if="hasLogin"></bao-jing>
 	</view>
 </template>
 

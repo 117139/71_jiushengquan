@@ -18,6 +18,14 @@
 		onLaunch: function() {
 			var that =this
 			console.log('App Launch')
+			var tel = uni.getStorageSync('tel')
+			// if(!tel){
+			// 	uni.reLaunch({
+			// 		url:'pages/login/login'
+			// 	})
+			// 	return
+			// }
+			
 			// #ifdef MP-WEIXIN
 			service.wxlogin()
 			// #endif

@@ -12,7 +12,7 @@
 		 @regionchange='mapChange'>
 		 <!-- <baojing></baojing> -->
 			<!-- 警报组件 -->
-			<view class="bj_box">
+			<view  v-if="hasLogin" class="bj_box">
 				<image @click="baojing_fuc" class="bj_box_img" src="../../static/images/baojing1.png" mode="aspectFit"></image>
 				<view v-if="baojing" @click="baojing_del" class="bj_main">
 
@@ -1275,6 +1275,12 @@
 			},
 			jump_fuc(e) {
 				var sss
+				if(!that.hasLogin){
+					uni.navigateTo({
+						url:'/pages/login/login'
+					})
+					return
+				}
 				if(that.tk_show1_num==5){
 					if (!that.time ||!that.time1) {
 						uni.showToast({
