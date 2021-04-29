@@ -50,6 +50,7 @@
 						// var idx=e.currentTarget.dataset.type
 						// that.$set(that.answer[idx],'img',res.tempFilePaths)
 						that.camera_img=res.tempFilePaths[0]
+						that.upimg1(tempFilePaths,0, 0)
 						// #ifdef MP-WEIXIN
 						// that.upimg1(tempFilePaths,idx, 0)
 						// #endif
@@ -64,38 +65,59 @@
 			},
 			upimg1(imgs,type, i) {
 				var that = this
-				
+				service.wx_upload(imgs[i]).then(res => {
+							
+					that.btn_kg = 0
+					console.log(res)
+					if (res.code == 1) {
+						var datas = res.data
+						console.log(datas)
+						var newdata
+						that.camera_img=datas
+							
+						// console.log(newdata < 1)
+						// console.log(i < imgs.length - 1)
+						// console.log(newdata < 1 && i < imgs.length - 1)
+						// if (newdata < 1 && i < imgs.length - 1) {
+						// 	i++
+						// 	that.upimg1(imgs, type, i)
+						// }
+					} else {
+						if (res.msg) {
+							uni.showToast({
+								icon: 'none',
+								title: res.msg
+							})
+						} else {
+							uni.showToast({
+								icon: "none",
+								title: "上传失败"
+							})
+						}
+					}
+				}).catch(e => {
+					that.btn_kg = 0
+					console.log(e)
+					uni.showToast({
+						icon: 'none',
+						title: '操作失败'
+					})
+				})
+				return
 				uni.uploadFile({
-					url: service.IPurl+'/upload/streamImg', //仅为示例，非真实的接口地址
+					url: service.IPurl+'/minapp/upload-img', //仅为示例，非真实的接口地址
 					filePath: imgs[i],
 					name: 'file',
 					formData: {
 						type:1,
-						token: that.loginDatas.userToken
+						// token: that.loginDatas.userToken
 					},
 					success(res) {
 						// console.log(res.data)
 						var ndata = JSON.parse(res.data)
 						if (ndata.code == 1) {
-							console.log(imgs[i], i, ndata.msg)
-							if(type==-1){
-								
-									var newimgs=that.problem.img.concat( ndata.msg)
-									that.$set(that.problem,'img',newimgs)
-									// var news1 =newimgs.length
-									// if (news1 < 9 && i < imgs.length - 1) {
-										i++
-										if(i<imgs.length){
-											that.upimg1(imgs,type, i)
-										}
-										
-									// }
-								
-							}else{
-								var idx_img=[ndata.msg]
-								that.$set(that.answer[type],'img',idx_img)
-								
-							}
+							console.log(imgs[i], i, ndata.data)
+							that.camera_img=ndata.data
 							
 							
 							

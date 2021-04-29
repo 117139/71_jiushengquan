@@ -4,7 +4,7 @@
 		<view class="xmfwb_box">
 			您可以下载一个PDF的用户手册的部署专业或查看下面。 
 			<br>
-			<view style="color: #2591FF;margin: 10px 0;" @tap="down_fuc('')">用户手册</view>
+			<view style="color: #2591FF;margin: 10px 0;" @tap="down_fuc(datas.url)">用户手册</view>
 			<view v-html="datas.content">
 				<view class="pz_name">配置文件</view>
 				<view class="">
@@ -92,6 +92,13 @@
 			},
 			down_fuc(url) {
 				// return
+				if(!url){
+					uni.showToast({
+						icon:'none',
+						title:'暂无文件'
+					})
+					return
+				}
 				var that = this
 				uni.showLoading({
 					title: '正在拉取数据'
